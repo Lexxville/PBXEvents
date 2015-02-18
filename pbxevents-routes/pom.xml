@@ -6,7 +6,7 @@
 		<artifactId>pbxevents-parent</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
-	<artifactId>pbxevent-routes</artifactId>
+	<artifactId>pbxevents-routes</artifactId>
     <packaging>bundle</packaging>
 
     <properties>
