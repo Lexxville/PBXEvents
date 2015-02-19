@@ -6,7 +6,7 @@
 		<artifactId>pbxevents-parent</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
-	<artifactId>pbxevents-routes</artifactId>
+	<artifactId>pbxevents-asterisk-messages</artifactId>
     <packaging>bundle</packaging>
 
     <properties>
@@ -18,26 +18,19 @@
     <dependencies>
 
         <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-core</artifactId>
-            <version>${camel.version}</version>
-        </dependency>
-
-		<dependency>
-  			<groupId>org.osgi</groupId>
-  			<artifactId>org.osgi.compendium</artifactId>
-  			<version>4.2.0</version>
-		</dependency>
-		<dependency>
-  			<groupId>org.osgi</groupId>
-  			<artifactId>org.osgi.core</artifactId>
-  			<version>4.2.0</version>
-		</dependency>
-
-        <dependency>
             <groupId>com.jjinterna.pbxevents</groupId>
             <artifactId>pbxevents-model</artifactId>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jjinterna.pbxevents</groupId>
+            <artifactId>pbxevents-routes</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-core</artifactId>
+            <version>${camel.version}</version>
         </dependency>
 
         <dependency>

@@ -8,19 +8,19 @@ import com.jjinterna.pbxevents.model.CallComplete;
 import com.jjinterna.pbxevents.model.CallConnect;
 import com.jjinterna.pbxevents.model.CallEnterQueue;
 import com.jjinterna.pbxevents.model.CallExitWithTimeout;
-import com.jjinterna.pbxevents.model.PBXCallEvent;
+import com.jjinterna.pbxevents.model.PBXCallQueueEvent;
 
 public class CallEventAggregationStrategy implements AggregationStrategy {
 
 	@Override
 	public Exchange aggregate(Exchange oldExchange, Exchange newExchange) {
-		PBXCallEvent callEvent;
+		PBXCallQueueEvent callEvent;
 		Exchange ex;
 		if (oldExchange == null) {
-			callEvent = new PBXCallEvent();
+			callEvent = new PBXCallQueueEvent();
 			ex = newExchange;
 		} else {
-			callEvent = (PBXCallEvent) oldExchange.getIn().getBody();
+			callEvent = (PBXCallQueueEvent) oldExchange.getIn().getBody();
 			ex = oldExchange;
 		}
 
@@ -57,8 +57,8 @@ public class CallEventAggregationStrategy implements AggregationStrategy {
 				break;
 			}
 			// callEvent.getLog().add(queueLog);
-		} else if (newExchange.getIn().getBody() instanceof PBXCallEvent){
-			callEvent = (PBXCallEvent) newExchange.getIn().getBody();
+		} else if (newExchange.getIn().getBody() instanceof PBXCallQueueEvent){
+			callEvent = (PBXCallQueueEvent) newExchange.getIn().getBody();
 		}
 		ex.getIn().setBody(callEvent);
 		ex.getIn().setHeader("PBXEvent", callEvent.getClass().getSimpleName());
@@ -66,7 +66,7 @@ public class CallEventAggregationStrategy implements AggregationStrategy {
 		return ex;
 	}
 
-	private static PBXCallEvent copy(PBXCallEvent from, PBXCallEvent to) {
+	private static PBXCallQueueEvent copy(PBXCallQueueEvent from, PBXCallQueueEvent to) {
 		to.setAgent(from.getAgent());
 		to.setCallerId(from.getCallerId());
 		to.setCallId(from.getCallId());

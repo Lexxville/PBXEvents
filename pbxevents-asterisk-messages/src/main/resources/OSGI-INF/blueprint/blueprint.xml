@@ -17,22 +17,20 @@
   http://www.osgi.org/xmlns/blueprint-ext/v1.1.0 https://svn.apache.org/repos/asf/aries/tags/blueprint-0.3.1/blueprint-core/src/main/resources/org/apache/aries/blueprint/ext/blueprint-ext.xsd  
   http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd
   ">
-
-    <cm:property-placeholder persistent-id="pbxevents.asterisk.queue" update-strategy="reload">
+  
+    <cm:property-placeholder persistent-id="pbxevents.asterisk.messages" update-strategy="reload">
         <cm:default-properties>
-            <cm:property name="pbxevents.asterisk.queue.pid" value="pbxevents.asterisk.queue"/>
+            <cm:property name="fileName" value="/var/log/asterisk/messages"/>
         </cm:default-properties>
     </cm:property-placeholder>
-
+  
   	<reference id="queuingservice" availability="mandatory" interface="org.apache.camel.Component" />
+  
+    <bean id="astMessagesRouteBuilder" class="com.jjinterna.pbxevents.asterisk.messages.MessagesRouteBuilder">
+    </bean>
 
-	<bean id="astQueueLogRouteFactory" class="com.jjinterna.pbxevents.asterisk.queue.QueueLogRouteFactory" init-method="init" destroy-method="destroy">
-		<property name="bundleContext" ref="blueprintBundleContext"/>
-		<property name="camelContext" ref="pbxevents-asterisk-queue"/>
-		<property name="configurationPid" value="${pbxevents.asterisk.queue.pid}"/>
-	</bean>
-
-    <camelContext id="pbxevents-asterisk-queue" managementNamePattern="#name#" xmlns="http://camel.apache.org/schema/blueprint">
-    </camelContext>
+    <camelContext id="pbxevents-asterisk-messages" managementNamePattern="#name#" xmlns="http://camel.apache.org/schema/blueprint">
+        <routeBuilder ref="astMessagesRouteBuilder" />
+    </camelContext>	
 
 </blueprint>

@@ -9,7 +9,7 @@
 		</xsd:sequence>
 	</xsd:complexType>
 
-    <xsd:complexType name="PBXCallEvent">
+    <xsd:complexType name="PBXCallQueueEvent">
         <xsd:complexContent>
         	<xsd:extension base="tns:PBXEvent">
         		<xsd:sequence>
@@ -28,7 +28,7 @@
 
     <xsd:complexType name="CallEnterQueue">
         <xsd:complexContent>
-        	<xsd:extension base="tns:PBXCallEvent">
+        	<xsd:extension base="tns:PBXCallQueueEvent">
         		<xsd:sequence>
 				</xsd:sequence>				
         	</xsd:extension>
@@ -37,7 +37,7 @@
 
     <xsd:complexType name="CallAbandon">
         <xsd:complexContent>
-        	<xsd:extension base="tns:PBXCallEvent">
+        	<xsd:extension base="tns:PBXCallQueueEvent">
         		<xsd:sequence>
 				</xsd:sequence>				
         	</xsd:extension>
@@ -46,7 +46,7 @@
 
     <xsd:complexType name="CallComplete">
         <xsd:complexContent>
-        	<xsd:extension base="tns:PBXCallEvent">
+        	<xsd:extension base="tns:PBXCallQueueEvent">
         		<xsd:sequence>
 				</xsd:sequence>				
         	</xsd:extension>
@@ -55,7 +55,7 @@
 
     <xsd:complexType name="CallConnect">
         <xsd:complexContent>
-        	<xsd:extension base="tns:PBXCallEvent">
+        	<xsd:extension base="tns:PBXCallQueueEvent">
         		<xsd:sequence>
 				</xsd:sequence>				
         	</xsd:extension>
@@ -64,7 +64,7 @@
 
     <xsd:complexType name="CallExitWithTimeout">
         <xsd:complexContent>
-        	<xsd:extension base="tns:PBXCallEvent">
+        	<xsd:extension base="tns:PBXCallQueueEvent">
         		<xsd:sequence>
 				</xsd:sequence>				
         	</xsd:extension>

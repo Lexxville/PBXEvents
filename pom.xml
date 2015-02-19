@@ -35,6 +35,9 @@
 	<module>pbxevents-model</module>
 	<module>pbxevents-asterisk-queue</module>
 	<module>pbxevents-routes</module>
+	<module>pbxevents-queuingservice</module>
+	<module>pbxevents-features</module>
+	<module>pbxevents-asterisk-messages</module>
 	</modules>
 
 	<build>

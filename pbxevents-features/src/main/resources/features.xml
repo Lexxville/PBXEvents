@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<features name="pbxevents-${pom.version}">
+
+    <feature name="pbxevents-queuingservice" version="${pom.version}">
+    	<feature>camel</feature>
+    	<feature>camel-jaxb</feature>
+    	<feature>activemq-broker</feature>
+    	<feature>activemq-camel</feature>
+        <bundle>mvn:com.jjinterna.pbxevents/pbxevents-queuingservice/${pom.version}</bundle>
+    </feature>
+
+    <feature name="pbxevents-asterisk-queue" version="${pom.version}">
+    	<feature>camel-stream</feature>
+    	<feature>camel-csv</feature>
+    	<feature>pbxevents-queuingservice</feature>    	
+        <bundle>mvn:com.jjinterna.pbxevents/pbxevents-model/${pom.version}</bundle>
+        <bundle>mvn:com.jjinterna.pbxevents/pbxevents-routes/${pom.version}</bundle>        
+        <bundle>mvn:com.jjinterna.pbxevents/pbxevents-asterisk-queue/${pom.version}</bundle>
+    </feature>
+
+    <feature name="pbxevents-asterisk-messages" version="${pom.version}">
+    	<feature>camel-stream</feature>
+    	<feature>pbxevents-queuingservice</feature>    	
+        <bundle>mvn:com.jjinterna.pbxevents/pbxevents-model/${pom.version}</bundle>
+        <bundle>mvn:com.jjinterna.pbxevents/pbxevents-routes/${pom.version}</bundle>        
+        <bundle>mvn:com.jjinterna.pbxevents/pbxevents-asterisk-messages/${pom.version}</bundle>
+    </feature>
+
+</features>
