@@ -1,12 +1,11 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>com.jjinterna.pbxevents</groupId>
-		<artifactId>pbxevents-parent</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
-	</parent>
-	<artifactId>pbxevents-asterisk-messages</artifactId>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.jjinterna.pbxevents</groupId>
+    <artifactId>pbxevents-parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+  </parent>
+  <artifactId>pbxevents-mediator-activemq</artifactId>
     <packaging>bundle</packaging>
 
     <dependencies>
@@ -131,12 +130,12 @@
                     <instructions>
                         <Export-Package/>
                         <Private-Package>
-                            com.jjinterna.pbxevents.asterisk.messages,
-                            com.jjinterna.pbxevents.asterisk.messages.*
+                            com.jjinterna.pbxevents.mediator.activemq,
+                            com.jjinterna.pbxevents.mediator.activemq.*
                         </Private-Package>
                     </instructions>
                 </configuration>
             </plugin>
         </plugins>
-    </build>
+    </build>  
 </project>

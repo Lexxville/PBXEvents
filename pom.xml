@@ -25,7 +25,10 @@
 	<packaging>pom</packaging>
 
 	<properties>
+ 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>	
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <camel.version>2.15-SNAPSHOT</camel.version>
         <cxf.version>2.7.13</cxf.version>
         <log4j-version>1.2.16</log4j-version>
         <slf4j-version>1.6.1</slf4j-version>		
@@ -35,10 +38,20 @@
 	<module>pbxevents-model</module>
 	<module>pbxevents-asterisk-queue</module>
 	<module>pbxevents-routes</module>
-	<module>pbxevents-queuingservice</module>
 	<module>pbxevents-features</module>
 	<module>pbxevents-asterisk-messages</module>
+	<module>pbxevents-mediator-activemq</module>
+	<module>pbxevents-action-log</module>
 	</modules>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<releases><enabled>false</enabled></releases>
+	  		<snapshots/>
+	  		<id>Apache Snapshot Repository</id>
+	  		<url>http://repository.apache.org/snapshots</url>
+	  	</pluginRepository>
+	</pluginRepositories>
 
 	<build>
 		<plugins>

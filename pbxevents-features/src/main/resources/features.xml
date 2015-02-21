@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<features name="pbxevents-${pom.version}">
+<features xmlns="http://karaf.apache.org/xmlns/features/v1.0.0" name="pbxevents-${pom.version}">
 
-    <feature name="pbxevents-queuingservice" version="${pom.version}">
-    	<feature>camel</feature>
+    <feature name="pbxevents-mediator-activemq" version="${pom.version}">
     	<feature>camel-jaxb</feature>
     	<feature>activemq-broker</feature>
     	<feature>activemq-camel</feature>
-        <bundle>mvn:com.jjinterna.pbxevents/pbxevents-queuingservice/${pom.version}</bundle>
+        <bundle>mvn:com.jjinterna.pbxevents/pbxevents-model/${pom.version}</bundle>
+        <bundle>mvn:com.jjinterna.pbxevents/pbxevents-routes/${pom.version}</bundle>        
+        <bundle>mvn:com.jjinterna.pbxevents/pbxevents-mediator-activemq/${pom.version}</bundle>
     </feature>
 
     <feature name="pbxevents-asterisk-queue" version="${pom.version}">
     	<feature>camel-stream</feature>
     	<feature>camel-csv</feature>
-    	<feature>pbxevents-queuingservice</feature>    	
         <bundle>mvn:com.jjinterna.pbxevents/pbxevents-model/${pom.version}</bundle>
         <bundle>mvn:com.jjinterna.pbxevents/pbxevents-routes/${pom.version}</bundle>        
         <bundle>mvn:com.jjinterna.pbxevents/pbxevents-asterisk-queue/${pom.version}</bundle>
@@ -20,10 +20,16 @@
 
     <feature name="pbxevents-asterisk-messages" version="${pom.version}">
     	<feature>camel-stream</feature>
-    	<feature>pbxevents-queuingservice</feature>    	
         <bundle>mvn:com.jjinterna.pbxevents/pbxevents-model/${pom.version}</bundle>
         <bundle>mvn:com.jjinterna.pbxevents/pbxevents-routes/${pom.version}</bundle>        
         <bundle>mvn:com.jjinterna.pbxevents/pbxevents-asterisk-messages/${pom.version}</bundle>
+    </feature>
+
+    <feature name="pbxevents-action-log" version="${pom.version}">
+    	<feature>camel-jaxb</feature>
+        <bundle>mvn:com.jjinterna.pbxevents/pbxevents-model/${pom.version}</bundle>
+        <bundle>mvn:com.jjinterna.pbxevents/pbxevents-routes/${pom.version}</bundle>        
+        <bundle>mvn:com.jjinterna.pbxevents/pbxevents-action-log/${pom.version}</bundle>
     </feature>
 
 </features>
