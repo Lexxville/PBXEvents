@@ -32,4 +32,11 @@
         <bundle>mvn:com.jjinterna.pbxevents/pbxevents-action-log/${pom.version}</bundle>
     </feature>
 
+    <feature name="pbxevents-action-http" version="${pom.version}">
+    	<feature>camel-http4</feature>
+        <bundle>mvn:com.jjinterna.pbxevents/pbxevents-model/${pom.version}</bundle>
+        <bundle>mvn:com.jjinterna.pbxevents/pbxevents-routes/${pom.version}</bundle>        
+        <bundle>mvn:com.jjinterna.pbxevents/pbxevents-action-http/${pom.version}</bundle>
+    </feature>
+
 </features>
