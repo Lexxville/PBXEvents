@@ -136,41 +136,6 @@
                     </instructions>
                 </configuration>
             </plugin>
-
-			<plugin>
-				<groupId>org.apache.cxf</groupId>
-				<artifactId>cxf-codegen-plugin</artifactId>
-				<version>2.7.4</version>
-
-				<executions>
-					<execution>
-						<id>generate-sources</id>
-						<phase>generate-sources</phase>
-						<configuration>
-							<wsdlOptions>
-								<wsdlOption>
-									<wsdl>${project.basedir}/src/main/resources/SoapAction.wsdl</wsdl>
-									<wsdlLocation>classpath:SoapAction.wsdl</wsdlLocation>
-<!-- 									<bindingFiles>
-										<bindingFile>${project.basedir}/src/main/resources/binding.xml</bindingFile>
-									</bindingFiles> -->
-									<extraargs>
-										<!-- <extraarg>-xjc-Xvalue-constructor</extraarg> -->
-										<!-- Turns on the hashCode plugin -->
-										<!-- <extraarg>-xjc-XhashCode</extraarg> -->
-										<!-- Turns on the equals plugin -->
-										<!--  <extraarg>-xjc-Xequals</extraarg> -->
-									</extraargs>
-								</wsdlOption>
-							</wsdlOptions>
-						</configuration>
-						<goals>
-							<goal>wsdl2java</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-            
         </plugins>
     </build>  
 </project>

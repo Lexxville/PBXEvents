@@ -25,7 +25,7 @@ public class AstQueueLogRoute extends RouteBuilder {
 	@Override
 	public void configure() throws Exception {
 		AggregationStrategy callEventAggregationStrategy = new CallEventAggregationStrategy();
-		final LogfileMark queueLogMark = new LogfileMark("data/mark_" + URLEncoder.encode(camelRouteId, "UTF-8"));
+		final LogfileMark queueLogMark = new LogfileMark("data/mark_" + URLEncoder.encode(fileName, "UTF-8"));
 		final int mark = queueLogMark.getMark();
 		
 		from("direct:callComplete")
@@ -117,7 +117,14 @@ public class AstQueueLogRoute extends RouteBuilder {
 		        queueLog.setCallId(fields.get(1));
 		        queueLog.setQueue(fields.get(2));
 		        queueLog.setAgent(fields.get(3));
-		        queueLog.setVerb(QueueLogType.fromValue(fields.get(4)));
+		        try {
+		        	queueLog.setVerb(QueueLogType.fromValue(fields.get(4)));
+		        }
+		        catch (IllegalArgumentException e) {
+		        	// unknown verb
+		        	exchange.setProperty(Exchange.ROUTE_STOP, Boolean.TRUE);
+		        	return;
+		        }
 		        queueLog.setData1(fields.get(5));
 		        queueLog.setData2(fields.get(6));
 		        queueLog.setData3(fields.get(7));

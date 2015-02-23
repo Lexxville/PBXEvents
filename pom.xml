@@ -39,7 +39,6 @@
 	<module>pbxevents-asterisk-queue</module>
 	<module>pbxevents-routes</module>
 	<module>pbxevents-features</module>
-	<module>pbxevents-asterisk-messages</module>
 	<module>pbxevents-mediator-activemq</module>
 	<module>pbxevents-action-log</module>
 	<module>pbxevents-action-http</module>
