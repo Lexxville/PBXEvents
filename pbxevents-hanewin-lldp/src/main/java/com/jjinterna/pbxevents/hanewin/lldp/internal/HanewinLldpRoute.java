@@ -1,11 +1,14 @@
 package com.jjinterna.pbxevents.hanewin.lldp.internal;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.util.List;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.snmp4j.CommunityTarget;
 import org.snmp4j.Snmp;
 import org.snmp4j.TransportMapping;
@@ -31,24 +34,29 @@ public class HanewinLldpRoute extends RouteBuilder {
 	private Long timeout;
 	private Integer retries;
 
+	private static final Logger log = LoggerFactory
+			.getLogger(HanewinLldpRoute.class);
+
 	@Override
 	public void configure() throws Exception {
 		fromF("activemq:queue:%s?username=karaf&password=karaf", camelContextId)
-		.process(new Processor() {
-			@Override
-			public void process(Exchange exchange) throws Exception {
-				String stationAddress = (String) exchange.getIn().getBody();
-				detect(stationAddress);
-			}
-		});
+				.process(new Processor() {
+					@Override
+					public void process(Exchange exchange) throws Exception {
+						String stationAddress = (String) exchange.getIn()
+								.getBody();
+						detect(stationAddress);
+					}
+				});
 	}
 
 	public PhoneDetected detect(String stationAddress) throws IOException {
-		Address targetAddress = GenericAddress.parse("udp:"+ stationAddress + "/" + port);
+		Address targetAddress = GenericAddress.parse("udp:" + stationAddress
+				+ "/" + port);
 		TransportMapping transport = new DefaultUdpTransportMapping();
 		Snmp snmp = new Snmp(transport);
 		transport.listen();
-		
+
 		// setting up target
 		CommunityTarget target = new CommunityTarget();
 		target.setCommunity(new OctetString(community));
@@ -56,37 +64,41 @@ public class HanewinLldpRoute extends RouteBuilder {
 		target.setRetries(retries);
 		target.setTimeout(timeout);
 		target.setVersion(snmpVersion);
-		
-	    OID oid = new OID(oidStr);
 
-	    TreeUtils treeUtils = new TreeUtils(snmp, new DefaultPDUFactory());      
-	    List<TreeEvent> events = treeUtils.getSubtree(target, oid);
-	    if(events == null || events.size() == 0){
-	      System.out.println("No result returned.");
-	    } else {
-	    	// Get snmpwalk result.
-	    	for (TreeEvent event : events) {
-	    		if(event != null){
-	    			if (event.isError()) {
-	    				System.err.println(timeout);
-	    				System.err.println("oid [" + oid + "] " + event.getErrorMessage());
-	    			}
+		OID oid = new OID(oidStr);
 
-	    			VariableBinding[] varBindings = event.getVariableBindings();
-	    			if(varBindings == null || varBindings.length == 0){
-	    				System.out.println("No result returned.");
-	    			} else {
-	    			for (VariableBinding varBinding : varBindings) {
-	    				System.out.println(varBinding.getVariable().toString());
-	    			}
-	    			}
-	    		}
-	    	}	    
-	    }
+		TreeUtils treeUtils = new TreeUtils(snmp, new DefaultPDUFactory());
+		List<TreeEvent> events = treeUtils.getSubtree(target, oid);
+		if (events == null || events.size() == 0) {
+			log.info("No result returned.");
+		} else {
+			// Get snmpwalk result.
+			for (TreeEvent event : events) {
+				if (event == null) {
+					continue;
+				}
+				if (event.isError()) {
+					log.error(stationAddress + ": " + event.getErrorMessage());
+				} else {
+					VariableBinding[] varBindings = event.getVariableBindings();
+					if (varBindings != null && varBindings.length > 0) {
+						for (VariableBinding varBinding : varBindings) {
+							String field = varBinding.getOid().toDottedString();
+							log.info(field + " = " + varBinding.getVariable().toString());
+							if (field.equals(oidStr + ".5.628900.1.1")) {
+								String value = varBinding.getVariable().toString().substring(3);
+								OctetString os = OctetString.fromHexString(value);
+								org.snmp4j.smi.Address snmp4jIpAddress = new org.snmp4j.smi.IpAddress(os.getValue());
+								log.info(snmp4jIpAddress.toString());
+							}
+						}
+					}
+				}
+			}
+		}
 
-	    snmp.close();
-	    return null;
+		snmp.close();
+		return null;
 	}
-	
-}
 
+}

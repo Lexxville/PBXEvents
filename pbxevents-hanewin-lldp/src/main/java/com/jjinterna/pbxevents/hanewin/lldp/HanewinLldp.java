@@ -23,7 +23,7 @@ import com.jjinterna.pbxevents.routes.EventMediator;
     @Property(name = "camelContextId", value = "com.jjinterna.pbxevents.hanewin.lldp"),
     @Property(name = "camelRouteId", value = "default"),
     @Property(name = "active", value = "true"),
-    @Property(name = "oidStr", value = "1.0.8802.1.1.2.1.4.1"),
+    @Property(name = "oidStr", value = "1.0.8802.1.1.2.1.4.1.1"),
     @Property(name = "community", value = "public"),
     @Property(name = "snmpVersion", value = "0"),
     @Property(name = "port", value = "161"),
