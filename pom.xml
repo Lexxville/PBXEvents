@@ -43,6 +43,7 @@
 	<module>pbxevents-action-log</module>
 	<module>pbxevents-action-http</module>
 	<module>pbxevents-action-soap</module>
+	<module>pbxevents-hanewin-lldp</module>
 	</modules>
 
 	<pluginRepositories>
