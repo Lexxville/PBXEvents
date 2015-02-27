@@ -71,14 +71,24 @@
 		</xsd:complexContent>
 	</xsd:complexType>
 
-    <xsd:complexType name="PhoneDetected">
+    <xsd:complexType name="PhoneDiscovered">
         <xsd:complexContent>
         	<xsd:extension base="tns:PBXEvent">
         		<xsd:sequence>
         			<xsd:element name="sysName" type="xsd:string" />        	
         			<xsd:element name="sysDesc" type="xsd:string" />
         			<xsd:element name="networkAddress" type="xsd:string" />
-        			<xsd:element name="stationAddress" type="xsd:string" />
+        			<xsd:element name="agentAddress" type="xsd:string" />
+				</xsd:sequence>
+        	</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+    <xsd:complexType name="ColdBoot">
+        <xsd:complexContent>
+        	<xsd:extension base="tns:PBXEvent">
+        		<xsd:sequence>
+        			<xsd:element name="agentAddress" type="xsd:string" />        	
 				</xsd:sequence>
         	</xsd:extension>
 		</xsd:complexContent>

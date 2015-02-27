@@ -5,7 +5,7 @@
     <artifactId>pbxevents-parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
   </parent>
-  <artifactId>pbxevents-hanewin-lldp</artifactId>
+  <artifactId>pbxevents-discovery-lldp</artifactId>
     <packaging>bundle</packaging>
 
     <dependencies>
@@ -37,7 +37,7 @@
         <dependency>
             <groupId>org.apache.servicemix.bundles</groupId>
             <artifactId>org.apache.servicemix.bundles.snmp4j</artifactId>
-            <version>2.3.3_1</version>
+            <version>2.3.0_1</version>
         </dependency>
 
         <dependency>
@@ -136,8 +136,8 @@
                     <instructions>
                         <Export-Package/>
                         <Private-Package>
-                            com.jjinterna.pbxevents.hanewin.lldp,
-                            com.jjinterna.pbxevents.hanewin.lldp.*
+                            com.jjinterna.pbxevents.discovery.lldp,
+                            com.jjinterna.pbxevents.discovery.lldp.*
                         </Private-Package>
                     </instructions>
                 </configuration>
