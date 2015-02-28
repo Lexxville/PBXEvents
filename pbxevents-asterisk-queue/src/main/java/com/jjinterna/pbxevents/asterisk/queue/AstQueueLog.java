@@ -23,7 +23,8 @@ import com.jjinterna.pbxevents.routes.EventMediator;
 @Properties({
     @Property(name = "camelContextId", value = "pbxevents-asterisk-queue"),
     @Property(name = "camelRouteId", value = "default"),
-    @Property(name = "active", value = "true")
+    @Property(name = "active", value = "true"),
+    @Property(name= "rewriteLocalChannels", value = "true")
 })
 @References({
     @Reference(name = "camelComponent",referenceInterface = ComponentResolver.class,

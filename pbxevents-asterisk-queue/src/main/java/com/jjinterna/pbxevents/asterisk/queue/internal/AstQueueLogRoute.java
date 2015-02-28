@@ -13,6 +13,11 @@ import org.apache.camel.processor.aggregate.AggregationStrategy;
 
 import com.jjinterna.pbxevents.model.CallConnect;
 import com.jjinterna.pbxevents.model.CallEnterQueue;
+import com.jjinterna.pbxevents.model.PBXQueueEvent;
+import com.jjinterna.pbxevents.model.QueueAddMember;
+import com.jjinterna.pbxevents.model.QueuePause;
+import com.jjinterna.pbxevents.model.QueueRemoveMember;
+import com.jjinterna.pbxevents.model.QueueUnPause;
 import com.jjinterna.pbxevents.routes.logfile.LogfileLifecycleStrategySupport;
 import com.jjinterna.pbxevents.routes.logfile.LogfileMark;
 
@@ -21,6 +26,7 @@ public class AstQueueLogRoute extends RouteBuilder {
     // Configured fields
 	private String camelRouteId;
     private String fileName;
+    private Boolean rewriteLocalChannels;
 
 	@Override
 	public void configure() throws Exception {
@@ -97,8 +103,50 @@ public class AstQueueLogRoute extends RouteBuilder {
 					QueueLogType.COMPLETEAGENT,
 					QueueLogType.COMPLETECALLER))
 				.to("direct:callComplete").stop()
+			.when(header("PBXEvent").in(
+					QueueLogType.ADDMEMBER,
+					QueueLogType.REMOVEMEMBER,
+					QueueLogType.UNPAUSE,
+					QueueLogType.PAUSE))
+				.to("direct:queue").stop()
 		.end();
 
+		from("direct:queue")
+		.id(camelRouteId + ".queue")
+		.startupOrder(110)
+		.process(new Processor() {
+
+			@Override
+			public void process(Exchange exchange) throws Exception {
+				QueueLog log = (QueueLog) exchange.getIn().getBody();
+				PBXQueueEvent event = null;
+				switch (log.getVerb()) {
+				case ADDMEMBER:
+					event = new QueueAddMember();
+					break;
+				case REMOVEMEMBER:
+					event = new QueueRemoveMember();
+					break;
+				case PAUSE:
+					event = new QueuePause();
+					break;
+				case UNPAUSE:
+					event = new QueueUnPause();
+					break;
+				default:
+		        	exchange.setProperty(Exchange.ROUTE_STOP, Boolean.TRUE);
+		        	return;
+				}
+				event.setTimeId(log.getTimeId());
+				event.setQueue(log.getQueue());
+				event.setAgent(log.getAgent());
+				exchange.getIn().setHeader("PBXEvent", event.getClass().getSimpleName());				
+				exchange.getIn().setBody(event);
+			}
+			
+		})
+		.to("direct:publish");
+		
 		from("stream:file?fileName={{fileName}}&scanStream=true&scanStreamDelay=1000")
 		.id(camelRouteId)
 		.unmarshal(new CsvDataFormat("|"))
@@ -116,7 +164,12 @@ public class AstQueueLogRoute extends RouteBuilder {
 		        queueLog.setTimeId(Integer.parseInt(fields.get(0)));
 		        queueLog.setCallId(fields.get(1));
 		        queueLog.setQueue(fields.get(2));
-		        queueLog.setAgent(fields.get(3));
+		        String s = fields.get(3);
+		        if (rewriteLocalChannels && s.startsWith("Local/")) {
+		        	queueLog.setAgent(s.substring(6, s.indexOf('@')));
+		        } else {
+		        	queueLog.setAgent(s);
+		        }
 		        try {
 		        	queueLog.setVerb(QueueLogType.fromValue(fields.get(4)));
 		        }

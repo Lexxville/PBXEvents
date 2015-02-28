@@ -105,4 +105,52 @@
 		</xsd:complexContent>
 	</xsd:complexType>
 
+    <xsd:complexType name="PBXQueueEvent">
+        <xsd:complexContent>
+        	<xsd:extension base="tns:PBXEvent">
+        		<xsd:sequence>
+					<xsd:element name="timeId" type="xsd:long" />
+					<xsd:element name="queue" type="xsd:string" />        	
+					<xsd:element name="agent" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+    <xsd:complexType name="QueueAddMember">
+        <xsd:complexContent>
+        	<xsd:extension base="tns:PBXQueueEvent">
+        		<xsd:sequence>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+    <xsd:complexType name="QueueRemoveMember">
+        <xsd:complexContent>
+        	<xsd:extension base="tns:PBXQueueEvent">
+        		<xsd:sequence>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+    <xsd:complexType name="QueuePause">
+        <xsd:complexContent>
+        	<xsd:extension base="tns:PBXQueueEvent">
+        		<xsd:sequence>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+    <xsd:complexType name="QueueUnPause">
+        <xsd:complexContent>
+        	<xsd:extension base="tns:PBXQueueEvent">
+        		<xsd:sequence>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
 </xsd:schema>
