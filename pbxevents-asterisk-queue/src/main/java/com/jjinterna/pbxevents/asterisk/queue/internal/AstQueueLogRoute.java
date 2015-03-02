@@ -31,8 +31,9 @@ public class AstQueueLogRoute extends RouteBuilder {
 	@Override
 	public void configure() throws Exception {
 		AggregationStrategy callEventAggregationStrategy = new CallEventAggregationStrategy();
-		final LogfileMark queueLogMark = new LogfileMark("data/mark_" + URLEncoder.encode(fileName, "UTF-8"));
-		final int mark = queueLogMark.getMark();
+		final LogfileMark queueLogMark = new LogfileMark("data/mark_" + URLEncoder.encode(camelRouteId + "-" + fileName, "UTF-8"));
+		String s = queueLogMark.getMark();
+		final int mark = (s != null) ? Integer.valueOf(s) : 0;
 		
 		from("direct:callComplete")
 		.id(camelRouteId + ".callComplete")

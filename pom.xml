@@ -37,6 +37,7 @@
 	<modules>
 	<module>pbxevents-model</module>
 	<module>pbxevents-asterisk-queue</module>
+	<module>pbxevents-asterisk-messages</module>
 	<module>pbxevents-routes</module>
 	<module>pbxevents-features</module>
 	<module>pbxevents-mediator-activemq</module>
@@ -45,6 +46,7 @@
 	<module>pbxevents-action-soap</module>
 	<module>pbxevents-discovery-lldp</module>
 	<module>pbxevents-snmptrap</module>
+	<module>pbxevents-rtinfo</module>
 	</modules>
 
 	<pluginRepositories>

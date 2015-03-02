@@ -13,12 +13,12 @@ public class LogfileMark {
 		this.path = Paths.get(uri);
 	}
 	
-	public int getMark() {
+	public String getMark() {
 		try {
-			return Integer.valueOf(new String(Files.readAllBytes(path)));
+			return new String(Files.readAllBytes(path));
 		}
 		catch (Exception e) {
-			return 0;
+			return null;
 		}
 	}
 

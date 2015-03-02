@@ -94,12 +94,13 @@
 		</xsd:complexContent>
 	</xsd:complexType>
 
-    <xsd:complexType name="PhoneRegistered">
+    <xsd:complexType name="SipLineDiscovered">
         <xsd:complexContent>
         	<xsd:extension base="tns:PBXEvent">
         		<xsd:sequence>
         			<xsd:element name="extension" type="xsd:string" />
-        			<xsd:element name="networkAddress" type="xsd:string" />        	
+        			<xsd:element name="networkAddress" type="xsd:string" />
+        			<xsd:element name="port" type="xsd:int" />
 				</xsd:sequence>
         	</xsd:extension>
 		</xsd:complexContent>
