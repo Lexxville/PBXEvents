@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.model.dataformat.JaxbDataFormat;
 import org.apache.camel.scr.AbstractCamelRunner;
 import org.apache.camel.spi.ComponentResolver;
 import org.apache.felix.scr.annotations.Component;
@@ -18,10 +17,8 @@ import org.apache.felix.scr.annotations.ReferencePolicy;
 import org.apache.felix.scr.annotations.ReferencePolicyOption;
 import org.apache.felix.scr.annotations.References;
 
-import com.jjinterna.pbxevents.model.PBXEvent;
 import com.jjinterna.pbxevents.routes.EventMediator;
 import com.jjinterna.pbxevents.routes.EventSelector;
-import com.jjinterna.pbxevents.routes.JAXBElementWrapper;
 
 @Component(description = LogAction.COMPONENT_DESCRIPTION, immediate = true, metatype = true)
 @Properties({
@@ -46,12 +43,8 @@ public class LogAction extends AbstractCamelRunner {
 			
 			@Override
 			public void configure() throws Exception {
-				JaxbDataFormat jaxb = new JaxbDataFormat();
-				jaxb.setContextPath(PBXEvent.class.getPackage().getName());
 				
 				from("direct:start")
-				.process(new JAXBElementWrapper())
-				.marshal(jaxb)
 				.to("log:pbxevent?showHeaders=true");				
 			}
 		});

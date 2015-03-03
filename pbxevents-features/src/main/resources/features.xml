@@ -43,6 +43,13 @@
         <bundle>mvn:com.jjinterna.pbxevents/pbxevents-snmptrap/${pom.version}</bundle>
     </feature>
 
+    <feature name="pbxevents-rtcache" version="${pom.version}">
+    	<feature>camel-cache</feature>
+        <bundle>mvn:com.jjinterna.pbxevents/pbxevents-model/${pom.version}</bundle>
+        <bundle>mvn:com.jjinterna.pbxevents/pbxevents-routes/${pom.version}</bundle>
+        <bundle>mvn:com.jjinterna.pbxevents/pbxevents-rtcache/${pom.version}</bundle>
+    </feature>
+
     <feature name="pbxevents-action-log" version="${pom.version}">
     	<feature>camel-jaxb</feature>
         <bundle>mvn:com.jjinterna.pbxevents/pbxevents-model/${pom.version}</bundle>

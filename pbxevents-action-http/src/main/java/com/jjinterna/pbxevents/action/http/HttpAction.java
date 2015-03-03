@@ -7,7 +7,6 @@ import java.util.List;
 import org.apache.camel.Exchange;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.model.dataformat.JaxbDataFormat;
 import org.apache.camel.scr.AbstractCamelRunner;
 import org.apache.camel.spi.ComponentResolver;
 import org.apache.felix.scr.annotations.Component;
@@ -21,10 +20,8 @@ import org.apache.felix.scr.annotations.ReferencePolicyOption;
 import org.apache.felix.scr.annotations.References;
 
 import com.jjinterna.pbxevents.action.http.internal.PBXEvent2HttpQuery;
-import com.jjinterna.pbxevents.model.PBXEvent;
 import com.jjinterna.pbxevents.routes.EventMediator;
 import com.jjinterna.pbxevents.routes.EventSelector;
-import com.jjinterna.pbxevents.routes.JAXBElementWrapper;
 
 @Component(description = HttpAction.COMPONENT_DESCRIPTION, immediate = true, metatype = true, policy = ConfigurationPolicy.REQUIRE)
 @Properties({
@@ -52,9 +49,6 @@ public class HttpAction extends AbstractCamelRunner {
 			@Override
 			public void configure() throws Exception {
 				
-				JaxbDataFormat jaxb = new JaxbDataFormat();
-				jaxb.setContextPath(PBXEvent.class.getPackage().getName());
-				
 				from("direct:start")
 				.choice()
 					.when(simple("'{{httpMethod}}' == 'GET'"))
@@ -62,8 +56,6 @@ public class HttpAction extends AbstractCamelRunner {
 						.setBody(constant(""))					
 						.endChoice()
 					.when(simple("'{{httpMethod}}' == 'POST'"))
-						.process(new JAXBElementWrapper())
-						.marshal(jaxb)
 						.setHeader(Exchange.CONTENT_TYPE, constant("application/xml"))					
 						.endChoice()
 				.end()

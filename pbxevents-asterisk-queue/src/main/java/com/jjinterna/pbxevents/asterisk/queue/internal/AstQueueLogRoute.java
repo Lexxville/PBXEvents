@@ -140,7 +140,7 @@ public class AstQueueLogRoute extends RouteBuilder {
 				}
 				event.setTimeId(log.getTimeId());
 				event.setQueue(log.getQueue());
-				event.setAgent(log.getAgent());
+				event.setMember(log.getAgent());
 				exchange.getIn().setHeader("PBXEvent", event.getClass().getSimpleName());				
 				exchange.getIn().setBody(event);
 			}

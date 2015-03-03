@@ -3,6 +3,7 @@
 	<jxb:bindings schemaLocation="PBXEvents.xsd" node="/xs:schema">
 		<jxb:globalBindings>
 			<xjc:serializable />
+			<xjc:simple />
 		</jxb:globalBindings>
 	</jxb:bindings>
 </jxb:bindings>

@@ -8,7 +8,7 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.commons.lang.Validate;
 
 import com.jjinterna.pbxevents.model.PBXEvent;
-import com.jjinterna.pbxevents.model.SipLineDiscovered;
+import com.jjinterna.pbxevents.model.PhoneLineDiscovered;
 import com.jjinterna.pbxevents.routes.logfile.LogfileLifecycleStrategySupport;
 import com.jjinterna.pbxevents.routes.logfile.LogfileMark;
 
@@ -46,9 +46,9 @@ public class AsteriskMessagesRoute extends RouteBuilder {
 							String remoteAddress = parts[8].substring(15, parts[8].length() - 1);
 							String addrParts[] = remoteAddress.split("/");
 							if (addrParts.length == 4) {
-								SipLineDiscovered sip = new SipLineDiscovered();
-								sip.setExtension(extension);
-								sip.setNetworkAddress(addrParts[2]);
+								PhoneLineDiscovered sip = new PhoneLineDiscovered();
+								sip.setLineNumber(extension);
+								sip.setPhoneAddress(addrParts[2]);
 								sip.setPort(Integer.valueOf(addrParts[3]));
 								event = sip;
 							}

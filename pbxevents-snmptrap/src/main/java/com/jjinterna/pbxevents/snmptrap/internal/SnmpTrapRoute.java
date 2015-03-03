@@ -3,7 +3,7 @@ package com.jjinterna.pbxevents.snmptrap.internal;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.commons.lang.Validate;
 
-import com.jjinterna.pbxevents.model.ColdBoot;
+import com.jjinterna.pbxevents.model.ColdBootEvent;
 
 public class SnmpTrapRoute extends RouteBuilder {
 
@@ -21,8 +21,8 @@ public class SnmpTrapRoute extends RouteBuilder {
 		.to("direct:publish");
 	}
 
-	public ColdBoot toEvent(String agentAddress) {
-		ColdBoot event = new ColdBoot();
+	public ColdBootEvent toEvent(String agentAddress) {
+		ColdBootEvent event = new ColdBootEvent();
 		event.setAgentAddress(agentAddress);
 		return event;
 	}

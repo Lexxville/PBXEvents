@@ -46,7 +46,7 @@
 	<module>pbxevents-action-soap</module>
 	<module>pbxevents-discovery-lldp</module>
 	<module>pbxevents-snmptrap</module>
-	<module>pbxevents-rtinfo</module>
+	<module>pbxevents-rtcache</module>
 	</modules>
 
 	<pluginRepositories>

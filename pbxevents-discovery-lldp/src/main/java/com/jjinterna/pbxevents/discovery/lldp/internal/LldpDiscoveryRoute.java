@@ -89,7 +89,7 @@ public class LldpDiscoveryRoute extends RouteBuilder {
 								String value = varBinding.getVariable().toString().substring(3);
 								OctetString os = OctetString.fromHexString(value);
 								org.snmp4j.smi.Address snmp4jIpAddress = new org.snmp4j.smi.IpAddress(os.getValue());
-								phone.setNetworkAddress(snmp4jIpAddress.toString());
+								phone.setPhoneAddress(snmp4jIpAddress.toString());
 							} else if (oid.startsWith(lldpRemSysDesc)) {
 								phone.setSysDesc(varBinding.toValueString());								
 							} else if (oid.startsWith(lldpRemSysName)) {
