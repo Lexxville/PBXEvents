@@ -9,7 +9,8 @@ public interface RtCache {
 	public enum RtCacheType {
 		LINE,
 		CALL,
-		PHONE
+		PHONE,
+		CALLQUEUE
 	}
 	
 	public PBXEvent get(RtCacheType type, String key);

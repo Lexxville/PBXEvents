@@ -18,7 +18,7 @@ import org.snmp4j.util.DefaultPDUFactory;
 import org.snmp4j.util.TreeEvent;
 import org.snmp4j.util.TreeUtils;
 
-import com.jjinterna.pbxevents.model.PhoneDiscovered;
+import com.jjinterna.pbxevents.model.Phone;
 
 public class LldpDiscoveryRoute extends RouteBuilder {
 
@@ -47,10 +47,11 @@ public class LldpDiscoveryRoute extends RouteBuilder {
 		from("timer:discovery-lldp?period={{period}}")
 			.id(camelRouteId)
 			.bean(this, "discover")
+			.setHeader("PBXEvent", constant("Phone"))
 			.choice().when(body().isNotNull()).to("direct:publish").stop();
 	}
 
-	public PhoneDiscovered discover() throws IOException {
+	public Phone discover() throws IOException {
 		Address targetAddress = GenericAddress.parse("udp:" + host + "/" + port);
 		TransportMapping transport = new DefaultUdpTransportMapping();
 		Snmp snmp = new Snmp(transport);
@@ -64,7 +65,7 @@ public class LldpDiscoveryRoute extends RouteBuilder {
 		target.setTimeout(timeout);
 		target.setVersion(snmpVersion);
 
-		PhoneDiscovered phone = new PhoneDiscovered();
+		Phone phone = new Phone();
 		phone.setAgentAddress(host);
 		boolean isTelephone = false;		
 		TreeUtils treeUtils = new TreeUtils(snmp, new DefaultPDUFactory());

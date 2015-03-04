@@ -18,6 +18,7 @@ import org.apache.felix.scr.annotations.References;
 
 import com.jjinterna.pbxevents.asterisk.queue.internal.AstQueueLogRoute;
 import com.jjinterna.pbxevents.routes.EventMediator;
+import com.jjinterna.pbxevents.routes.RtCache;
 
 @Component(description = AstQueueLog.COMPONENT_DESCRIPTION, immediate = true, metatype = true, policy = ConfigurationPolicy.REQUIRE)
 @Properties({
@@ -37,11 +38,14 @@ public class AstQueueLog extends AbstractCamelRunner {
 
     @Reference
     private EventMediator mediator;
+
+    @Reference
+    private RtCache rtCache;
     
     @Override
     protected List<RoutesBuilder>getRouteBuilders() {
         List<RoutesBuilder>routesBuilders = new ArrayList<>();
-        routesBuilders.add(new AstQueueLogRoute());
+        routesBuilders.add(new AstQueueLogRoute(rtCache));
         routesBuilders.add(mediator.publisher());      
         return routesBuilders;
     }

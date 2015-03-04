@@ -30,9 +30,12 @@ import com.jjinterna.pbxevents.rtcache.internal.RtCacheRoute;
 
 @Component(description = RtCacheService.COMPONENT_DESCRIPTION, immediate = true, metatype = true)
 @Properties({
-    @Property(name = "camelContextId", value = "pbxevents-rtinfo"),
+    @Property(name = "camelContextId", value = "pbxevents-rtcache"),
     @Property(name = "camelRouteId", value = "default"),
     @Property(name = "active", value = "true"),
+    @Property(name = "phoneTimeToLiveSeconds", value = "300"),
+    @Property(name = "lineTimeToLiveSeconds", value = "300"),
+    @Property(name =  "callQueueTimeToLiveSeconds", value = "3600")
 })
 @References({
     @Reference(name = "camelComponent",referenceInterface = ComponentResolver.class,

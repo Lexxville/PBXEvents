@@ -57,6 +57,8 @@
         <xsd:complexContent>
         	<xsd:extension base="tns:PBXCallQueueEvent">
         		<xsd:sequence>
+        			<xsd:element name="phoneLine" type="tns:PhoneLine" />
+        			<xsd:element name="phone" type="tns:Phone" />
 				</xsd:sequence>				
         	</xsd:extension>
 		</xsd:complexContent>
@@ -71,7 +73,7 @@
 		</xsd:complexContent>
 	</xsd:complexType>
 
-    <xsd:complexType name="PhoneDiscovered">
+    <xsd:complexType name="Phone">
         <xsd:complexContent>
         	<xsd:extension base="tns:PBXEvent">
         		<xsd:sequence>
@@ -84,7 +86,7 @@
 		</xsd:complexContent>
 	</xsd:complexType>
 
-    <xsd:complexType name="ColdBootEvent">
+    <xsd:complexType name="ColdBoot">
         <xsd:complexContent>
         	<xsd:extension base="tns:PBXEvent">
         		<xsd:sequence>
@@ -94,7 +96,7 @@
 		</xsd:complexContent>
 	</xsd:complexType>
 
-    <xsd:complexType name="PhoneLineDiscovered">
+    <xsd:complexType name="PhoneLine">
         <xsd:complexContent>
         	<xsd:extension base="tns:PBXEvent">
         		<xsd:sequence>
@@ -160,14 +162,14 @@
 	<xsd:element name="CallConnect" type="tns:CallConnect" />
 	<xsd:element name="CallExitWithTimeout" type="tns:CallExitWithTimeout" />
 
-	<xsd:element name="ColdBootEvent" type="tns:ColdBootEvent" />
+	<xsd:element name="ColdBoot" type="tns:ColdBoot" />
 
 	<xsd:element name="QueueAddMember" type="tns:QueueAddMember" />
 	<xsd:element name="QueueRemoveMember" type="tns:QueueRemoveMember" />
 	<xsd:element name="QueuePause" type="tns:QueuePause" />
 	<xsd:element name="QueueUnPause" type="tns:QueueUnPause" />
 
-	<xsd:element name="PhoneDiscovered" type="tns:PhoneDiscovered" />
-	<xsd:element name="PhoneLineDiscovered" type="tns:PhoneLineDiscovered" />
+	<xsd:element name="Phone" type="tns:Phone" />
+	<xsd:element name="PhoneLine" type="tns:PhoneLine" />
 
 </xsd:schema>

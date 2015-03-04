@@ -3,6 +3,7 @@ package com.jjinterna.pbxevents.action.http.internal;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
+import com.jjinterna.pbxevents.model.CallConnect;
 import com.jjinterna.pbxevents.model.PBXCallQueueEvent;
 import com.jjinterna.pbxevents.model.PBXEvent;
 
@@ -37,6 +38,20 @@ public class PBXEventURLEncoder {
 			}
 			if (e.getQueueLeaveTime() != null) {
 				q += "&QueueLeaveTime=" + e.getQueueLeaveTime();
+			}
+		}
+		if (event instanceof CallConnect) {
+			CallConnect callConnect = (CallConnect) event;
+			if (callConnect.getPhoneLine() != null) {
+				q += "&PhoneLine.LineNumber=" + URLEncoder.encode(callConnect.getPhoneLine().getLineNumber(), enc); 
+				q += "&PhoneLine.PhoneAddress=" + URLEncoder.encode(callConnect.getPhoneLine().getPhoneAddress(), enc);
+				q += "&PhoneLine.Port=" + callConnect.getPhoneLine().getPort();				
+			}
+			if (callConnect.getPhone() != null) {
+				q += "&Phone.SysName=" + URLEncoder.encode(callConnect.getPhone().getSysName(), enc); 
+				q += "&Phone.SysDesc=" + URLEncoder.encode(callConnect.getPhone().getSysDesc(), enc);
+				q += "&Phone.PhoneAddress=" + URLEncoder.encode(callConnect.getPhone().getPhoneAddress(), enc);
+				q += "&Phone.AgentAddress=" + URLEncoder.encode(callConnect.getPhone().getAgentAddress(), enc);				
 			}
 		}
 		return q;
