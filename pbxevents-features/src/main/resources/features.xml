@@ -72,4 +72,11 @@
         <bundle>mvn:com.jjinterna.pbxevents/pbxevents-action-soap/${pom.version}</bundle>
     </feature>
 
+    <feature name="pbxevents-3cx-cdrsocket" version="${pom.version}">
+    	<feature>camel-netty4</feature>
+        <bundle>mvn:com.jjinterna.pbxevents/pbxevents-model/${pom.version}</bundle>
+        <bundle>mvn:com.jjinterna.pbxevents/pbxevents-routes/${pom.version}</bundle>        
+        <bundle>mvn:com.jjinterna.pbxevents/pbxevents-3cx-cdrsocket/${pom.version}</bundle>
+    </feature>
+
 </features>

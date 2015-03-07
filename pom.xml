@@ -47,6 +47,7 @@
 	<module>pbxevents-discovery-lldp</module>
 	<module>pbxevents-snmptrap</module>
 	<module>pbxevents-rtcache</module>
+	<module>pbxevents-3cx-cdrsocket</module>
 	</modules>
 
 	<pluginRepositories>

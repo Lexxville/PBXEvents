@@ -156,6 +156,46 @@
 		</xsd:complexContent>
 	</xsd:complexType>
 
+	<xsd:complexType name="CallEvent">
+		<xsd:complexContent>
+			<xsd:extension base="tns:PBXEvent">
+				<xsd:sequence>
+					<xsd:element name="callId" type="xsd:string" />				
+					<xsd:element name="callDuration" type="xsd:int" />
+					<xsd:element name="callingNumber" type="xsd:string" />
+					<xsd:element name="calledNumber" type="xsd:string" />
+					<xsd:element name="callSetupTime" type="xsd:int" minOccurs="0" />
+					<xsd:element name="callConnectTime" type="xsd:int" minOccurs="0" />
+					<xsd:element name="callDisconnectTime" type="xsd:int" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+    <xsd:complexType name="CallStart">
+        <xsd:complexContent>
+        	<xsd:extension base="tns:CallEvent">
+        		<xsd:sequence />
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+    <xsd:complexType name="CallUpdate">
+        <xsd:complexContent>
+        	<xsd:extension base="tns:CallEvent">
+        		<xsd:sequence />
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+    <xsd:complexType name="CallStop">
+        <xsd:complexContent>
+        	<xsd:extension base="tns:CallEvent">
+        		<xsd:sequence />
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
     <xsd:element name="CallEnterQueue" type="tns:CallEnterQueue" />
     <xsd:element name="CallAbandon" type="tns:CallAbandon" />
 	<xsd:element name="CallComplete" type="tns:CallComplete" />
@@ -163,6 +203,10 @@
 	<xsd:element name="CallExitWithTimeout" type="tns:CallExitWithTimeout" />
 
 	<xsd:element name="ColdBoot" type="tns:ColdBoot" />
+
+	<xsd:element name="CallStart" type="tns:CallStart" />
+	<xsd:element name="CallUpdate" type="tns:CallUpdate" />
+	<xsd:element name="CallStop" type="tns:CallStop" />
 
 	<xsd:element name="QueueAddMember" type="tns:QueueAddMember" />
 	<xsd:element name="QueueRemoveMember" type="tns:QueueRemoveMember" />

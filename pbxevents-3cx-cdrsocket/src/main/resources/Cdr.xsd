@@ -1,0 +1,35 @@
+<xsd:schema
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:tns="http://3cx.pbxevents.jjinterna.com/cdrsocket/model"
+    targetNamespace="http://3cx.pbxevents.jjinterna.com/cdrsocket/model">
+
+	<xsd:element name="Call">
+    	<xsd:complexType>
+   			<xsd:sequence>
+   				<xsd:element name="callid" type="xsd:string" />
+   				<xsd:element name="diration" type="xsd:string" />
+	   			<xsd:element name="starttime" type="xsd:string" />
+   				<xsd:element name="answertime" type="xsd:string" />
+   				<xsd:element name="endtime" type="xsd:string" />
+   				<xsd:element name="from_no" type="xsd:string" />
+   				<xsd:element name="to_no" type="xsd:string" />
+	   			<xsd:element name="group_no" type="xsd:string" />
+   				<xsd:element name="line_no" type="xsd:string" />
+   				<xsd:element name="is_answ" type="xsd:int" />
+   				<xsd:element name="is_fail" type="xsd:int" />
+	   			<xsd:element name="is_compl" type="xsd:int" />
+   				<xsd:element name="is_fromoutside" type="xsd:int" />
+   				<xsd:element name="callerId" type="xsd:string" />
+   				<xsd:element name="dialedNumber" type="xsd:string" />
+	   			<xsd:element name="lastCallerId" type="xsd:string" />
+   				<xsd:element name="lastDialedNumber" type="xsd:string" />   			
+   				<xsd:element name="mediaType" type="xsd:int" />
+   				<xsd:element name="rate" type="xsd:int" />
+	   			<xsd:element name="totalCost" type="xsd:int" />
+   				<xsd:element name="billPrefix" type="xsd:string" />
+   				<xsd:element name="billRateName" type="xsd:string" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>		
+
+</xsd:schema>
