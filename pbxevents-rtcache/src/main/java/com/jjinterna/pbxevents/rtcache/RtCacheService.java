@@ -33,7 +33,7 @@ import com.jjinterna.pbxevents.rtcache.internal.RtCacheRoute;
     @Property(name = "camelContextId", value = "pbxevents-rtcache"),
     @Property(name = "camelRouteId", value = "default"),
     @Property(name = "active", value = "true"),
-    @Property(name = "phoneTimeToLiveSeconds", value = "300"),
+    @Property(name = "phoneTimeToLiveSeconds", value = "10872"),
     @Property(name = "lineTimeToLiveSeconds", value = "300"),
     @Property(name =  "callQueueTimeToLiveSeconds", value = "3600")
 })

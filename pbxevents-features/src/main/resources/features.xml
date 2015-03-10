@@ -35,14 +35,14 @@
         <bundle>mvn:com.jjinterna.pbxevents/pbxevents-routes/${pom.version}</bundle>
         <bundle>mvn:com.jjinterna.pbxevents/pbxevents-discovery-lldp/${pom.version}</bundle>
     </feature>
-
+<!-- 
     <feature name="pbxevents-snmptrap" version="${pom.version}">
     	<feature>camel-snmp</feature>
         <bundle>mvn:com.jjinterna.pbxevents/pbxevents-model/${pom.version}</bundle>
         <bundle>mvn:com.jjinterna.pbxevents/pbxevents-routes/${pom.version}</bundle>
         <bundle>mvn:com.jjinterna.pbxevents/pbxevents-snmptrap/${pom.version}</bundle>
     </feature>
-
+-->
     <feature name="pbxevents-rtcache" version="${pom.version}">
     	<feature>camel-cache</feature>
         <bundle>mvn:com.jjinterna.pbxevents/pbxevents-model/${pom.version}</bundle>

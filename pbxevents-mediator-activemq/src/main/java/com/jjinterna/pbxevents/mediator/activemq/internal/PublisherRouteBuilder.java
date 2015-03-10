@@ -17,7 +17,7 @@ public class PublisherRouteBuilder extends RouteBuilder {
 		from("direct:publish")
 			.id("publish")
 			.startupOrder(1)
-			.toF("activemq:%s:%s?deliveryPersistent=false&username=karaf&password=karaf",
+			.toF("activemq:%s:%s?username=karaf&password=karaf",
 					destinationType,
 					destinationName);
 	}

@@ -12,7 +12,6 @@ public class RtCacheRoute extends RouteBuilder {
 
 	private Integer phoneTimeToLiveSeconds;
 	private Integer lineTimeToLiveSeconds;
-	private Integer callQueueTimeToLiveSeconds;	
 	
 	private static final String PBXEVENT = "PBXEvent";
 

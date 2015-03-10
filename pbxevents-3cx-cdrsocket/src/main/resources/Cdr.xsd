@@ -6,11 +6,11 @@
 	<xsd:element name="Call">
     	<xsd:complexType>
    			<xsd:sequence>
-   				<xsd:element name="callid" type="xsd:string" />
-   				<xsd:element name="diration" type="xsd:string" />
-	   			<xsd:element name="starttime" type="xsd:string" />
-   				<xsd:element name="answertime" type="xsd:string" />
-   				<xsd:element name="endtime" type="xsd:string" />
+   				<xsd:element name="callId" type="xsd:string" />
+   				<xsd:element name="duration" type="xsd:string" />
+	   			<xsd:element name="startTime" type="xsd:string" />
+   				<xsd:element name="answerTime" type="xsd:string" />
+   				<xsd:element name="endTime" type="xsd:string" />
    				<xsd:element name="from_no" type="xsd:string" />
    				<xsd:element name="to_no" type="xsd:string" />
 	   			<xsd:element name="group_no" type="xsd:string" />

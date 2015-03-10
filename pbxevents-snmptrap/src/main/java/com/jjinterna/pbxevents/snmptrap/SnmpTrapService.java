@@ -19,7 +19,7 @@ import org.apache.felix.scr.annotations.References;
 import com.jjinterna.pbxevents.routes.EventMediator;
 import com.jjinterna.pbxevents.snmptrap.internal.SnmpTrapRoute;
 
-@Component(description = SnmpTrap.COMPONENT_DESCRIPTION, immediate = true, metatype = true, policy = ConfigurationPolicy.REQUIRE)
+@Component(description = SnmpTrapService.COMPONENT_DESCRIPTION, immediate = true, metatype = true, policy = ConfigurationPolicy.REQUIRE)
 @Properties({
     @Property(name = "camelContextId", value = "pbxevents-snmptrap"),
     @Property(name = "active", value = "true"),
@@ -32,7 +32,7 @@ import com.jjinterna.pbxevents.snmptrap.internal.SnmpTrapRoute;
         cardinality = ReferenceCardinality.MANDATORY_MULTIPLE, policy = ReferencePolicy.DYNAMIC,
         policyOption = ReferencePolicyOption.GREEDY, bind = "gotCamelComponent", unbind = "lostCamelComponent")
 })
-public class SnmpTrap extends AbstractCamelRunner {
+public class SnmpTrapService extends AbstractCamelRunner {
 
 	public static final String COMPONENT_DESCRIPTION = "PBXEvents SNMP Trap";
 

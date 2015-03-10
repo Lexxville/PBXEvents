@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.commons.lang.Validate;
 import org.snmp4j.CommunityTarget;
 import org.snmp4j.Snmp;
 import org.snmp4j.TransportMapping;
@@ -22,8 +21,6 @@ import com.jjinterna.pbxevents.model.Phone;
 
 public class LldpDiscoveryRoute extends RouteBuilder {
 
-	private String host;
-	private String camelRouteId;
 	private Integer port;
 	private String snmpCommunity;
 	private Integer snmpVersion;
@@ -42,16 +39,14 @@ public class LldpDiscoveryRoute extends RouteBuilder {
 
 	@Override
 	public void configure() throws Exception {
-		checkProperties();
 
-		from("timer:discovery-lldp?period={{period}}")
-			.id(camelRouteId)
+		from("direct:start")
 			.bean(this, "discover")
 			.setHeader("PBXEvent", constant("Phone"))
 			.choice().when(body().isNotNull()).to("direct:publish").stop();
 	}
 
-	public Phone discover() throws IOException {
+	public Phone discover(String host) throws IOException {
 		Address targetAddress = GenericAddress.parse("udp:" + host + "/" + port);
 		TransportMapping transport = new DefaultUdpTransportMapping();
 		Snmp snmp = new Snmp(transport);
@@ -109,10 +104,5 @@ public class LldpDiscoveryRoute extends RouteBuilder {
 
 		snmp.close();
 		return (isTelephone) ? phone : null;
-	}
-
-	public void checkProperties() {
-		Validate.notNull(host, "host property is not set");
-	    Validate.notNull(camelRouteId, "camelRouteId property is not set");
 	}
 }

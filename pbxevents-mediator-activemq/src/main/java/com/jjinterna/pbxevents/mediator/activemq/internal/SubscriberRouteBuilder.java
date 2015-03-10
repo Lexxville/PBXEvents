@@ -30,15 +30,17 @@ public class SubscriberRouteBuilder extends RouteBuilder {
 
 				@Override
 				public void process(Exchange exchange) throws Exception {
-					PBXEvent event = (PBXEvent) exchange.getIn().getBody();
-					for (EventSelector selector : selectors) {
-						if (!selector.select(event)) {
-				        	exchange.setProperty(Exchange.ROUTE_STOP, Boolean.TRUE);
-				        	break;
+					if (exchange.getIn().getBody() instanceof PBXEvent) {
+						PBXEvent event = (PBXEvent) exchange.getIn().getBody();
+						for (EventSelector selector : selectors) {
+							if (!selector.select(event)) {
+								exchange.setProperty(Exchange.ROUTE_STOP, Boolean.TRUE);
+								break;
+							}
 						}
 					}
 				}
-				
+
 			})
 			.to("direct:start");
 	}

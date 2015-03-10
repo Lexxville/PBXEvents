@@ -24,6 +24,7 @@ import com.jjinterna.pbxevents.routes.EventMediator;
     @Property(name = "camelContextId", value = "pbxevents-3cx"),
     @Property(name = "camelRouteId", value = "default"),
     @Property(name = "active", value = "true"),
+    @Property(name = "host", value="localhost"),    
     @Property(name = "port", value="33555")
 })
 @References({

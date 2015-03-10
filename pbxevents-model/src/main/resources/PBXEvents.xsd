@@ -86,7 +86,7 @@
 		</xsd:complexContent>
 	</xsd:complexType>
 
-    <xsd:complexType name="ColdBoot">
+    <xsd:complexType name="SnmpTrapEvent">
         <xsd:complexContent>
         	<xsd:extension base="tns:PBXEvent">
         		<xsd:sequence>
@@ -202,7 +202,7 @@
 	<xsd:element name="CallConnect" type="tns:CallConnect" />
 	<xsd:element name="CallExitWithTimeout" type="tns:CallExitWithTimeout" />
 
-	<xsd:element name="ColdBoot" type="tns:ColdBoot" />
+	<xsd:element name="SnmpTrapEvent" type="tns:SnmpTrapEvent" />
 
 	<xsd:element name="CallStart" type="tns:CallStart" />
 	<xsd:element name="CallUpdate" type="tns:CallUpdate" />
