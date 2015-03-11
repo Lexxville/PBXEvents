@@ -27,7 +27,7 @@ public class RtCacheRoute extends RouteBuilder {
 		from("direct:phoneUpdate")
 		.setHeader(CacheConstants.CACHE_OPERATION, constant(CacheConstants.CACHE_OPERATION_UPDATE))
 		.setHeader(CacheConstants.CACHE_KEY, simple("${body.phoneAddress}"))
-		.toF("cache://%s?timeToLiveSeconds=%d", RtCacheType.PHONE, phoneTimeToLiveSeconds);
+		.toF("cache://%s?timeToLiveSeconds=%d&diskPersistent=true", RtCacheType.PHONE, phoneTimeToLiveSeconds);
 
 		from("direct:start")
 		.choice()

@@ -1,6 +1,5 @@
 package com.jjinterna.pbxevents.mediator.activemq;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -42,17 +41,21 @@ public class ActiveMQMediator implements EventMediator {
 
 	@Override
 	public RouteBuilder subscriber(final List<EventSelector> selectors) {
-		return new SubscriberRouteBuilder(destinationName, destinationType, selectors);
+		return new SubscriberRouteBuilder(destinationName, destinationType, selectors, "direct:start");
 	}
 
 	@Override
-	public RouteBuilder toQueue(String queueName) {
-		return new PublisherRouteBuilder(queueName, "queue");
+	public String queueUri(String queueName) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("activemq:queue:");
+		sb.append(queueName);
+		sb.append("?username=karaf&password=karaf");		
+		return sb.toString();
 	}
 
 	@Override
-	public RouteBuilder fromQueue(String queueName) {
-		return new SubscriberRouteBuilder(queueName, "queue", Collections.<EventSelector> emptyList());
+	public RouteBuilder subscriber(List<EventSelector> selectors, String destUri) {
+		return new SubscriberRouteBuilder(destinationName, destinationType, selectors, destUri);
 	}
 
 }

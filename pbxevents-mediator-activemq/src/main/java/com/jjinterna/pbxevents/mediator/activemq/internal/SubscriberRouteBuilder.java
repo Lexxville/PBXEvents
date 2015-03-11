@@ -15,11 +15,13 @@ public class SubscriberRouteBuilder extends RouteBuilder {
 	private String destinationName;
 	private String destinationType;	
 	private List<EventSelector> selectors;
+	private String destUri;
 	
-	public SubscriberRouteBuilder(String destinationName, String destinationType, List<EventSelector> selectors) {
+	public SubscriberRouteBuilder(String destinationName, String destinationType, List<EventSelector> selectors, String destUri) {
 		this.destinationName = destinationName;
 		this.destinationType = destinationType;
 		this.selectors = new ArrayList<EventSelector>(selectors);
+		this.destUri = destUri;
 	}
 
 	@Override
@@ -42,7 +44,7 @@ public class SubscriberRouteBuilder extends RouteBuilder {
 				}
 
 			})
-			.to("direct:start");
+			.to(destUri);
 	}
 
 }
