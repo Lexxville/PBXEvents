@@ -138,4 +138,6 @@
             </plugin>
         </plugins>
     </build>  
+    <name>PBXEvents :: mediator-activemq</name>
+    <description>internal module</description>
 </project>

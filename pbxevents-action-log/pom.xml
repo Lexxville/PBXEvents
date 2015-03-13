@@ -138,4 +138,6 @@
             </plugin>
         </plugins>
     </build>
+    <name>PBXEvents :: action-log</name>
+    <description>Log Action.</description>
 </project>

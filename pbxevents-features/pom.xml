@@ -56,4 +56,6 @@
 
 	</build>
   
+	<name>PBXEvents :: features</name>
+	<description>internal module</description>
 </project>

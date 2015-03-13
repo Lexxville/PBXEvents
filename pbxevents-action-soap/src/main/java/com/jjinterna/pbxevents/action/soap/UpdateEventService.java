@@ -7,6 +7,6 @@ import com.jjinterna.pbxevents.model.PBXEvent;
 
 @WebService
 public interface UpdateEventService {
-    @WebMethod
-    public void updateEvent(PBXEvent event);
+	@WebMethod
+	public void updateEvent(PBXEvent event);
 }

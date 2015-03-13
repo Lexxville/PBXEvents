@@ -138,4 +138,6 @@
             </plugin>
         </plugins>
     </build>
+    <name>PBXEvents :: radius</name>
+    <description>Receive RADUIS events.</description>
 </project>

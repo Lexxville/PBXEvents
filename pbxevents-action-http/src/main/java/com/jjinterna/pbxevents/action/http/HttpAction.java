@@ -24,50 +24,45 @@ import com.jjinterna.pbxevents.routes.EventMediator;
 import com.jjinterna.pbxevents.routes.EventSelector;
 
 @Component(description = HttpAction.COMPONENT_DESCRIPTION, immediate = true, metatype = true, policy = ConfigurationPolicy.REQUIRE)
-@Properties({
-	@Property(name = "httpUri"),	
-	@Property(name = "httpMethod", value = "GET"),
-    @Property(name = "active", value = "true")
-})
-@References({
-    @Reference(name = "camelComponent",referenceInterface = ComponentResolver.class,
-        cardinality = ReferenceCardinality.MANDATORY_MULTIPLE, policy = ReferencePolicy.DYNAMIC,
-        policyOption = ReferencePolicyOption.GREEDY, bind = "gotCamelComponent", unbind = "lostCamelComponent")
-})
+@Properties({ @Property(name = "httpUri"),
+		@Property(name = "httpMethod", value = "GET"),
+		@Property(name = "active", value = "true") })
+@References({ @Reference(name = "camelComponent", referenceInterface = ComponentResolver.class, cardinality = ReferenceCardinality.MANDATORY_MULTIPLE, policy = ReferencePolicy.DYNAMIC, policyOption = ReferencePolicyOption.GREEDY, bind = "gotCamelComponent", unbind = "lostCamelComponent") })
 public class HttpAction extends AbstractCamelRunner {
 
 	public static final String COMPONENT_DESCRIPTION = "PBXEvents HTTP Action";
 
-    @Reference
-    private EventMediator mediator;
+	@Reference
+	private EventMediator mediator;
 
-    @Override
-    protected List<RoutesBuilder>getRouteBuilders() {
-        List<RoutesBuilder>routesBuilders = new ArrayList<>();
-        routesBuilders.add(new RouteBuilder() {
-			
+	@Override
+	protected List<RoutesBuilder> getRouteBuilders() {
+		List<RoutesBuilder> routesBuilders = new ArrayList<>();
+		routesBuilders.add(new RouteBuilder() {
+
 			@Override
 			public void configure() throws Exception {
-				
+
 				from("direct:start")
-				.choice()
-					.when(simple("'{{httpMethod}}' == 'GET'"))
+						.choice()
+						.when(simple("'{{httpMethod}}' == 'GET'"))
 						.process(new PBXEvent2HttpQuery())
-						.setBody(constant(""))					
+						.setBody(constant(""))
 						.endChoice()
-					.when(simple("'{{httpMethod}}' == 'POST'"))
-						.setHeader(Exchange.CONTENT_TYPE, constant("application/xml"))					
+						.when(simple("'{{httpMethod}}' == 'POST'"))
+						.setHeader(Exchange.CONTENT_TYPE,
+								constant("application/xml"))
 						.endChoice()
-				.end()
-				.setHeader(Exchange.HTTP_URI, simple("{{httpUri}}"))
-				.setHeader(Exchange.HTTP_METHOD, simple("{{httpMethod}}"))				
-				.removeHeaders("JMS*")
-				.removeHeaders("PBX*")
-				.to("http4://foo");
+						.end()
+						.setHeader(Exchange.HTTP_URI, simple("{{httpUri}}"))
+						.setHeader(Exchange.HTTP_METHOD,
+								simple("{{httpMethod}}")).removeHeaders("JMS*")
+						.removeHeaders("PBX*").to("http4://foo");
 			}
 		});
-        routesBuilders.add(mediator.subscriber(Collections.<EventSelector> emptyList()));      
-        return routesBuilders;
-    }
-    
+		routesBuilders.add(mediator.subscriber(Collections
+				.<EventSelector> emptyList()));
+		return routesBuilders;
+	}
+
 }

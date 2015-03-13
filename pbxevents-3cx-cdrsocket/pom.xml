@@ -207,4 +207,6 @@
         	</plugins>
         </pluginManagement>
     </build>  
+    <name>PBXEvents :: 3cx-cdrsocket</name>
+    <description>Receive 3CX PBX socket events.</description>
 </project>

@@ -240,12 +240,14 @@ public class HttpQueryToStringStrategy implements ToStringStrategy {
 		} else if (value instanceof String) {
 			appendFieldStart(parentLocator, parent, fieldName, stringBuilder);
 			try {
-				stringBuilder.append(URLEncoder.encode((String) value, "UTF-8"));
+				stringBuilder
+						.append(URLEncoder.encode((String) value, "UTF-8"));
 			} catch (UnsupportedEncodingException e) {
 				stringBuilder.append("java.io.UnsupportedEncodingException");
 			}
 		} else if (value instanceof ToString) {
-			((ToString) value).appendFields(new DefaultRootObjectLocator(parent), stringBuilder, this);
+			((ToString) value).appendFields(
+					new DefaultRootObjectLocator(parent), stringBuilder, this);
 		} else {
 			appendFieldStart(parentLocator, parent, fieldName, stringBuilder);
 			stringBuilder.append(value.toString());

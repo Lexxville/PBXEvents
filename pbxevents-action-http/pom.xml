@@ -138,4 +138,6 @@
             </plugin>
         </plugins>
     </build>
+    <name>PBXEvents :: action-http</name>
+    <description>HTTP GET/POST Action.</description>
 </project>

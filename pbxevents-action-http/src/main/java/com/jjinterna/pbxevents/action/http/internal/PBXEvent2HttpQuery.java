@@ -10,8 +10,8 @@ public class PBXEvent2HttpQuery implements Processor {
 	@Override
 	public void process(Exchange exchange) throws Exception {
 		PBXEvent event = (PBXEvent) exchange.getIn().getBody();
-        StringBuilder buffer = new StringBuilder();
-        event.append(null, buffer, HttpQueryToStringStrategy.INSTANCE);
+		StringBuilder buffer = new StringBuilder();
+		event.append(null, buffer, HttpQueryToStringStrategy.INSTANCE);
 		exchange.getIn().setHeader(Exchange.HTTP_QUERY, buffer.toString());
 	}
 

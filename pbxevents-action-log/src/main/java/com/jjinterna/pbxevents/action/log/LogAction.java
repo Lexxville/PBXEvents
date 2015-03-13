@@ -21,35 +21,29 @@ import com.jjinterna.pbxevents.routes.EventMediator;
 import com.jjinterna.pbxevents.routes.EventSelector;
 
 @Component(description = LogAction.COMPONENT_DESCRIPTION, immediate = true, metatype = true)
-@Properties({
-    @Property(name = "active", value = "true")
-})
-@References({
-    @Reference(name = "camelComponent",referenceInterface = ComponentResolver.class,
-        cardinality = ReferenceCardinality.MANDATORY_MULTIPLE, policy = ReferencePolicy.DYNAMIC,
-        policyOption = ReferencePolicyOption.GREEDY, bind = "gotCamelComponent", unbind = "lostCamelComponent")
-})
+@Properties({ @Property(name = "active", value = "true") })
+@References({ @Reference(name = "camelComponent", referenceInterface = ComponentResolver.class, cardinality = ReferenceCardinality.MANDATORY_MULTIPLE, policy = ReferencePolicy.DYNAMIC, policyOption = ReferencePolicyOption.GREEDY, bind = "gotCamelComponent", unbind = "lostCamelComponent") })
 public class LogAction extends AbstractCamelRunner {
 
 	public static final String COMPONENT_DESCRIPTION = "PBXEvents Log Action";
 
-    @Reference
-    private EventMediator mediator;
-    
-    @Override
-    protected List<RoutesBuilder>getRouteBuilders() {
-        List<RoutesBuilder>routesBuilders = new ArrayList<>();
-        routesBuilders.add(new RouteBuilder() {
-			
+	@Reference
+	private EventMediator mediator;
+
+	@Override
+	protected List<RoutesBuilder> getRouteBuilders() {
+		List<RoutesBuilder> routesBuilders = new ArrayList<>();
+		routesBuilders.add(new RouteBuilder() {
+
 			@Override
 			public void configure() throws Exception {
-				
-				from("direct:start")
-				.to("log:pbxevent?showHeaders=true");				
+
+				from("direct:start").to("log:pbxevent?showHeaders=true");
 			}
 		});
-        routesBuilders.add(mediator.subscriber(Collections.<EventSelector> emptyList()));      
-        return routesBuilders;
-    }
-    
+		routesBuilders.add(mediator.subscriber(Collections
+				.<EventSelector> emptyList()));
+		return routesBuilders;
+	}
+
 }

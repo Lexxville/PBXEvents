@@ -128,4 +128,6 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+	<name>PBXEvents :: model</name>
+	<description>PBX events model.</description>
 </project>
