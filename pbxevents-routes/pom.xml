@@ -9,11 +9,6 @@
 	<artifactId>pbxevents-routes</artifactId>
 	<name>PBXEvents :: routes</name>
 	<packaging>bundle</packaging>
-	
-	<properties>
-		<log4j-version>1.2.17</log4j-version>
-		<slf4j-version>1.7.10</slf4j-version>
-	</properties>
 
 	<dependencies>
 
@@ -24,43 +19,11 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-core-osgi</artifactId>
-			<version>${camel.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.osgi</groupId>
-			<artifactId>org.osgi.compendium</artifactId>
-			<version>4.2.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.osgi</groupId>
-			<artifactId>org.osgi.core</artifactId>
-			<version>4.2.0</version>
-		</dependency>
-
-		<dependency>
 			<groupId>com.jjinterna.pbxevents</groupId>
 			<artifactId>pbxevents-model</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>${log4j-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>${slf4j-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>${slf4j-version}</version>
-		</dependency>
 	</dependencies>
 
 	<build>

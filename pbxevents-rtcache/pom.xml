@@ -39,10 +39,12 @@
             <artifactId>camel-cache</artifactId>
             <version>${camel.version}</version>
         </dependency>
+
 		<dependency>
     		<groupId>net.sf.ehcache</groupId>
     		<artifactId>ehcache</artifactId>
     		<version>2.9.1</version>
+    		<scope>compile</scope>
 		</dependency>
         <dependency>
             <groupId>commons-lang</groupId>
@@ -60,7 +62,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.7.10</version>
+            <version>${slf4j-version}</version>
         </dependency>
         <dependency>
             <groupId>log4j</groupId>
