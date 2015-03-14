@@ -20,10 +20,6 @@
 	<url>http://pbxevents.jjinterna.com</url>
 	<description>PBXEvents is a Java/OSGi-based application for PBX events processing. It can receive events from Asterisk PBX, 3CX PBX and more. PBXEvents will notify third-party applications over HTTP GET/POST and SOAP when certain events happen.</description>
 	<inceptionYear>2015</inceptionYear>
-	<organization>
-		<name>JJ International</name>
-		<url>http://jjinterna.com</url>
-	</organization>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -137,8 +133,6 @@
 			<id>gmanev</id>
 			<name>Georgi Manev</name>
 			<email>gmanev@jjinterna.com</email>
-			<organization>JJ International</organization>
-			<organizationUrl>http://www.jjinterna.com</organizationUrl>
 			<roles>
 				<role>developer</role>
 			</roles>

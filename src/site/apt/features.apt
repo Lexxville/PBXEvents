@@ -1,0 +1,33 @@
+Features
+
+*-----*------*------*
+ <<Module>> | <<Feature>> | <<Since>>
+*-----*------*------*
+ 3cx-cdrsocket | Provide CDRTemplate-Socket.xml for 3CX PBX configuration | 1.0.0
+*-----*------*------*
+ 3cx-cdrsocket | Receive CDR data over a socket and generate CallStop event | 1.0.0
+*-----*------*------*
+ action-http | Invoke HTTP GET method with query payload | 1.0.0
+*-----*------*------*
+ action-http | Invoke HTTP POST method with XML payload | 1.0.0
+*-----*------*------*
+ action-soap | Invoke updateEvent method of a SOAP endpoint | 1.0.0
+*-----*------*------*
+ action-log | Log event to file | 1.0.0
+*-----*------*------*
+ asterisk-messages | Process Asterisk PBX messages file | 1.0.0
+*-----*------*------*
+ asterisk-messages | Generate PhoneLine event | 1.0.0
+*-----*------*------*
+ asterisk-queue | Process Asterisk PBX queue_log file | 1.0.0
+*-----*------*------*
+ asterisk-queue | Generate Call Queue events | 1.0.0
+*-----*------*------*
+ asterisk-queue | Generate Queue events | 1.0.0
+*-----*------*------*
+ discovery-lldp | Poll SNMP endpoint for lldpRemEntry and generate Phone event | 1.0.0
+*-----*------*------*
+ snmptrap | Receive SNMP trap and generate SnmpTrapEvent event | 1.0.0
+*-----*------*------*
+ - all - | File-based configuration | 1.0.0
+*-----*------*------*

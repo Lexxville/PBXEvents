@@ -29,6 +29,10 @@ under the License.
 	</skin>
 	<body>
 	    <head/>
+	    <menu name="Overview">
+            <item name="Pricing" href="pricing.html" />
+            <item name="Features" href="features.html" />
+	    </menu>
 		<menu ref="parent" inherit="top" />
 		<menu ref="reports" inherit="top" />
 		<footer/>
