@@ -22,32 +22,27 @@ import com.jjinterna.pbxevents.routes.RtCache;
 
 @Component(description = AstQueueLog.COMPONENT_DESCRIPTION, immediate = true, metatype = true, policy = ConfigurationPolicy.REQUIRE)
 @Properties({
-    @Property(name = "camelContextId", value = "pbxevents-asterisk-queue"),
-    @Property(name = "camelRouteId", value = "default"),
-    @Property(name = "active", value = "true"),
-    @Property(name= "rewriteLocalChannels", value = "true")
-})
-@References({
-    @Reference(name = "camelComponent",referenceInterface = ComponentResolver.class,
-        cardinality = ReferenceCardinality.MANDATORY_MULTIPLE, policy = ReferencePolicy.DYNAMIC,
-        policyOption = ReferencePolicyOption.GREEDY, bind = "gotCamelComponent", unbind = "lostCamelComponent")
-})
+		@Property(name = "camelContextId", value = "pbxevents-asterisk-queue"),
+		@Property(name = "camelRouteId", value = "default"),
+		@Property(name = "active", value = "true"),
+		@Property(name = "rewriteLocalChannels", value = "true") })
+@References({ @Reference(name = "camelComponent", referenceInterface = ComponentResolver.class, cardinality = ReferenceCardinality.MANDATORY_MULTIPLE, policy = ReferencePolicy.DYNAMIC, policyOption = ReferencePolicyOption.GREEDY, bind = "gotCamelComponent", unbind = "lostCamelComponent") })
 public class AstQueueLog extends AbstractCamelRunner {
 
 	public static final String COMPONENT_DESCRIPTION = "PBXEvents Asterisk PBX queue_log Publisher";
 
-    @Reference
-    private EventMediator mediator;
+	@Reference
+	private EventMediator mediator;
 
-    @Reference
-    private RtCache rtCache;
-    
-    @Override
-    protected List<RoutesBuilder>getRouteBuilders() {
-        List<RoutesBuilder>routesBuilders = new ArrayList<>();
-        routesBuilders.add(new AstQueueLogRoute(rtCache));
-        routesBuilders.add(mediator.publisher());      
-        return routesBuilders;
-    }
-    
+	@Reference
+	private RtCache rtCache;
+
+	@Override
+	protected List<RoutesBuilder> getRouteBuilders() {
+		List<RoutesBuilder> routesBuilders = new ArrayList<>();
+		routesBuilders.add(new AstQueueLogRoute(rtCache));
+		routesBuilders.add(mediator.publisher());
+		return routesBuilders;
+	}
+
 }

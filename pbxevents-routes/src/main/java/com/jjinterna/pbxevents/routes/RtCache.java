@@ -13,7 +13,7 @@ public interface RtCache {
 		CALLQUEUE
 	}
 	
-	public PBXEvent get(RtCacheType type, String key);
-	public List<PBXEvent> getAll(RtCacheType type);
+	PBXEvent get(RtCacheType type, String key);
+	List<PBXEvent> getAll(RtCacheType type);
 
 }

@@ -20,7 +20,7 @@ import com.jjinterna.pbxevents.routes.EventSelector;
 	@Property(name = "destinationName", value = "PBXEvents"),
 	@Property(name = "destinationType", value = "topic")    
 })
-@Service(value=com.jjinterna.pbxevents.routes.EventMediator.class)
+@Service(value=EventMediator.class)
 public class ActiveMQMediator implements EventMediator {
 
     public static final String COMPONENT_DESCRIPTION = "PBXEvents ActiveMQ Event Mediator";

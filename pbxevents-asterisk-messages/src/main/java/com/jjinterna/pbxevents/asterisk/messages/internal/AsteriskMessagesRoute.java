@@ -33,7 +33,7 @@ public class AsteriskMessagesRoute extends RouteBuilder {
 			public void process(Exchange exchange) throws Exception {
 				PBXEvent event = null;
 				String line = (String) exchange.getIn().getBody();
-				String timestamp = (line.length() > 21) ? 
+				String timestamp = line.length() > 21 ? 
 						line.substring(1,  20) : null;
 				if (timestamp != null && timestamp.compareTo(mark) > 0) {
 					int index = line.indexOf("res_security_log.c: ");

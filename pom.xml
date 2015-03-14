@@ -17,6 +17,13 @@
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>PBXEvents</name>
+	<url>http://pbxevents.jjinterna.com</url>
+	<description>PBXEvents is a Java/OSGi-based application for PBX events processing. It can receive events from Asterisk PBX, 3CX PBX and more. PBXEvents will notify third-party applications over HTTP GET/POST and SOAP when certain events happen.</description>
+	<inceptionYear>2015</inceptionYear>
+	<organization>
+		<name>JJ International</name>
+		<url>http://jjinterna.com</url>
+	</organization>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -81,11 +88,9 @@
 				<artifactId>maven-site-plugin</artifactId>
 				<version>3.4</version>
 				<configuration>
-<!-- 				<inputDirectory>/home/gmanev/git/PBXEvents/target/staging/</inputDirectory> -->
 					<stagingSiteURL>${project.distributionManagement.site.url}</stagingSiteURL>
 				</configuration>
 			</plugin>
-
 		</plugins>
 
 		<extensions>
@@ -117,14 +122,6 @@
 			<url>s3://maven.jjinterna.com/snapshot</url>
 		</snapshotRepository>
 	</distributionManagement>
-
-	<organization>
-		<name>JJ International</name>
-		<url>http://jjinterna.com</url>
-	</organization>
-	<url>http://pbxevents.jjinterna.com</url>
-	<description>PBXEvents is an application for PBX events processing. It can receive events from Asterisk PBX, 3CX PBX and more. PBXEvents integrates with third-party software over HTTP GET/POST and SOAP.</description>
-	<inceptionYear>2015</inceptionYear>
 
 	<licenses>
 		<license>
@@ -163,11 +160,35 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-project-info-reports-plugin</artifactId>
 				<version>2.8</version>
+				<configuration>
+					<dependencyLocationsEnabled>true</dependencyLocationsEnabled>
+					<dependencyDetailsEnabled>true</dependencyDetailsEnabled>
+				</configuration>
 				<!-- <reportSets> <reportSet> <reports> <report>index</report> <report>dependencies</report> 
 					<report>project-team</report> <report>license</report> </reports> </reportSet> 
 					</reportSets> -->
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+				<version>2.18.1</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>3.4</version>
+				<configuration>
+					<skipEmptyReport>true</skipEmptyReport>
+				</configuration>
+			</plugin>
 		</plugins>
 	</reporting>
 
+	<scm>
+		<url>https://github.com/gmanev/PBXEvents</url>
+	</scm>
+	<issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/gmanev/PBXEvents/issues</url>
+	</issueManagement>
 </project>

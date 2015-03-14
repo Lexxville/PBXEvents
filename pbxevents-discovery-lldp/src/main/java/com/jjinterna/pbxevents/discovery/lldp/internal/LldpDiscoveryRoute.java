@@ -27,14 +27,14 @@ public class LldpDiscoveryRoute extends RouteBuilder {
 	private Integer retries;
 	private Integer timeout;
 
-	private static OID lldpRemEntry = new OID("1.0.8802.1.1.2.1.4.1.1");
-	private static OID lldpRemChassisId = new OID("1.0.8802.1.1.2.1.4.1.1.5");
-	private static OID lldpRemSysName = new OID("1.0.8802.1.1.2.1.4.1.1.9");
-	private static OID lldpRemSysDesc = new OID("1.0.8802.1.1.2.1.4.1.1.10");
-	private static OID lldpRemSysCapSupported = new OID("1.0.8802.1.1.2.1.4.1.1.11");
-	private static OID lldpRemSysCapEnabled = new OID("1.0.8802.1.1.2.1.4.1.1.12");
+	public static OID lldpRemEntry = new OID("1.0.8802.1.1.2.1.4.1.1");
+	public static OID lldpRemChassisId = new OID("1.0.8802.1.1.2.1.4.1.1.5");
+	public static OID lldpRemSysName = new OID("1.0.8802.1.1.2.1.4.1.1.9");
+	public static OID lldpRemSysDesc = new OID("1.0.8802.1.1.2.1.4.1.1.10");
+	public static OID lldpRemSysCapSupported = new OID("1.0.8802.1.1.2.1.4.1.1.11");
+	public static OID lldpRemSysCapEnabled = new OID("1.0.8802.1.1.2.1.4.1.1.12");
 	
-	private static int capRepeater = 2, capBridge = 4, capWlanAccessPoint = 8, capRouter = 16,
+	public static int capRepeater = 2, capBridge = 4, capWlanAccessPoint = 8, capRouter = 16,
 			capTelephone = 32, capDocsisCableDevice = 64, capStationOnly = 128;
 
 	@Override
@@ -84,7 +84,7 @@ public class LldpDiscoveryRoute extends RouteBuilder {
 							if (varBinding.getOid().startsWith(lldpRemChassisId)) {
 								String value = varBinding.getVariable().toString().substring(3);
 								OctetString os = OctetString.fromHexString(value);
-								org.snmp4j.smi.Address snmp4jIpAddress = new org.snmp4j.smi.IpAddress(os.getValue());
+								Address snmp4jIpAddress = new org.snmp4j.smi.IpAddress(os.getValue());
 								phone.setPhoneAddress(snmp4jIpAddress.toString());
 							} else if (oid.startsWith(lldpRemSysDesc)) {
 								phone.setSysDesc(varBinding.toValueString());								
@@ -103,6 +103,6 @@ public class LldpDiscoveryRoute extends RouteBuilder {
 		}
 
 		snmp.close();
-		return (isTelephone) ? phone : null;
+		return isTelephone ? phone : null;
 	}
 }

@@ -19,7 +19,7 @@ public class CdrSocketRoute extends RouteBuilder {
 	private Integer port;
 	private DateFormat dateFormat = new SimpleDateFormat("ddMMyyHHmmss");
 	private DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-	
+
 	@Override
 	public void configure() throws Exception {
 		checkProperties();
@@ -30,40 +30,47 @@ public class CdrSocketRoute extends RouteBuilder {
 		JaxbDataFormat jaxb = new JaxbDataFormat();
 		jaxb.setContextPath(Call.class.getPackage().getName());
 		jaxb.setPartClass(Call.class.getName());
-		
-		from("netty4:tcp://{{host}}:{{port}}?sync=false&textline=true")
-		.filter(body().startsWith("<Call"))
-		.unmarshal(jaxb)
-		.process(new Processor() {
 
-			@Override
-			public void process(Exchange exchange) throws Exception {
-				Call call = exchange.getIn().getBody(Call.class);
-				CallStop event = new CallStop();
-				event.setCallId(call.getCallId());
-				event.setCallingNumber(call.getCallerId());
-				event.setCalledNumber(call.getDialedNumber());
-				if (call.getDuration() != null && call.getDuration().length() > 8) {
-					event.setCallDuration((int) (timeFormat.parse(call.getDuration().substring(0, 8)).getTime() / 1000));
-				}
-				if (call.getStartTime() != null && call.getStartTime().length() == 12) { 
-					event.setCallSetupTime((int) (dateFormat.parse(call.getStartTime()).getTime() / 1000));
-				}
-				if (call.getAnswerTime() != null && call.getAnswerTime().length() == 12) {
-					event.setCallConnectTime((int) (dateFormat.parse(call.getAnswerTime()).getTime() / 1000));
-				}
-				if (call.getEndTime() != null && call.getEndTime().length() == 12) {
-					event.setCallDisconnectTime((int) (dateFormat.parse(call.getEndTime()).getTime() / 1000));
-				}
-				exchange.getIn().setBody(event);
-			}
-			
-		})
-		.to("direct:publish");
+		from("netty4:tcp://{{host}}:{{port}}?sync=false&textline=true")
+				.filter(body().startsWith("<Call")).unmarshal(jaxb)
+				.process(new Processor() {
+
+					@Override
+					public void process(Exchange exchange) throws Exception {
+						Call call = exchange.getIn().getBody(Call.class);
+						CallStop event = new CallStop();
+						event.setCallId(call.getCallId());
+						event.setCallingNumber(call.getCallerId());
+						event.setCalledNumber(call.getDialedNumber());
+						if (call.getDuration() != null
+								&& call.getDuration().length() > 8) {
+							event.setCallDuration((int) (timeFormat.parse(
+									call.getDuration().substring(0, 8))
+									.getTime() / 1000));
+						}
+						if (call.getStartTime() != null
+								&& call.getStartTime().length() == 12) {
+							event.setCallSetupTime((int) (dateFormat.parse(
+									call.getStartTime()).getTime() / 1000));
+						}
+						if (call.getAnswerTime() != null
+								&& call.getAnswerTime().length() == 12) {
+							event.setCallConnectTime((int) (dateFormat.parse(
+									call.getAnswerTime()).getTime() / 1000));
+						}
+						if (call.getEndTime() != null
+								&& call.getEndTime().length() == 12) {
+							event.setCallDisconnectTime((int) (dateFormat
+									.parse(call.getEndTime()).getTime() / 1000));
+						}
+						exchange.getIn().setBody(event);
+					}
+
+				}).to("direct:publish");
 	}
 
 	private void checkProperties() {
-		Validate.notNull(host, "host property is not set");		
+		Validate.notNull(host, "host property is not set");
 		Validate.notNull(port, "port property is not set");
 	}
 }

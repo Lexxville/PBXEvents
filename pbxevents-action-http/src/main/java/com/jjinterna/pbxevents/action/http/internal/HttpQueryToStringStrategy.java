@@ -236,8 +236,9 @@ public class HttpQueryToStringStrategy implements ToStringStrategy {
 			Object parent, String fieldName, StringBuilder stringBuilder,
 			Object value) {
 		if (value == null) {
-			//
-		} else if (value instanceof String) {
+			return stringBuilder;
+		}
+		if (value instanceof String) {
 			appendFieldStart(parentLocator, parent, fieldName, stringBuilder);
 			try {
 				stringBuilder

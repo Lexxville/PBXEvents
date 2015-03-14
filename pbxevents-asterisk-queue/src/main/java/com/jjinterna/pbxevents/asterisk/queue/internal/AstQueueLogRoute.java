@@ -27,207 +27,214 @@ import com.jjinterna.pbxevents.routes.logfile.LogfileMark;
 
 public class AstQueueLogRoute extends RouteBuilder {
 
-    // Configured fields
+	// Configured fields
 	private String camelRouteId;
-    private String fileName;
-    private Boolean rewriteLocalChannels;
-    private RtCache rtCache;
+	private String fileName;
+	private Boolean rewriteLocalChannels;
+	private RtCache rtCache;
 
-    public AstQueueLogRoute(RtCache rtCache) {
-    	this.rtCache = rtCache;
-    }
-    
+	public AstQueueLogRoute(RtCache rtCache) {
+		this.rtCache = rtCache;
+	}
+
 	@Override
 	public void configure() throws Exception {
 		AggregationStrategy callEventAggregationStrategy = new CallEventAggregationStrategy();
-		final LogfileMark queueLogMark = new LogfileMark("data/mark_" + URLEncoder.encode(camelRouteId + "-" + fileName, "UTF-8"));
+		final LogfileMark queueLogMark = new LogfileMark("data/mark_"
+				+ URLEncoder.encode(camelRouteId + "-" + fileName, "UTF-8"));
 		String s = queueLogMark.getMark();
 		final int mark = (s != null) ? Integer.valueOf(s) : 0;
-		
-		from("direct:callComplete")
-		.id(camelRouteId + ".callComplete")
-		.startupOrder(100)
-		.aggregate(header("PBXCallID"), callEventAggregationStrategy)
-			.completionTimeout(3600 * 1000)
-			.eagerCheckCompletion()
-			.completionPredicate(new Predicate() {
-				@Override
-				public boolean matches(Exchange exchange) {
-					if (exchange.getIn().getBody() instanceof QueueLog) {
-						QueueLog queueLog = (QueueLog) exchange.getIn().getBody();
-						return queueLog.getVerb().equals(QueueLogType.COMPLETEAGENT) ||
-								queueLog.getVerb().equals(QueueLogType.COMPLETECALLER);
+
+		from("direct:callComplete").id(camelRouteId + ".callComplete")
+				.startupOrder(100)
+				.aggregate(header("PBXCallID"), callEventAggregationStrategy)
+				.completionTimeout(3600 * 1000).eagerCheckCompletion()
+				.completionPredicate(new Predicate() {
+					@Override
+					public boolean matches(Exchange exchange) {
+						if (exchange.getIn().getBody() instanceof QueueLog) {
+							QueueLog queueLog = (QueueLog) exchange.getIn()
+									.getBody();
+							return queueLog.getVerb().equals(
+									QueueLogType.COMPLETEAGENT)
+									|| queueLog.getVerb().equals(
+											QueueLogType.COMPLETECALLER);
+						}
+						return false;
 					}
-					return false;
-				}
-			})
-		.to("direct:publish");
-		
+				}).to("direct:publish");
+
 		from("direct:callConnect")
-		.id(camelRouteId + ".callConnect")
-		.startupOrder(101)
-		.aggregate(header("PBXCallID"), callEventAggregationStrategy)
-			.completionTimeout(3600 * 1000)	
-			.eagerCheckCompletion()
-			.completionPredicate(new Predicate() {				
-				@Override
-				public boolean matches(Exchange exchange) {
-					if (exchange.getIn().getBody() instanceof QueueLog) {
-						QueueLog queueLog = (QueueLog) exchange.getIn().getBody();
-						return queueLog.getVerb().equals(QueueLogType.ABANDON) ||
-								queueLog.getVerb().equals(QueueLogType.EXITWITHTIMEOUT) ||
-								queueLog.getVerb().equals(QueueLogType.CONNECT);
+				.id(camelRouteId + ".callConnect")
+				.startupOrder(101)
+				.aggregate(header("PBXCallID"), callEventAggregationStrategy)
+				.completionTimeout(3600 * 1000)
+				.eagerCheckCompletion()
+				.completionPredicate(new Predicate() {
+					@Override
+					public boolean matches(Exchange exchange) {
+						if (exchange.getIn().getBody() instanceof QueueLog) {
+							QueueLog queueLog = (QueueLog) exchange.getIn()
+									.getBody();
+							return queueLog.getVerb().equals(
+									QueueLogType.ABANDON)
+									|| queueLog.getVerb().equals(
+											QueueLogType.EXITWITHTIMEOUT)
+									|| queueLog.getVerb().equals(
+											QueueLogType.CONNECT);
+						}
+						return false;
 					}
-					return false;
-				}
-			})
-		.process(new Processor() {
+				})
+				.process(new Processor() {
 
-			@Override
-			public void process(Exchange exchange) throws Exception {
-				if (exchange.getIn().getBody() instanceof CallConnect) {
-					CallConnect callConnect = (CallConnect) exchange.getIn().getBody();
-					PhoneLine phoneLine = (PhoneLine) rtCache.get(RtCacheType.LINE, callConnect.getAgent());
-					if (phoneLine != null) {
-						callConnect.setPhoneLine(phoneLine);
-						callConnect.setPhone((Phone) rtCache.get(RtCacheType.PHONE, phoneLine.getPhoneAddress()));
+					@Override
+					public void process(Exchange exchange) throws Exception {
+						if (exchange.getIn().getBody() instanceof CallConnect) {
+							CallConnect callConnect = (CallConnect) exchange
+									.getIn().getBody();
+							PhoneLine phoneLine = (PhoneLine) rtCache.get(
+									RtCacheType.LINE, callConnect.getAgent());
+							if (phoneLine != null) {
+								callConnect.setPhoneLine(phoneLine);
+								callConnect.setPhone((Phone) rtCache.get(
+										RtCacheType.PHONE,
+										phoneLine.getPhoneAddress()));
+							}
+						}
 					}
-				}		
-			}
 
-		})
-		.multicast()
-			.to("direct:publish")
-			.filter(header("PBXEvent").isEqualTo(CallConnect.class.getSimpleName())).to("direct:callComplete").end()
-		.end();
+				})
+				.multicast()
+				.to("direct:publish")
+				.filter(header("PBXEvent").isEqualTo(
+						CallConnect.class.getSimpleName()))
+				.to("direct:callComplete").end().end();
 
 		from("direct:callEnterQueue")
-		.id(camelRouteId + ".callEnterQueue")
-		.startupOrder(102)
-		.aggregate(header("PBXCallID"), callEventAggregationStrategy)
-			.completionTimeout(60 * 1000)
-			.completionPredicate(header("PBXEvent").isEqualTo(CallEnterQueue.class.getSimpleName()))
-		.multicast()
-			.to("direct:publish", "direct:callConnect");
+				.id(camelRouteId + ".callEnterQueue")
+				.startupOrder(102)
+				.aggregate(header("PBXCallID"), callEventAggregationStrategy)
+				.completionTimeout(60 * 1000)
+				.completionPredicate(
+						header("PBXEvent").isEqualTo(
+								CallEnterQueue.class.getSimpleName()))
+				.multicast().to("direct:publish", "direct:callConnect");
 
 		from("direct:queueLog")
-		.id(camelRouteId + ".queueLog")
-		.startupOrder(103)
-		.choice()
-			.when(header("PBXEvent").in(
-					QueueLogType.DID,
-					QueueLogType.ENTERQUEUE))
-				.to("direct:callEnterQueue").stop()
-			.when(header("PBXEvent").in(
-					QueueLogType.ABANDON,
-					QueueLogType.CONNECT,
-					QueueLogType.EXITWITHTIMEOUT,
-					QueueLogType.RINGNOANSWER))
-				.to("direct:callConnect").stop()
-			.when(header("PBXEvent").in(
-					QueueLogType.COMPLETEAGENT,
-					QueueLogType.COMPLETECALLER))
-				.to("direct:callComplete").stop()
-			.when(header("PBXEvent").in(
-					QueueLogType.ADDMEMBER,
-					QueueLogType.REMOVEMEMBER,
-					QueueLogType.UNPAUSE,
-					QueueLogType.PAUSE))
-				.to("direct:queue").stop()
-		.end();
+				.id(camelRouteId + ".queueLog")
+				.startupOrder(103)
+				.choice()
+				.when(header("PBXEvent").in(QueueLogType.DID,
+						QueueLogType.ENTERQUEUE))
+				.to("direct:callEnterQueue")
+				.stop()
+				.when(header("PBXEvent").in(QueueLogType.ABANDON,
+						QueueLogType.CONNECT, QueueLogType.EXITWITHTIMEOUT,
+						QueueLogType.RINGNOANSWER))
+				.to("direct:callConnect")
+				.stop()
+				.when(header("PBXEvent").in(QueueLogType.COMPLETEAGENT,
+						QueueLogType.COMPLETECALLER))
+				.to("direct:callComplete")
+				.stop()
+				.when(header("PBXEvent").in(QueueLogType.ADDMEMBER,
+						QueueLogType.REMOVEMEMBER, QueueLogType.UNPAUSE,
+						QueueLogType.PAUSE)).to("direct:queue").stop().end();
 
-		from("direct:queue")
-		.id(camelRouteId + ".queue")
-		.startupOrder(110)
-		.process(new Processor() {
+		from("direct:queue").id(camelRouteId + ".queue").startupOrder(110)
+				.process(new Processor() {
 
-			@Override
-			public void process(Exchange exchange) throws Exception {
-				QueueLog log = (QueueLog) exchange.getIn().getBody();
-				PBXQueueEvent event = null;
-				switch (log.getVerb()) {
-				case ADDMEMBER:
-					event = new QueueAddMember();
-					break;
-				case REMOVEMEMBER:
-					event = new QueueRemoveMember();
-					break;
-				case PAUSE:
-					event = new QueuePause();
-					break;
-				case UNPAUSE:
-					event = new QueueUnPause();
-					break;
-				default:
-		        	exchange.setProperty(Exchange.ROUTE_STOP, Boolean.TRUE);
-		        	return;
-				}
-				event.setTimeId(log.getTimeId());
-				event.setQueue(log.getQueue());
-				event.setMember(log.getAgent());
-				exchange.getIn().setHeader("PBXEvent", event.getClass().getSimpleName());				
-				exchange.getIn().setBody(event);
-			}
-			
-		})
-		.to("direct:publish");
-		
+					@Override
+					public void process(Exchange exchange) throws Exception {
+						QueueLog log = (QueueLog) exchange.getIn().getBody();
+						PBXQueueEvent event = null;
+						switch (log.getVerb()) {
+						case ADDMEMBER:
+							event = new QueueAddMember();
+							break;
+						case REMOVEMEMBER:
+							event = new QueueRemoveMember();
+							break;
+						case PAUSE:
+							event = new QueuePause();
+							break;
+						case UNPAUSE:
+							event = new QueueUnPause();
+							break;
+						default:
+							exchange.setProperty(Exchange.ROUTE_STOP,
+									Boolean.TRUE);
+							return;
+						}
+						event.setTimeId(log.getTimeId());
+						event.setQueue(log.getQueue());
+						event.setMember(log.getAgent());
+						exchange.getIn().setHeader("PBXEvent",
+								event.getClass().getSimpleName());
+						exchange.getIn().setBody(event);
+					}
+
+				}).to("direct:publish");
+
 		from("stream:file?fileName={{fileName}}&scanStream=true&scanStreamDelay=1000")
-		.id(camelRouteId)
-		.unmarshal(new CsvDataFormat("|"))
-		.process(new Processor() {
-			@Override
-			public void process(Exchange exchange) throws Exception {
-		        Message in = exchange.getIn();
-		        List<List<String>> csvData = (List<List<String>>) in.getBody();
-		        List<String> fields = csvData.get(0);
-		        for (int i = fields.size(); i<10; i++) {
-		        	fields.add("");
-		        }
-		        
-		        QueueLog queueLog = new QueueLog();
-		        queueLog.setTimeId(Integer.parseInt(fields.get(0)));
-		        queueLog.setCallId(fields.get(1));
-		        queueLog.setQueue(fields.get(2));
-		        String s = fields.get(3);
-		        if (rewriteLocalChannels && s.startsWith("Local/")) {
-		        	queueLog.setAgent(s.substring(6, s.indexOf('@')));
-		        } else {
-		        	queueLog.setAgent(s);
-		        }
-		        try {
-		        	queueLog.setVerb(QueueLogType.fromValue(fields.get(4)));
-		        }
-		        catch (IllegalArgumentException e) {
-		        	// unknown verb
-		        	exchange.setProperty(Exchange.ROUTE_STOP, Boolean.TRUE);
-		        	return;
-		        }
-		        queueLog.setData1(fields.get(5));
-		        queueLog.setData2(fields.get(6));
-		        queueLog.setData3(fields.get(7));
-		        queueLog.setData4(fields.get(8));
-		        queueLog.setData5(fields.get(9));
+				.id(camelRouteId).unmarshal(new CsvDataFormat("|"))
+				.process(new Processor() {
+					@Override
+					public void process(Exchange exchange) throws Exception {
+						Message in = exchange.getIn();
+						List<List<String>> csvData = (List<List<String>>) in
+								.getBody();
+						List<String> fields = csvData.get(0);
+						for (int i = fields.size(); i < 10; i++) {
+							fields.add("");
+						}
 
-		        in.setHeader("PBXCallID", queueLog.getCallId());
-		        in.setHeader("PBXEvent", queueLog.getVerb().toString());
-		        in.setHeader("PBXQueue", queueLog.getQueue());
-		        
-		        in.setBody(queueLog);
+						QueueLog queueLog = new QueueLog();
+						queueLog.setTimeId(Integer.parseInt(fields.get(0)));
+						queueLog.setCallId(fields.get(1));
+						queueLog.setQueue(fields.get(2));
+						String s = fields.get(3);
+						if (rewriteLocalChannels && s.startsWith("Local/")) {
+							queueLog.setAgent(s.substring(6, s.indexOf('@')));
+						} else {
+							queueLog.setAgent(s);
+						}
+						try {
+							queueLog.setVerb(QueueLogType.fromValue(fields
+									.get(4)));
+						} catch (IllegalArgumentException e) {
+							// unknown verb
+							exchange.setProperty(Exchange.ROUTE_STOP,
+									Boolean.TRUE);
+							return;
+						}
+						queueLog.setData1(fields.get(5));
+						queueLog.setData2(fields.get(6));
+						queueLog.setData3(fields.get(7));
+						queueLog.setData4(fields.get(8));
+						queueLog.setData5(fields.get(9));
 
-		        if (queueLog.getTimeId() <= mark) {
-		        	exchange.setProperty(Exchange.ROUTE_STOP, Boolean.TRUE);
-		        } else {
-		        	try {
-		        		queueLogMark.setMark(fields.get(0));
-		        	}
-		        	catch (Exception e) {}
-		        }
-			}
-		})
-		.to("direct:queueLog");
+						in.setHeader("PBXCallID", queueLog.getCallId());
+						in.setHeader("PBXEvent", queueLog.getVerb().toString());
+						in.setHeader("PBXQueue", queueLog.getQueue());
 
-		getContext().addLifecycleStrategy(new LogfileLifecycleStrategySupport(camelRouteId, fileName));
+						in.setBody(queueLog);
+
+						if (queueLog.getTimeId() <= mark) {
+							exchange.setProperty(Exchange.ROUTE_STOP,
+									Boolean.TRUE);
+						} else {
+							try {
+								queueLogMark.setMark(fields.get(0));
+							} catch (Exception e) {
+							}
+						}
+					}
+				}).to("direct:queueLog");
+
+		getContext().addLifecycleStrategy(
+				new LogfileLifecycleStrategySupport(camelRouteId, fileName));
 
 	}
 }

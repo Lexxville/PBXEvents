@@ -4,6 +4,6 @@ import com.jjinterna.pbxevents.model.PBXEvent;
 
 public interface EventSelector {
 
-	public boolean select(PBXEvent event);
+	boolean select(PBXEvent event);
 
 }

@@ -42,7 +42,7 @@ import com.jjinterna.pbxevents.rtcache.internal.RtCacheRoute;
         cardinality = ReferenceCardinality.MANDATORY_MULTIPLE, policy = ReferencePolicy.DYNAMIC,
         policyOption = ReferencePolicyOption.GREEDY, bind = "gotCamelComponent", unbind = "lostCamelComponent")
 })
-@Service(value=com.jjinterna.pbxevents.routes.RtCache.class)
+@Service(value=RtCache.class)
 public class RtCacheService extends AbstractCamelRunner implements RtCache {
 
 	public static final String COMPONENT_DESCRIPTION = "PBXEvents Runtime Cache";

@@ -42,31 +42,32 @@ public class CallEventAggregationStrategy implements AggregationStrategy {
 				callEvent = copy(callEvent, new CallExitWithTimeout());
 				break;
 			case ABANDON:
-				callEvent.setQueueLeaveTime(queueLog.getTimeId());				
+				callEvent.setQueueLeaveTime(queueLog.getTimeId());
 				callEvent = copy(callEvent, new CallAbandon());
 				break;
 			case CONNECT:
-				callEvent.setQueueConnectTime(queueLog.getTimeId());				
+				callEvent.setQueueConnectTime(queueLog.getTimeId());
 				callEvent.setAgent(queueLog.getAgent());
 				callEvent = copy(callEvent, new CallConnect());
 				break;
 			case COMPLETEAGENT:
 			case COMPLETECALLER:
-				callEvent.setQueueLeaveTime(queueLog.getTimeId());				
+				callEvent.setQueueLeaveTime(queueLog.getTimeId());
 				callEvent = copy(callEvent, new CallComplete());
 				break;
 			}
 			// callEvent.getLog().add(queueLog);
-		} else if (newExchange.getIn().getBody() instanceof PBXCallQueueEvent){
+		} else if (newExchange.getIn().getBody() instanceof PBXCallQueueEvent) {
 			callEvent = (PBXCallQueueEvent) newExchange.getIn().getBody();
 		}
 		ex.getIn().setBody(callEvent);
 		ex.getIn().setHeader("PBXEvent", callEvent.getClass().getSimpleName());
-		ex.getIn().setHeader("PBXDID", callEvent.getDid());		
+		ex.getIn().setHeader("PBXDID", callEvent.getDid());
 		return ex;
 	}
 
-	private static PBXCallQueueEvent copy(PBXCallQueueEvent from, PBXCallQueueEvent to) {
+	private static PBXCallQueueEvent copy(PBXCallQueueEvent from,
+			PBXCallQueueEvent to) {
 		to.setAgent(from.getAgent());
 		to.setCallerId(from.getCallerId());
 		to.setCallId(from.getCallId());

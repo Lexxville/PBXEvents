@@ -6,9 +6,9 @@ import org.apache.camel.builder.RouteBuilder;
 
 public interface EventMediator {
 
-	public RouteBuilder publisher();
-	public RouteBuilder subscriber(List<EventSelector> selectors);
-	public RouteBuilder subscriber(List<EventSelector> selectors, String destUri);
+	RouteBuilder publisher();
+	RouteBuilder subscriber(List<EventSelector> selectors);
+	RouteBuilder subscriber(List<EventSelector> selectors, String destUri);
 	
-	public String queueUri(String queueName);
+	String queueUri(String queueName);
 }
