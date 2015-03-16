@@ -1,0 +1,24 @@
+LLDP Discovery module
+
+  Receive Link Layer Discovery Protocol (LLDP) events.
+
+* Options
+
+*-----*------*------*
+ <<Name>> | <<Default Value>> | <<Description>>
+*-----*------*------*
+ snmpCommunity | public | Sets the community octet string for the SNMP request.
+*-----*------*------*
+ snmpVersion | 0 (which means SNMPv1) | Sets the SNMP version for the request.
+*-----*------*------*
+ host |  | Sets the IP address of the device.
+*-----*------*------*
+ port | 161 | Sets the SNMP port of the device.
+*-----*------*------*
+ timeout | 1500 | Sets the timeout value for the request in millis.
+*-----*------*------*
+ retries | 2 | Defines how often a retry is made before canceling the request.
+*-----*------*------*
+ period | 60000 | Sets the polling period in millis.
+*-----*------*------*
+

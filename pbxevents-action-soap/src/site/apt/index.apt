@@ -1,0 +1,30 @@
+SOAP Action
+
+  Send events over SOAP.
+ 
+* Options
+
+*-----*------*------*
+ <<Name>> | <<Default Value>> | <<Description>>
+*-----*------*------*
+ endpoint | | The SOAP endpoint
+*-----*------*------*
+
+** Example
+
+---
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+  <soap:Body>
+    <ns2:updateEvent xmlns:ns2="http://soap.action.pbxevents.jjinterna.com/" xmlns:ns3="http://pbxevents.jjinterna.com/model">
+      <arg0 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns3:CallEnterQueue">
+        <ns3:callId>1422338397.531813</ns3:callId>
+        <ns3:callerId>3239012722</ns3:callerId>
+        <ns3:did>3104922850</ns3:did>
+        <ns3:queue>8109</ns3:queue>
+        <ns3:queueEnterTime>1422338405</ns3:queueEnterTime>
+      </arg0>
+    </ns2:updateEvent>
+  </soap:Body>
+</soap:Envelope>
+---
+

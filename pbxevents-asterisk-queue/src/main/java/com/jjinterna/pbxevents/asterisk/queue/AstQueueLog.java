@@ -26,7 +26,9 @@ import com.jjinterna.pbxevents.routes.RtCache;
 		@Property(name = "camelRouteId", value = "default"),
 		@Property(name = "active", value = "true"),
 		@Property(name = "rewriteLocalChannels", value = "true") })
-@References({ @Reference(name = "camelComponent", referenceInterface = ComponentResolver.class, cardinality = ReferenceCardinality.MANDATORY_MULTIPLE, policy = ReferencePolicy.DYNAMIC, policyOption = ReferencePolicyOption.GREEDY, bind = "gotCamelComponent", unbind = "lostCamelComponent") })
+@References({ @Reference(name = "camelComponent", referenceInterface = ComponentResolver.class, 
+	cardinality = ReferenceCardinality.MANDATORY_MULTIPLE, policy = ReferencePolicy.DYNAMIC, 
+	policyOption = ReferencePolicyOption.GREEDY, bind = "gotCamelComponent", unbind = "lostCamelComponent") })
 public class AstQueueLog extends AbstractCamelRunner {
 
 	public static final String COMPONENT_DESCRIPTION = "PBXEvents Asterisk PBX queue_log Publisher";

@@ -22,9 +22,13 @@ import com.jjinterna.pbxevents.routes.EventMediator;
 import com.jjinterna.pbxevents.routes.EventSelector;
 
 @Component(description = SoapAction.COMPONENT_DESCRIPTION, immediate = true, metatype = true, policy = ConfigurationPolicy.REQUIRE)
-@Properties({ @Property(name = "endpoint"),
-		@Property(name = "active", value = "true") })
-@References({ @Reference(name = "camelComponent", referenceInterface = ComponentResolver.class, cardinality = ReferenceCardinality.MANDATORY_MULTIPLE, policy = ReferencePolicy.DYNAMIC, policyOption = ReferencePolicyOption.GREEDY, bind = "gotCamelComponent", unbind = "lostCamelComponent") })
+@Properties({
+	@Property(name = "camelContextId", value = "pbxevents-soap"),
+	@Property(name = "endpoint"),
+	@Property(name = "active", value = "true") })
+@References({ @Reference(name = "camelComponent", referenceInterface = ComponentResolver.class, 
+	cardinality = ReferenceCardinality.MANDATORY_MULTIPLE, policy = ReferencePolicy.DYNAMIC,
+	policyOption = ReferencePolicyOption.GREEDY, bind = "gotCamelComponent", unbind = "lostCamelComponent") })
 public class SoapAction extends AbstractCamelRunner {
 
 	public static final String COMPONENT_DESCRIPTION = "PBXEvents SOAP Action";

@@ -1,0 +1,12 @@
+3CX PBX CDR Socket module
+
+  Receive 3CX PBX socket events.
+
+* Options
+
+*-----*------*------*
+ <<Name>> | <<Default Value>> | <<Description>>
+*-----*------*------*
+ port | 33555 | TCP listening port
+*-----*------*------*
+

@@ -1,0 +1,12 @@
+Asterisk PBX Messages module
+
+  Receive Asterisk PBX messages events.
+
+* Options
+
+*-----*------*------*
+ <<Name>> | <<Default Value>> | <<Description>>
+*-----*------*------*
+ fileName | | Full path to Asterisk messages file. Example: "/var/log/asterisk/messages"
+*-----*------*------*
+

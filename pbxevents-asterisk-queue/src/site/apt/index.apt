@@ -1,0 +1,14 @@
+Asterisk PBX Queue module
+
+  Receive Asterisk PBX queue_log events.
+
+* Options
+
+*-----*------*------*
+ <<Name>> | <<Default Value>> | <<Description>>
+*-----*------*------*
+ fileName | | Full path to Asterisk queue_log file. Example: "/var/log/asterisk/queue_log"
+*-----*------*------*
+ rewriteLocalChannels | true | Rewrite "Local/agent@context/n" to "agent".
+*-----*------*------*
+

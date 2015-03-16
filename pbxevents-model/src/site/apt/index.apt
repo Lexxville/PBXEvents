@@ -1,37 +1,458 @@
-PBX events model
+PBXEvents model
 
   Depending on the loaded modules the following events are available:
 
 *-----*------*------*
- <<Name>> | <<Since>> | <<Supported by>>
+ <<Event>> | <<Since>> | <<Supported by>>
 *-----*------*------*
- CallEnterQueue | 1.0.0 | {{{/pbxevents-asterisk-queue/index.html}asterisk-queue}}
+ {{CallEnterQueue}} | 1.0 | {{{/pbxevents-asterisk-queue/index.html}asterisk-queue}}
 *-----*------*------*
- CallAbandon | 1.0.0 | {{{/pbxevents-asterisk-queue/index.html}asterisk-queue}}
+ {{CallAbandon}} | 1.0 | {{{/pbxevents-asterisk-queue/index.html}asterisk-queue}}
 *-----*------*------*
- CallComplete | 1.0.0 | {{{/pbxevents-asterisk-queue/index.html}asterisk-queue}}
+ {{CallConnect}} | 1.0 | {{{/pbxevents-asterisk-queue/index.html}asterisk-queue}}
 *-----*------*------*
- CallConnect | 1.0.0 | {{{/pbxevents-asterisk-queue/index.html}asterisk-queue}}
+ {{CallComplete}} | 1.0 | {{{/pbxevents-asterisk-queue/index.html}asterisk-queue}}
 *-----*------*------*
- CallExitWithTimeout | 1.0.0 | {{{/pbxevents-asterisk-queue/index.html}asterisk-queue}}
+ {{CallExitWithTimeout}} | 1.0 | {{{/pbxevents-asterisk-queue/index.html}asterisk-queue}}
 *-----*------*------*
- QueueAddMember | 1.0.0 | {{{/pbxevents-asterisk-queue/index.html}asterisk-queue}}
+ {{QueueAddMember}} | 1.0 | {{{/pbxevents-asterisk-queue/index.html}asterisk-queue}}
 *-----*------*------*
- QueueRemoveMember | 1.0.0 | {{{/pbxevents-asterisk-queue/index.html}asterisk-queue}}
+ {{QueueRemoveMember}} | 1.0 | {{{/pbxevents-asterisk-queue/index.html}asterisk-queue}}
 *-----*------*------*
- QueuePause | 1.0.0 | {{{/pbxevents-asterisk-queue/index.html}asterisk-queue}}
+ {{QueuePause}} | 1.0 | {{{/pbxevents-asterisk-queue/index.html}asterisk-queue}}
 *-----*------*------*
- QueueUnPause | 1.0.0 | {{{/pbxevents-asterisk-queue/index.html}asterisk-queue}}
+ {{QueueUnPause}} | 1.0 | {{{/pbxevents-asterisk-queue/index.html}asterisk-queue}}
 *-----*------*------*
- CallStart | 1.0.0 |
+ CallStart |  |
 *-----*------*------*
- CallUpdate | 1.0.0 |
+ CallUpdate |  |
 *-----*------*------*
- CallStop | 1.0.0 | {{{/pbxevents-3cx-cdrsocket/index.html}3cx-cdrsocket}}
+ {{CallStop}} | 1.0 | {{{/pbxevents-3cx-cdrsocket/index.html}3cx-cdrsocket}}
 *-----*------*------*
- Phone | 1.0.0 | {{{/pbxevents-discovery-lldp/index.html}discovery-lldp}}
+ {{Phone}} | 1.0 | {{{/pbxevents-discovery-lldp/index.html}discovery-lldp}}
 *-----*------*------*
- PhoneLine | 1.0.0 | {{{/pbxevents-asterisk-messages/index.html}asterisk-messages}}
+ {{PhoneLine}} | 1.0 | {{{/pbxevents-asterisk-messages/index.html}asterisk-messages}}
 *-----*------*------*
-SnmpTrapEvent | 1.0.0 | {{{/pbxevents-snmptrap/index.html}snmptrap}}
+ {{SnmpTrapEvent}} | 1.0 | {{{/pbxevents-snmptrap/index.html}snmptrap}}
 *-----*------*------*
+
+* Call Queue events flowchart
+
+  CallEnterQueue, CallAbandon, CallComplete, CallConnect and CallExitWithTimeout events have the following possible transitions: 
+
+[./images/callqueue-events.png] Call Queue events flowchart
+
+
+
+* CallEnterQueue
+
+  A call entered the queue.
+
+** Fields
+
+*-----*------*
+ <<Field>> | <<Description>>
+*-----*------*
+ callId | The call identifier
+*-----*------*
+ callerId | The Caller ID
+*-----*------*
+ did | The dialed number
+*-----*------*
+ queue | The queue name
+*-----*------*
+ queueEnterTime | The GMT timestamp when entering the queue
+*-----*------*
+
+** Example
+
+---
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<CallEnterQueue xmlns="http://pbxevents.jjinterna.com/model">
+  <callId>1422339149.531960</callId>
+  <callerId>306231473</callerId>
+  <did>304412483</did>
+  <queue>8101</queue>
+  <queueEnterTime>1422339159</queueEnterTime>
+</CallEnterQueue>
+---
+
+* CallAbandon
+
+  A call abandoned the queue.
+
+** Fields
+
+*-----*------*
+ <<Field>> | <<Description>>
+*-----*------*
+ callId | The call identifier
+*-----*------*
+ callerId | The Caller ID
+*-----*------*
+ did | The dialed number
+*-----*------*
+ queue | The queue name
+*-----*------*
+ queueEnterTime | The GMT timestamp when entering the queue
+*-----*------*
+ queueLeaveTime | The GMT timestamp when leaving the queue
+*-----*------*
+
+** Example
+
+---
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<CallAbandon xmlns="http://pbxevents.jjinterna.com/model">
+  <callId>1422339149.531960</callId>
+  <callerId>306231473</callerId>
+  <did>304412483</did>
+  <queue>8101</queue>
+  <queueEnterTime>1422339159</queueEnterTime>
+  <queueLeaveTime>1422339230</queueLeaveTime>  
+</CallAbandon>
+---
+
+* CallConnect
+
+  A call connected to an agent.
+
+** Fields
+
+*-----*------*
+ <<Field>> | <<Description>>
+*-----*------*
+ callId | The call identifier
+*-----*------*
+ callerId | The Caller ID
+*-----*------*
+ did | The dialed number
+*-----*------*
+ queue | The queue name
+*-----*------*
+ agent | The agent name
+*-----*------*
+ queueEnterTime | The GMT timestamp when entering the queue
+*-----*------*
+ queueConnectTime | The GMT timestamp when connected to agent
+*-----*------*
+
+** Example
+
+---
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<CallConnect xmlns="http://pbxevents.jjinterna.com/model">
+  <callId>1422339149.531960</callId>
+  <callerId>306231473</callerId>
+  <did>304412483</did>
+  <queue>8101</queue>
+  <agent>204</agent>
+  <queueEnterTime>1422339159</queueEnterTime>
+  <queueConnectTime>1422339161</queueConnectTime>  
+</CallConnect>
+---
+
+* CallComplete
+
+  A connected call completed.
+
+** Fields
+
+*-----*------*
+ <<Field>> | <<Description>>
+*-----*------*
+ callId | The call identifier
+*-----*------*
+ callerId | The Caller ID
+*-----*------*
+ did | The dialed number
+*-----*------*
+ queue | The queue name
+*-----*------*
+ agent | The agent name
+*-----*------*
+ queueEnterTime | The GMT timestamp when entering the queue
+*-----*------*
+ queueConnectTime | The GMT timestamp when connected to agent
+*-----*------*
+ queueLeaveTime | The GMT timestamp when leaving the queue
+*-----*------*
+
+** Example
+
+---
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<CallComplete xmlns="http://pbxevents.jjinterna.com/model">
+  <callId>1422339149.531960</callId>
+  <callerId>306231473</callerId>
+  <did>304412483</did>
+  <queue>8101</queue>
+  <agent>204</agent>
+  <queueEnterTime>1422339159</queueEnterTime>
+  <queueConnectTime>1422339161</queueConnectTime>  
+  <queueLeaveTime>1422339230</queueLeaveTime>  
+</CallComplete>
+---
+
+* CallExitWithTimeout
+
+  A call exited from the queue because of a timeout.
+
+** Fields
+
+*-----*------*
+ <<Field>> | <<Description>>
+*-----*------*
+ callId | The call identifier
+*-----*------*
+ callerId | The Caller ID
+*-----*------*
+ did | The dialed number
+*-----*------*
+ queue | The queue name
+*-----*------*
+ queueEnterTime | The GMT timestamp when entering the queue
+*-----*------*
+ queueLeaveTime | The GMT timestamp when leaving the queue
+*-----*------*
+
+** Example
+
+---
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<CallExitWithTimeout xmlns="http://pbxevents.jjinterna.com/model">
+  <callId>1422339149.531960</callId>
+  <callerId>306231473</callerId>
+  <did>304412483</did>
+  <queue>8101</queue>
+  <queueEnterTime>1422339159</queueEnterTime>
+  <queueLeaveTime>1422339230</queueLeaveTime>  
+</CallExitWithTimeout>
+---
+
+* QueueAddMember
+
+  A member is added to the queue.
+
+** Fields
+
+*-----*------*
+ <<Field>> | <<Description>>
+*-----*------*
+ timeId | The event timestamp 
+*-----*------*
+ queue | The queue name
+*-----*------*
+ member | The member name
+*-----*------*
+
+** Example
+
+---
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<QueueAddMember xmlns="http://pbxevents.jjinterna.com/model">
+  <timeId>1422293396</timeId>
+  <queue>8001</queue>
+  <member>6835</member>
+</QueueAddMember>
+---
+
+* QueueRemoveMember
+
+  A member is removed from the queue.
+
+** Fields
+
+*-----*------*
+ <<Field>> | <<Description>>
+*-----*------*
+ timeId | The event timestamp 
+*-----*------*
+ queue | The queue name
+*-----*------*
+ member | The member name
+*-----*------*
+
+** Example
+
+---
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<QueueRemoveMember xmlns="http://pbxevents.jjinterna.com/model">
+  <timeId>1422342275</timeId>
+  <queue>8101</queue>
+  <member>6800</member>
+</QueueRemoveMember>
+---
+
+* QueuePause
+
+  A queue member is paused.
+
+** Fields
+
+*-----*------*
+ <<Field>> | <<Description>>
+*-----*------*
+ timeId | The event timestamp 
+*-----*------*
+ queue | The queue name
+*-----*------*
+ member | The member name
+*-----*------*
+
+** Example
+
+---
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<QueuePause xmlns="http://pbxevents.jjinterna.com/model">
+  <timeId>1422342275</timeId>
+  <queue>8101</queue>
+  <member>6800</member>
+</QueuePause>
+---
+
+* QueueUnPause
+
+  A queue member is resumed after pause.
+
+** Fields
+
+*-----*------*
+ <<Field>> | <<Description>>
+*-----*------*
+ timeId | The event timestamp 
+*-----*------*
+ queue | The queue name
+*-----*------*
+ member | The member name
+*-----*------*
+
+** Example
+
+---
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<QueueUnPause xmlns="http://pbxevents.jjinterna.com/model">
+  <timeId>1422342275</timeId>
+  <queue>8101</queue>
+  <member>6800</member>
+</QueueUnPause>
+---
+
+* CallStop
+
+  A call stopped.
+
+** Fields
+
+*-----*------*
+ <<Field>> | <<Description>>
+*-----*------*
+ callId | The call identifier
+*-----*------*
+ callDuration | The call duration in seconds
+*-----*------*
+ callingNumber | The Caller ID
+*-----*------*
+ calledNumber | The dialed number
+*-----*------*
+ callSetupTime | The call setup GMT timestamp
+*-----*------*
+ callConnectTime | The call connect GMT timestamp
+*-----*------*
+ callDisconnectTime | The call disconnect GMT timestamp
+*-----*------*
+
+** Example
+
+---
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<CallStop xmlns="http://pbxevents.jjinterna.com/model">
+  <callId>00000BE3345B4F25_1</callId>
+  <callDuration>5</callDuration>
+  <callingNumber>100</callingNumber>
+  <calledNumber>700</calledNumber>
+  <callSetupTime>1425990281</callSetupTime>
+  <callConnectTime>1425990282</callConnectTime>
+  <callDisconnectTime>1425990288</callDisconnectTime>
+</CallStop>
+---
+
+* Phone
+
+  A phone is discovered.
+
+** Fields
+
+*-----*------*
+ <<Field>> | <<Description>>
+*-----*------*
+ sysName | The phone system name
+*-----*------*
+ sysDesc | The phone system description
+*-----*------*
+ phoneAddress | The phone IP address
+*-----*------*
+ agentAddress | The connected PC IP address
+*-----*------*
+
+** Example
+
+---
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Phone xmlns="http://pbxevents.jjinterna.com/model">
+  <sysName>SEP00077D1234567.</sysName>
+  <sysDesc>Cisco IP Phone 6921, V5, SIP 9.4.1.3</sysDesc>
+  <phoneAddress>192.168.2.2</phoneAddress>
+  <agentAddress>192.168.2.10</agentAddress>
+</Phone>
+---
+
+* PhoneLine
+
+  A phone line is discovered.
+
+** Fields
+
+*-----*------*
+ <<Field>> | <<Description>>
+*-----*------*
+ lineNumber | The line number
+*-----*------*
+ phoneAddress | The phone IP address
+*-----*------*
+ port | The line UDP port
+*-----*------*
+
+** Example
+
+---
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PhoneLine xmlns="http://pbxevents.jjinterna.com/model">
+  <lineNumber>100</lineNumber>
+  <phoneAddress>192.168.81.11</phoneAddress>
+  <port>5063</port>
+</PhoneLine>
+---
+
+* SnmpTrapEvent
+
+  A SNMP trap is received.
+
+** Fields
+
+*-----*------*
+ <<Field>> | <<Description>>
+*-----*------*
+ agentAddress | The SNMP agent IP address
+*-----*------*
+
+** Example
+
+---
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<SnmpTrapEvent xmlns="http://pbxevents.jjinterna.com/model">
+  <agentAddress>192.168.2.10</agentAddress>
+</SnmpTrapEvent>
+---
+
+

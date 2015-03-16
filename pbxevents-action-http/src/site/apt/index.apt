@@ -1,0 +1,48 @@
+HTTP Action
+
+  Send events over HTTP GET/POST.
+
+* Options
+
+*-----*------*------*
+ <<Name>> | <<Default Value>> | <<Description>>
+*-----*------*------*
+ httpUri | | The HTTP endpoint URI
+*-----*------*------*
+ httpMethod | GET | The HTTP method - GET or POST
+*-----*------*------*
+
+** POST Example
+
+---
+POST /updateEvent HTTP/1.1
+breadcrumbId: ID-gmanev-newtech-bt-bg-38752-1426505086070-21-1
+Transfer-Encoding: chunked
+Content-Type: application/xml
+Host: localhost
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.3.6 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<CallConnect xmlns="http://pbxevents.jjinterna.com/model">
+    <callId>1422337779.531745</callId>
+    <callerId>188159536</callerId>
+    <did>58286470</did>
+    <queue>8111</queue>
+    <agent>2034</agent>
+    <queueEnterTime>1422337790</queueEnterTime>
+    <queueConnectTime>1422337795</queueConnectTime>
+</CallConnect>
+---
+
+** GET Example
+
+---
+GET /updateEvent?Event=CallConnect&callId=1422337829.531750&callerId=473204560&did=148725300&queue=8101&agent=6823&queueEnterTime=1422337839&queueConnectTime=1422337846 HTTP/1.1
+breadcrumbId: ID-gmanev-newtech-bt-bg-38752-1426505086070-18-14
+Host: localhost
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.3.6 (java 1.5)
+Accept-Encoding: gzip,deflate
+---
