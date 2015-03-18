@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>com.jjinterna.pbxevents</groupId>
 		<artifactId>pbxevents-parent</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<version>1.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>pbxevents-asterisk-messages</artifactId>
     <packaging>bundle</packaging>

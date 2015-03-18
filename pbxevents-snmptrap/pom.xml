@@ -3,7 +3,7 @@
   <parent>
     <groupId>com.jjinterna.pbxevents</groupId>
     <artifactId>pbxevents-parent</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
   </parent>
   <artifactId>pbxevents-snmptrap</artifactId>
     <packaging>bundle</packaging>
@@ -37,12 +37,6 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-snmp</artifactId>
-            <version>${camel.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-netty4</artifactId>
             <version>${camel.version}</version>
         </dependency>
 

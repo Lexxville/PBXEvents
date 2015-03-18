@@ -38,7 +38,6 @@
 
     <feature name="pbxevents-snmptrap" version="${pom.version}">
     	<feature>camel-snmp</feature>
-    	<feature>camel-netty4</feature>    	
         <bundle>mvn:com.jjinterna.pbxevents/pbxevents-model/${pom.version}</bundle>
         <bundle>mvn:com.jjinterna.pbxevents/pbxevents-routes/${pom.version}</bundle>
         <bundle>mvn:com.jjinterna.pbxevents/pbxevents-snmptrap/${pom.version}</bundle>

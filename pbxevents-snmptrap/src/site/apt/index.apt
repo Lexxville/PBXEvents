@@ -1,0 +1,24 @@
+SNMP Trap Module
+
+  Receive SNMP trap events.
+
+* Options
+
+*-----*------*------*
+ <<Name>> | <<Default Value>> | <<Description>>
+*-----*------*------*
+ host | localhost | The IP address to bind to
+*-----*------*------*
+ port | 1620 | UDP listening port
+*-----*------*------*
+
+* Configure snmptrapd
+
+  To receive SNMPv1 or SNMPv2c traps using the "public" community string,
+  and resend data to the PBXEvents SNMP module, edit /etc/snmp/snmptrapd.conf:
+
+---
+authCommunity log,net public
+forward default localhost:1620
+---
+
