@@ -2,18 +2,15 @@ package com.jjinterna.pbxevents.routes;
 
 import java.util.List;
 
-import com.jjinterna.pbxevents.model.PBXEvent;
+import com.jjinterna.pbxevents.model.Phone;
+import com.jjinterna.pbxevents.model.PhoneLine;
 
 public interface RtCache {
 
-	public enum RtCacheType {
-		LINE,
-		CALL,
-		PHONE,
-		CALLQUEUE
-	}
-	
-	PBXEvent get(RtCacheType type, String key);
-	List<PBXEvent> getAll(RtCacheType type);
+	PhoneLine getPhoneLine(String key);
+	List<PhoneLine> getPhoneLines();
+
+	Phone getPhone(String key);
+	List<Phone> getPhones();
 
 }

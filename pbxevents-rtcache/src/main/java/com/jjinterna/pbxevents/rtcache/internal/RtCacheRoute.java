@@ -6,7 +6,6 @@ import org.apache.commons.lang.Validate;
 
 import com.jjinterna.pbxevents.model.Phone;
 import com.jjinterna.pbxevents.model.PhoneLine;
-import com.jjinterna.pbxevents.routes.RtCache.RtCacheType;
 
 public class RtCacheRoute extends RouteBuilder {
 
@@ -22,12 +21,12 @@ public class RtCacheRoute extends RouteBuilder {
 		from("direct:lineUpdate")
 		.setHeader(CacheConstants.CACHE_OPERATION, constant(CacheConstants.CACHE_OPERATION_UPDATE))
 		.setHeader(CacheConstants.CACHE_KEY, simple("${body.lineNumber}"))
-		.toF("cache://%s?timeToLiveSeconds=%d", RtCacheType.LINE, lineTimeToLiveSeconds);		
+		.toF("cache://%s?timeToLiveSeconds=%d", PhoneLine.class.getName(), lineTimeToLiveSeconds);		
 
 		from("direct:phoneUpdate")
 		.setHeader(CacheConstants.CACHE_OPERATION, constant(CacheConstants.CACHE_OPERATION_UPDATE))
 		.setHeader(CacheConstants.CACHE_KEY, simple("${body.phoneAddress}"))
-		.toF("cache://%s?timeToLiveSeconds=%d&diskPersistent=true", RtCacheType.PHONE, phoneTimeToLiveSeconds);
+		.toF("cache://%s?timeToLiveSeconds=%d&diskPersistent=true", Phone.class.getName(), phoneTimeToLiveSeconds);
 
 		from("direct:start")
 		.choice()

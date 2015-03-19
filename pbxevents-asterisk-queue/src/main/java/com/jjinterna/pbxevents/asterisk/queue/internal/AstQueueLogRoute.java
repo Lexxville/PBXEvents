@@ -14,14 +14,12 @@ import org.apache.camel.processor.aggregate.AggregationStrategy;
 import com.jjinterna.pbxevents.model.CallConnect;
 import com.jjinterna.pbxevents.model.CallEnterQueue;
 import com.jjinterna.pbxevents.model.PBXQueueEvent;
-import com.jjinterna.pbxevents.model.Phone;
 import com.jjinterna.pbxevents.model.PhoneLine;
 import com.jjinterna.pbxevents.model.QueueAddMember;
 import com.jjinterna.pbxevents.model.QueuePause;
 import com.jjinterna.pbxevents.model.QueueRemoveMember;
 import com.jjinterna.pbxevents.model.QueueUnPause;
 import com.jjinterna.pbxevents.routes.RtCache;
-import com.jjinterna.pbxevents.routes.RtCache.RtCacheType;
 import com.jjinterna.pbxevents.routes.logfile.LogfileLifecycleStrategySupport;
 import com.jjinterna.pbxevents.routes.logfile.LogfileMark;
 
@@ -93,13 +91,10 @@ public class AstQueueLogRoute extends RouteBuilder {
 						if (exchange.getIn().getBody() instanceof CallConnect) {
 							CallConnect callConnect = (CallConnect) exchange
 									.getIn().getBody();
-							PhoneLine phoneLine = (PhoneLine) rtCache.get(
-									RtCacheType.LINE, callConnect.getAgent());
+							PhoneLine phoneLine = rtCache.getPhoneLine(callConnect.getAgent());
 							if (phoneLine != null) {
 								callConnect.setPhoneLine(phoneLine);
-								callConnect.setPhone((Phone) rtCache.get(
-										RtCacheType.PHONE,
-										phoneLine.getPhoneAddress()));
+								callConnect.setPhone(rtCache.getPhone(phoneLine.getPhoneAddress()));
 							}
 						}
 					}

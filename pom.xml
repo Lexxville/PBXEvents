@@ -26,7 +26,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<camel.version>2.15.0</camel.version>
-		<cxf.version>2.7.13</cxf.version>
+		<cxf.version>3.0.4</cxf.version>
 		<log4j-version>1.2.16</log4j-version>
 		<slf4j-version>1.7.10</slf4j-version>
 	</properties>
@@ -41,10 +41,10 @@
 		<module>pbxevents-action-log</module>
 		<module>pbxevents-action-http</module>
 		<module>pbxevents-action-soap</module>
+        <module>pbxevents-rtcache</module>
 		<module>pbxevents-routes</module>
 		<module>pbxevents-features</module>
 		<module>pbxevents-mediator-activemq</module>
-		<module>pbxevents-rtcache</module>
 	</modules>
 
 	<build>

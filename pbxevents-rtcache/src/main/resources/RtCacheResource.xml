@@ -1,0 +1,15 @@
+<model xmlns="http://cxf.apache.org/jaxrs">
+  <resource name="com.jjinterna.pbxevents.routes.RtCache" path="v1"
+    produces="application/json,application/xml">
+    <operation name="getPhoneLine" verb="GET" path="/getPhoneLine/{key}">
+       <param name="key" type="PATH"/>
+    </operation>
+    <operation name="getPhoneLines" verb="GET" path="/getPhoneLines">
+    </operation>
+    <operation name="getPhone" verb="GET" path="/getPhone/{key}">
+       <param name="key" type="PATH"/>
+    </operation>
+    <operation name="getPhones" verb="GET" path="/getPhones">
+    </operation>
+  </resource>
+</model>

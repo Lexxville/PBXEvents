@@ -40,6 +40,18 @@
             <version>${camel.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-rs-extension-providers</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-core</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+        
 		<dependency>
     		<groupId>net.sf.ehcache</groupId>
     		<artifactId>ehcache</artifactId>
@@ -151,5 +163,5 @@
         </plugins>
     </build>
     <name>PBXEvents :: rtcache</name>
-    <description>internal module</description>
+    <description>Runtime cache with REST API</description>
 </project>

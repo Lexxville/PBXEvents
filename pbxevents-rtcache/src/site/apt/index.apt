@@ -1,0 +1,47 @@
+RTCache Module
+
+  Runtime cache with REST API
+
+  The Runtime cache contains PhoneLine and Phone events aggregated by a key. 
+
+* Options
+
+*-----*------*------*
+ <<Name>> | <<Default Value>> | <<Description>>
+*-----*------*------*
+ lineTimeToLiveSeconds | 300 | The maximum time is seconds between creation time and when the PhoneLine event expires.
+*-----*------*------*
+ phoneTimeToLiveSeconds | 10872 | The maximum time is seconds between creation time and when the Phone event expires.
+*-----*------*------*
+
+* REST API
+  
+  The REST API provides programmatic access to read the runtime data; responses are available in JSON and XML.
+
+*-----*------*------*------*
+ <<Operation>> | <<Path>> | <<Verb>> | <<Description>>
+*-----*------*------*------*
+ getPhoneLine | /getPhoneLine/{key} | GET | Get a phone line by line number 
+*-----*------*------*------*
+ getPhoneLines | /getPhoneLines | GET | Get all phone lines  
+*-----*------*------*------*
+ getPhone | /getPhone/{key} | GET | Get a phone by IP address 
+*-----*------*------*------*
+ getPhones | /getPhones | GET | Get all phones 
+*-----*------*------*------*
+RTCache Resource
+
+   The resource URL is /cxf/rtcache/v1 on port 8181.
+   
+** Example Request
+
+---
+curl -H "Accept: application/json" http://localhost:8181/cxf/rtcache/v1/getPhoneLines
+---
+
+** Example Response
+
+---
+{"PhoneLine":[{"lineNumber":204,"phoneAddress":"192.168.2.2","port":5063},{"lineNumber":100,"phoneAddress":"192.168.81.11","port":5063}]}
+---
+
