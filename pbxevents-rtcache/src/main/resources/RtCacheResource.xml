@@ -4,12 +4,15 @@
     <operation name="getPhoneLine" verb="GET" path="/getPhoneLine/{key}">
        <param name="key" type="PATH"/>
     </operation>
-    <operation name="getPhoneLines" verb="GET" path="/getPhoneLines">
-    </operation>
+    <operation name="getPhoneLines" verb="GET" path="/getPhoneLines" />
     <operation name="getPhone" verb="GET" path="/getPhone/{key}">
        <param name="key" type="PATH"/>
     </operation>
-    <operation name="getPhones" verb="GET" path="/getPhones">
+    <operation name="getPhones" verb="GET" path="/getPhones" />
+    <operation name="getQueuedCall" verb="GET" path="/getQueuedCall/{key}">
+       <param name="key" type="PATH"/>
     </operation>
+    <operation name="getQueuedCalls" verb="GET" path="/getQueuedCalls" />
+    <operation name="getQueueMembers" verb="GET" path="/getQueueMembers" />
   </resource>
 </model>

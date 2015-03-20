@@ -13,12 +13,12 @@ import org.apache.camel.processor.aggregate.AggregationStrategy;
 
 import com.jjinterna.pbxevents.model.CallConnect;
 import com.jjinterna.pbxevents.model.CallEnterQueue;
-import com.jjinterna.pbxevents.model.PBXQueueEvent;
 import com.jjinterna.pbxevents.model.PhoneLine;
 import com.jjinterna.pbxevents.model.QueueAddMember;
-import com.jjinterna.pbxevents.model.QueuePause;
+import com.jjinterna.pbxevents.model.QueueMemberEvent;
+import com.jjinterna.pbxevents.model.QueuePauseMember;
 import com.jjinterna.pbxevents.model.QueueRemoveMember;
-import com.jjinterna.pbxevents.model.QueueUnPause;
+import com.jjinterna.pbxevents.model.QueueResumeMember;
 import com.jjinterna.pbxevents.routes.RtCache;
 import com.jjinterna.pbxevents.routes.logfile.LogfileLifecycleStrategySupport;
 import com.jjinterna.pbxevents.routes.logfile.LogfileMark;
@@ -91,10 +91,12 @@ public class AstQueueLogRoute extends RouteBuilder {
 						if (exchange.getIn().getBody() instanceof CallConnect) {
 							CallConnect callConnect = (CallConnect) exchange
 									.getIn().getBody();
-							PhoneLine phoneLine = rtCache.getPhoneLine(callConnect.getAgent());
+							PhoneLine phoneLine = rtCache
+									.getPhoneLine(callConnect.getAgent());
 							if (phoneLine != null) {
 								callConnect.setPhoneLine(phoneLine);
-								callConnect.setPhone(rtCache.getPhone(phoneLine.getPhoneAddress()));
+								callConnect.setPhone(rtCache.getPhone(phoneLine
+										.getPhoneAddress()));
 							}
 						}
 					}
@@ -143,7 +145,7 @@ public class AstQueueLogRoute extends RouteBuilder {
 					@Override
 					public void process(Exchange exchange) throws Exception {
 						QueueLog log = (QueueLog) exchange.getIn().getBody();
-						PBXQueueEvent event = null;
+						QueueMemberEvent event = null;
 						switch (log.getVerb()) {
 						case ADDMEMBER:
 							event = new QueueAddMember();
@@ -152,10 +154,10 @@ public class AstQueueLogRoute extends RouteBuilder {
 							event = new QueueRemoveMember();
 							break;
 						case PAUSE:
-							event = new QueuePause();
+							event = new QueuePauseMember();
 							break;
 						case UNPAUSE:
-							event = new QueueUnPause();
+							event = new QueueResumeMember();
 							break;
 						default:
 							exchange.setProperty(Exchange.ROUTE_STOP,
@@ -172,7 +174,8 @@ public class AstQueueLogRoute extends RouteBuilder {
 
 				}).to("direct:publish");
 
-		from("stream:file?fileName={{fileName}}&scanStream=true&scanStreamDelay=1000")
+		from(
+				"stream:file?fileName={{fileName}}&scanStream=true&scanStreamDelay=1000")
 				.id(camelRouteId).unmarshal(new CsvDataFormat("|"))
 				.process(new Processor() {
 					@Override

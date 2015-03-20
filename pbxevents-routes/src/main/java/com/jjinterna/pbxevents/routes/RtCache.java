@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.jjinterna.pbxevents.model.Phone;
 import com.jjinterna.pbxevents.model.PhoneLine;
+import com.jjinterna.pbxevents.model.QueueMemberEvent;
+import com.jjinterna.pbxevents.model.QueuedCall;
 
 public interface RtCache {
 
@@ -12,5 +14,10 @@ public interface RtCache {
 
 	Phone getPhone(String key);
 	List<Phone> getPhones();
+
+	QueuedCall getQueuedCall(String key);
+	List<QueuedCall> getQueuedCalls();
+
+	List<QueueMemberEvent> getQueueMembers();
 
 }

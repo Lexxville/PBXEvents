@@ -25,6 +25,8 @@ import org.apache.felix.scr.annotations.Service;
 
 import com.jjinterna.pbxevents.model.Phone;
 import com.jjinterna.pbxevents.model.PhoneLine;
+import com.jjinterna.pbxevents.model.QueueMemberEvent;
+import com.jjinterna.pbxevents.model.QueuedCall;
 import com.jjinterna.pbxevents.routes.EventMediator;
 import com.jjinterna.pbxevents.routes.EventSelector;
 import com.jjinterna.pbxevents.routes.RtCache;
@@ -36,9 +38,11 @@ import com.jjinterna.pbxevents.rtcache.internal.RtCacheRoute;
     @Property(name = "camelContextId", value = "pbxevents-rtcache"),
     @Property(name = "camelRouteId", value = "default"),
     @Property(name = "active", value = "true"),
-    @Property(name = "phoneTimeToLiveSeconds", value = "10872"),
-    @Property(name = "lineTimeToLiveSeconds", value = "300"),
-    @Property(name =  "callQueueTimeToLiveSeconds", value = "3600")
+    @Property(name = "rsEnable", value = "true"),
+    @Property(name = "phoneTimeToLiveSeconds", value = "172800"),
+    @Property(name = "lineTimeToLiveSeconds", value = "3600"),
+    @Property(name = "queuedCallTimeToLiveSeconds", value = "3600"),
+    @Property(name = "queueMemberTimeToLiveSeconds", value = "86400")    
 })
 @References({
     @Reference(name = "camelComponent",referenceInterface = ComponentResolver.class,
@@ -53,12 +57,16 @@ public class RtCacheService extends AbstractCamelRunner implements RtCache {
     @Reference
     private EventMediator mediator;
     
+    private Boolean rsEnable;
+    
     @Override
     protected List<RoutesBuilder>getRouteBuilders() {
         List<RoutesBuilder>routesBuilders = new ArrayList<>();
         routesBuilders.add(new RtCacheRoute());
-        routesBuilders.add(new RtCacheResource(registry, this));
         routesBuilders.add(mediator.subscriber(Collections.<EventSelector> emptyList()));
+        if (rsEnable) {
+        	routesBuilders.add(new RtCacheResource(registry, this));
+        }
         return routesBuilders;
     }
 
@@ -99,6 +107,21 @@ public class RtCacheService extends AbstractCamelRunner implements RtCache {
 	@Override
 	public List<Phone> getPhones() {
 		return getAll(Phone.class);
+	}
+
+	@Override
+	public List<QueueMemberEvent> getQueueMembers() {
+		return getAll(QueueMemberEvent.class);
+	}
+
+	@Override
+	public QueuedCall getQueuedCall(String key) {
+		return get(key, QueuedCall.class);
+	}
+
+	@Override
+	public List<QueuedCall> getQueuedCalls() {
+		return getAll(QueuedCall.class);
 	}
     
 }

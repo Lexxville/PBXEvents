@@ -21,9 +21,9 @@ Features
 *-----*------*------*
  asterisk-queue | Process Asterisk PBX queue_log file | 1.0
 *-----*------*------*
- asterisk-queue | Generate Call Queue events | 1.0
+ asterisk-queue | Generate QueuedCall events | 1.0
 *-----*------*------*
- asterisk-queue | Generate Queue events | 1.0
+ asterisk-queue | Generate QueueMember events | 1.0
 *-----*------*------*
  discovery-lldp | Poll SNMP endpoint for lldpRemEntry and generate Phone event | 1.0
 *-----*------*------*

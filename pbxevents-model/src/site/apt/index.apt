@@ -19,9 +19,9 @@ PBXEvents model
 *-----*------*------*
  {{QueueRemoveMember}} | 1.0 | {{{/pbxevents-asterisk-queue/index.html}asterisk-queue}}
 *-----*------*------*
- {{QueuePause}} | 1.0 | {{{/pbxevents-asterisk-queue/index.html}asterisk-queue}}
+ {{QueuePauseMember}} | 1.0 | {{{/pbxevents-asterisk-queue/index.html}asterisk-queue}}
 *-----*------*------*
- {{QueueUnPause}} | 1.0 | {{{/pbxevents-asterisk-queue/index.html}asterisk-queue}}
+ {{QueueResumeMember}} | 1.0 | {{{/pbxevents-asterisk-queue/index.html}asterisk-queue}}
 *-----*------*------*
  CallStart |  |
 *-----*------*------*
@@ -36,7 +36,7 @@ PBXEvents model
  {{SnmpTrapEvent}} | 1.0 | {{{/pbxevents-snmptrap/index.html}snmptrap}}
 *-----*------*------*
 
-* Call Queue events flowchart
+* QueuedCall events flowchart
 
   CallEnterQueue, CallAbandon, CallComplete, CallConnect and CallExitWithTimeout events have the following possible transitions: 
 
@@ -299,7 +299,7 @@ PBXEvents model
 </QueueRemoveMember>
 ---
 
-* QueuePause
+* QueuePauseMember
 
   A queue member is paused.
 
@@ -319,16 +319,16 @@ PBXEvents model
 
 ---
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<QueuePause xmlns="http://pbxevents.jjinterna.com/model">
+<QueuePauseMember xmlns="http://pbxevents.jjinterna.com/model">
   <timeId>1422342275</timeId>
   <queue>8101</queue>
   <member>6800</member>
-</QueuePause>
+</QueuePauseMember>
 ---
 
-* QueueUnPause
+* QueueResumeMember
 
-  A queue member is resumed after pause.
+  A queue member is resumed.
 
 ** Fields
 
@@ -346,11 +346,11 @@ PBXEvents model
 
 ---
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<QueueUnPause xmlns="http://pbxevents.jjinterna.com/model">
+<QueueResumeMember xmlns="http://pbxevents.jjinterna.com/model">
   <timeId>1422342275</timeId>
   <queue>8101</queue>
   <member>6800</member>
-</QueueUnPause>
+</QueueResumeMember>
 ---
 
 * CallStop
@@ -469,5 +469,4 @@ PBXEvents model
   <agentAddress>192.168.2.10</agentAddress>
 </SnmpTrapEvent>
 ---
-
 

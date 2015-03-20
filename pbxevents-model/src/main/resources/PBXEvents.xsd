@@ -9,7 +9,7 @@
 		</xsd:sequence>
 	</xsd:complexType>
 
-    <xsd:complexType name="PBXCallQueueEvent">
+    <xsd:complexType name="QueuedCall">
         <xsd:complexContent>
         	<xsd:extension base="tns:PBXEvent">
         		<xsd:sequence>
@@ -28,7 +28,7 @@
 
     <xsd:complexType name="CallEnterQueue">
         <xsd:complexContent>
-        	<xsd:extension base="tns:PBXCallQueueEvent">
+        	<xsd:extension base="tns:QueuedCall">
         		<xsd:sequence>
 				</xsd:sequence>				
         	</xsd:extension>
@@ -37,7 +37,7 @@
 
     <xsd:complexType name="CallAbandon">
         <xsd:complexContent>
-        	<xsd:extension base="tns:PBXCallQueueEvent">
+        	<xsd:extension base="tns:QueuedCall">
         		<xsd:sequence>
 				</xsd:sequence>				
         	</xsd:extension>
@@ -46,7 +46,7 @@
 
     <xsd:complexType name="CallComplete">
         <xsd:complexContent>
-        	<xsd:extension base="tns:PBXCallQueueEvent">
+        	<xsd:extension base="tns:QueuedCall">
         		<xsd:sequence>
 				</xsd:sequence>				
         	</xsd:extension>
@@ -55,7 +55,7 @@
 
     <xsd:complexType name="CallConnect">
         <xsd:complexContent>
-        	<xsd:extension base="tns:PBXCallQueueEvent">
+        	<xsd:extension base="tns:QueuedCall">
         		<xsd:sequence>
         			<xsd:element name="phoneLine" type="tns:PhoneLine" />
         			<xsd:element name="phone" type="tns:Phone" />
@@ -66,7 +66,7 @@
 
     <xsd:complexType name="CallExitWithTimeout">
         <xsd:complexContent>
-        	<xsd:extension base="tns:PBXCallQueueEvent">
+        	<xsd:extension base="tns:QueuedCall">
         		<xsd:sequence>
 				</xsd:sequence>				
         	</xsd:extension>
@@ -108,7 +108,7 @@
 		</xsd:complexContent>
 	</xsd:complexType>
 
-    <xsd:complexType name="PBXQueueEvent">
+    <xsd:complexType name="QueueMemberEvent">
         <xsd:complexContent>
         	<xsd:extension base="tns:PBXEvent">
         		<xsd:sequence>
@@ -122,7 +122,7 @@
 
     <xsd:complexType name="QueueAddMember">
         <xsd:complexContent>
-        	<xsd:extension base="tns:PBXQueueEvent">
+        	<xsd:extension base="tns:QueueMemberEvent">
         		<xsd:sequence>
 				</xsd:sequence>
 			</xsd:extension>
@@ -131,25 +131,25 @@
 
     <xsd:complexType name="QueueRemoveMember">
         <xsd:complexContent>
-        	<xsd:extension base="tns:PBXQueueEvent">
+        	<xsd:extension base="tns:QueueMemberEvent">
         		<xsd:sequence>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 
-    <xsd:complexType name="QueuePause">
+    <xsd:complexType name="QueuePauseMember">
         <xsd:complexContent>
-        	<xsd:extension base="tns:PBXQueueEvent">
+        	<xsd:extension base="tns:QueueMemberEvent">
         		<xsd:sequence>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 
-    <xsd:complexType name="QueueUnPause">
+    <xsd:complexType name="QueueResumeMember">
         <xsd:complexContent>
-        	<xsd:extension base="tns:PBXQueueEvent">
+        	<xsd:extension base="tns:QueueMemberEvent">
         		<xsd:sequence>
 				</xsd:sequence>
 			</xsd:extension>
@@ -210,8 +210,8 @@
 
 	<xsd:element name="QueueAddMember" type="tns:QueueAddMember" />
 	<xsd:element name="QueueRemoveMember" type="tns:QueueRemoveMember" />
-	<xsd:element name="QueuePause" type="tns:QueuePause" />
-	<xsd:element name="QueueUnPause" type="tns:QueueUnPause" />
+	<xsd:element name="QueuePauseMember" type="tns:QueuePauseMember" />
+	<xsd:element name="QueueResumeMember" type="tns:QueueResumeMember" />
 
 	<xsd:element name="Phone" type="tns:Phone" />
 	<xsd:element name="PhoneLine" type="tns:PhoneLine" />

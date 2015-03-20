@@ -54,7 +54,14 @@ public class RtCacheResource extends RouteBuilder {
 					result = rt.getPhone(inMessage.getBody(String.class));
 				} else if ("getPhones".equals(operation)) {
 					result = rt.getPhones();
+				} else if ("getQueuedCall".equals(operation)) {
+					result = rt.getQueuedCall(inMessage.getBody(String.class));
+				} else if ("getQueuedCalls".equals(operation)) {
+					result = rt.getQueuedCalls();
+				} else if ("getQueueMembers".equals(operation)) {
+					result = rt.getQueueMembers();
 				}
+
 		        exchange.getOut().setBody(result);
 			}
 			

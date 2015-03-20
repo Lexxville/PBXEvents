@@ -1,17 +1,21 @@
 RTCache Module
 
-  Runtime cache with REST API
-
-  The Runtime cache contains PhoneLine and Phone events aggregated by a key. 
+  The Runtime cache stores several types of events and makes them available for aggregation and reporting.  
 
 * Options
 
 *-----*------*------*
  <<Name>> | <<Default Value>> | <<Description>>
 *-----*------*------*
- lineTimeToLiveSeconds | 300 | The maximum time is seconds between creation time and when the PhoneLine event expires.
+ rsEnable | true | Enable the REST API
 *-----*------*------*
- phoneTimeToLiveSeconds | 10872 | The maximum time is seconds between creation time and when the Phone event expires.
+ lineTimeToLiveSeconds | 3600 | The maximum amount of time in seconds a PhoneLine event is cached.
+*-----*------*------*
+ phoneTimeToLiveSeconds | 172800 | The maximum amount of time in seconds a Phone event is cached.
+*-----*------*------*
+ queuedCallTimeToLiveSeconds | 3600 | The maximum amount of time in seconds a QueuedCall event is cached.
+*-----*------*------*
+ queueMemberTimeToLiveSeconds | 86400 | The maximum amount of time in seconds a QueueMember event is cached.
 *-----*------*------*
 
 * REST API
@@ -28,6 +32,12 @@ RTCache Module
  getPhone | /getPhone/{key} | GET | Get a phone by IP address 
 *-----*------*------*------*
  getPhones | /getPhones | GET | Get all phones 
+*-----*------*------*------*
+ getQueuedCall | /getQueuedCall/{key} | GET | Get a queued call by callId 
+*-----*------*------*------*
+ getQueuedCalls | /getQueuedCalls | GET | Get all queued calls 
+*-----*------*------*------*
+ getQueueMembers | /getQueueMembers | GET | Get all queue members 
 *-----*------*------*------*
 RTCache Resource
 
