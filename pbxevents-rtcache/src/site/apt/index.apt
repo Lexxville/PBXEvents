@@ -1,6 +1,6 @@
 RTCache Module
 
-  The Runtime cache stores several types of events and makes them available for aggregation and reporting.  
+  The Runtime cache stores certain types of events and makes them available for aggregation and reporting.  
 
 * Options
 
@@ -25,19 +25,19 @@ RTCache Module
 *-----*------*------*------*
  <<Operation>> | <<Path>> | <<Verb>> | <<Description>>
 *-----*------*------*------*
- getPhoneLine | /getPhoneLine/{key} | GET | Get a phone line by line number 
+ getPhoneLine | /getPhoneLine/<key> | GET | Get a {{{../pbxevents-model/index.html##PhoneLine}PhoneLine}} event by line number 
 *-----*------*------*------*
- getPhoneLines | /getPhoneLines | GET | Get all phone lines  
+ getPhoneLines | /getPhoneLines | GET | Get all available PhoneLine events
 *-----*------*------*------*
- getPhone | /getPhone/{key} | GET | Get a phone by IP address 
+ getPhone | /getPhone/<key> | GET | Get a {{{../pbxevents-model/index.html##Phone}Phone}} event by IP address 
 *-----*------*------*------*
- getPhones | /getPhones | GET | Get all phones 
+ getPhones | /getPhones | GET | Get all available Phone events
 *-----*------*------*------*
- getQueuedCall | /getQueuedCall/{key} | GET | Get a queued call by callId 
+ getQueuedCall | /getQueuedCall/<key> | GET | Get a {{{../pbxevents-model/index.html##QueuedCall}QueuedCall}} event by callId 
 *-----*------*------*------*
- getQueuedCalls | /getQueuedCalls | GET | Get all queued calls 
+ getQueuedCalls | /getQueuedCalls | GET | Get all available QueuedCall events 
 *-----*------*------*------*
- getQueueMembers | /getQueueMembers | GET | Get all queue members 
+ getQueueMembers | /getQueueMembers | GET | Get all available {{{../pbxevents-model/index.html##QueueMember}QueueMember}} events 
 *-----*------*------*------*
 RTCache Resource
 

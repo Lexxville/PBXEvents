@@ -36,12 +36,12 @@ PBXEvents model
  {{SnmpTrapEvent}} | 1.0 | {{{/pbxevents-snmptrap/index.html}snmptrap}}
 *-----*------*------*
 
-* QueuedCall events flowchart
+* QueuedCall
 
-  CallEnterQueue, CallAbandon, CallComplete, CallConnect and CallExitWithTimeout events have the following possible transitions: 
+  QueuedCall events are CallEnterQueue, CallAbandon, CallComplete, CallConnect and CallExitWithTimeout. 
+  They have the following possible transitions: 
 
-[./images/callqueue-events.png] Call Queue events flowchart
-
+[./images/callqueue-events.png] QueuedCall events flowchart
 
 
 * CallEnterQueue
@@ -245,6 +245,10 @@ PBXEvents model
 </CallExitWithTimeout>
 ---
 
+* QueueMember
+
+  QueueMember events are QueueAddMember, QueueRemoveMember, QueuePauseMember and QueueResumeMember.
+
 * QueueAddMember
 
   A member is added to the queue.
@@ -355,7 +359,7 @@ PBXEvents model
 
 * CallStop
 
-  A call stopped.
+  A call has stopped.
 
 ** Fields
 

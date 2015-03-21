@@ -163,5 +163,5 @@
         </plugins>
     </build>
     <name>PBXEvents :: rtcache</name>
-    <description>The Runtime cache stores several types of events and makes them available for aggregation and reporting.</description>
+    <description>Runtime cache with REST API</description>
 </project>

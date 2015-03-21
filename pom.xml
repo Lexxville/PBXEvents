@@ -41,7 +41,7 @@
 		<module>pbxevents-action-log</module>
 		<module>pbxevents-action-http</module>
 		<module>pbxevents-action-soap</module>
-        <module>pbxevents-rtcache</module>
+		<module>pbxevents-rtcache</module>
 		<module>pbxevents-routes</module>
 		<module>pbxevents-features</module>
 		<module>pbxevents-mediator-activemq</module>
@@ -96,9 +96,6 @@
 				<version>1.4.1</version>
 			</extension>
 		</extensions>
-		<!-- <extensions> <extension> <groupId>org.springframework.build</groupId> 
-			<artifactId>aws-maven</artifactId> <version>5.0.0.RELEASE</version> </extension> 
-			</extensions> -->
 	</build>
 
 	<distributionManagement>
@@ -155,12 +152,22 @@
 				<artifactId>maven-project-info-reports-plugin</artifactId>
 				<version>2.8</version>
 				<configuration>
-					<dependencyLocationsEnabled>true</dependencyLocationsEnabled>
-					<dependencyDetailsEnabled>true</dependencyDetailsEnabled>
+					<dependencyLocationsEnabled>false</dependencyLocationsEnabled>
+					<dependencyDetailsEnabled>false</dependencyDetailsEnabled>
 				</configuration>
-				<!-- <reportSets> <reportSet> <reports> <report>index</report> <report>dependencies</report> 
-					<report>project-team</report> <report>license</report> </reports> </reportSet> 
-					</reportSets> -->
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>index</report>
+							<!--  <report>dependencies</report> -->
+							<report>issue-tracking</report>
+							<report>license</report>
+                            <report>project-team</report>
+                            <report>scm</report>
+                            <report>summary</report>							
+						</reports>
+					</reportSet>
+				</reportSets>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
