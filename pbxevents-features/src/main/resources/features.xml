@@ -79,4 +79,12 @@
         <bundle>mvn:com.jjinterna.pbxevents/pbxevents-3cx-cdrsocket/${pom.version}</bundle>
     </feature>
 
+    <feature name="pbxevents-sip" version="${pom.version}">
+        <feature>camel-sip</feature>
+        <bundle>wrap:mvn:log4j/log4j/1.2.15$Bundle-SymbolicName=jain-sip-ri-fragment&amp;Bundle-Version=1.2.15&amp;Fragment-Host=org.apache.servicemix.bundles.jain-sip-ri</bundle>
+        <bundle>mvn:com.jjinterna.pbxevents/pbxevents-model/${pom.version}</bundle>
+        <bundle>mvn:com.jjinterna.pbxevents/pbxevents-routes/${pom.version}</bundle>        
+        <bundle>mvn:com.jjinterna.pbxevents/pbxevents-sip/${pom.version}</bundle>
+    </feature>
+
 </features>

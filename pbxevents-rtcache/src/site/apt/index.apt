@@ -21,27 +21,27 @@ RTCache Module
 * REST API
   
   The REST API provides programmatic access to read the runtime data; responses are available in JSON and XML.
+  The RTCache Resource URL is /cxf/rtcache/v1 on port 8181.
 
-*-----*------*------*------*
- <<Operation>> | <<Path>> | <<Verb>> | <<Description>>
-*-----*------*------*------*
- getPhoneLine | /getPhoneLine/<key> | GET | Get a {{{../pbxevents-model/index.html##PhoneLine}PhoneLine}} event by line number 
-*-----*------*------*------*
- getPhoneLines | /getPhoneLines | GET | Get all available PhoneLine events
-*-----*------*------*------*
- getPhone | /getPhone/<key> | GET | Get a {{{../pbxevents-model/index.html##Phone}Phone}} event by IP address 
-*-----*------*------*------*
- getPhones | /getPhones | GET | Get all available Phone events
-*-----*------*------*------*
- getQueuedCall | /getQueuedCall/<key> | GET | Get a {{{../pbxevents-model/index.html##QueuedCall}QueuedCall}} event by callId 
-*-----*------*------*------*
- getQueuedCalls | /getQueuedCalls | GET | Get all available QueuedCall events 
-*-----*------*------*------*
- getQueueMembers | /getQueueMembers | GET | Get all available {{{../pbxevents-model/index.html##QueueMember}QueueMember}} events 
-*-----*------*------*------*
+*------*------*------*
+ <<Path>> | <<Verb>> | <<Description>>
+*------*------*------*
+ /getPhoneLine/<<<key>>> | GET | Get a {{{../pbxevents-model/index.html##PhoneLine}PhoneLine}} event by line number 
+*------*------*------*
+ /getPhoneLines | GET | Get all {{{../pbxevents-model/index.html##PhoneLine}PhoneLine}} events
+*------*------*------*
+ /getPhone/<<<key>>> | GET | Get a {{{../pbxevents-model/index.html##Phone}Phone}} event by IP address 
+*------*------*------*
+ /getPhones | GET | Get all {{{../pbxevents-model/index.html##Phone}Phone}} events
+*------*------*------*
+ /getQueuedCall/<<<key>>> | GET | Get a {{{../pbxevents-model/index.html##QueuedCall}QueuedCall}} event by callId 
+*------*------*------*
+ /getQueuedCalls | GET | Get all {{{../pbxevents-model/index.html##QueuedCall}QueuedCall}} events 
+*------*------*------*
+ /getQueueMembers | GET |Get all {{{../pbxevents-model/index.html##QueueMember}QueueMember}} events 
+*------*------*------*
 RTCache Resource
 
-   The resource URL is /cxf/rtcache/v1 on port 8181.
    
 ** Example Request
 

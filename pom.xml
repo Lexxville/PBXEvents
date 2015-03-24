@@ -42,6 +42,7 @@
 		<module>pbxevents-action-http</module>
 		<module>pbxevents-action-soap</module>
 		<module>pbxevents-rtcache</module>
+        <!-- <module>pbxevents-sip</module> -->
 		<module>pbxevents-routes</module>
 		<module>pbxevents-features</module>
 		<module>pbxevents-mediator-activemq</module>

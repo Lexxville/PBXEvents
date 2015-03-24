@@ -29,7 +29,7 @@ Features
 *-----*------*------*
  snmptrap | Receive SNMP trap and generate SnmpTrapEvent event | 1.0
 *-----*------*------*
- rtcache | Provide REST API to read the cache data | 1.0
+ rtcache | Provide REST API | 1.0
 *-----*------*------*
  - all - | File-based configuration | 1.0
 *-----*------*------*

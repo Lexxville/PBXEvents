@@ -15,7 +15,7 @@ SNMP Trap Module
 * Configure snmptrapd
 
   To receive SNMPv1 or SNMPv2c traps using the "public" community string,
-  and resend data to the PBXEvents SNMP module, edit /etc/snmp/snmptrapd.conf:
+  edit /etc/snmp/snmptrapd.conf:
 
 ---
 authCommunity log,net public
