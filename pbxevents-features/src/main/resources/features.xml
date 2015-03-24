@@ -87,4 +87,11 @@
         <bundle>mvn:com.jjinterna.pbxevents/pbxevents-sip/${pom.version}</bundle>
     </feature>
 
+    <feature name="pbxevents-3cx-dnmonitor" version="${pom.version}">
+        <feature>camel-exec</feature>
+        <bundle>mvn:com.jjinterna.pbxevents/pbxevents-model/${pom.version}</bundle>
+        <bundle>mvn:com.jjinterna.pbxevents/pbxevents-routes/${pom.version}</bundle>        
+        <bundle>mvn:com.jjinterna.pbxevents/pbxevents-3cx-dnmonitor/${pom.version}</bundle>
+    </feature>
+    
 </features>
