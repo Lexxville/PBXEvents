@@ -1,5 +1,9 @@
 package com.jjinterna.pbxevents.tcx.dnmonitor.internal;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
@@ -22,8 +26,13 @@ public class DNMonitorRoute extends RouteBuilder {
 
 				@Override
 				public void process(Exchange exchange) throws Exception {
-					
-					
+			        InputStream in = exchange.getIn().getBody(InputStream.class);
+			        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+			        String s;
+			        while ((s = reader.readLine()) != null) {
+			        	System.out.println(s);
+			        }
+					in.close();
 				}
 				
 			});

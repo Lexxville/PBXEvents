@@ -25,8 +25,8 @@ import com.jjinterna.pbxevents.tcx.dnmonitor.internal.DNMonitorRoute;
 		@Property(name = "active", value = "true"),
 		@Property(name = "executable", value = "C:/Program Files/3CXCallControlAPI_v12/OMSamples/bin/OMSamples.exe"),
 		@Property(name = "args", value = "dn_monitor"),
-		@Property(name = "timeout", value = "3000"),
-		@Property(name = "period", value = "1000") })
+		@Property(name = "timeout", value = "10000"),
+		@Property(name = "period", value = "5000") })
 @References({ @Reference(name = "camelComponent", referenceInterface = ComponentResolver.class, cardinality = ReferenceCardinality.MANDATORY_MULTIPLE, policy = ReferencePolicy.DYNAMIC, policyOption = ReferencePolicyOption.GREEDY, bind = "gotCamelComponent", unbind = "lostCamelComponent") })
 public class DNMonitor extends AbstractCamelRunner {
 
