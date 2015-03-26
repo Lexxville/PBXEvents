@@ -23,13 +23,12 @@ namespace OMSamples.Samples
 			    if (!(ac.DN is ExternalLine) || (ac.Status != ConnectionStatus.Connected)) {
 			      continue;
 			    }
-			    System.Console.WriteLine("<CallUpdate xmlns=\"http://pbxevents.jjinterna.com/model\">");
-                            System.Console.WriteLine("  <callId>" + ac.CallID + "</callId>");
-                            System.Console.WriteLine("  <callDuration>" + 
-				(int)(DateTime.UtcNow - ac.LastChangeStatus).TotalSeconds + "</callDuration>");
-                            System.Console.WriteLine("  <callingNumber>" + ac.InternalParty.Number + "</callingNumber>");
-                            System.Console.WriteLine("  <calledNumber>" + ac.DialedNumber + "</calledNumber>");
-		            System.Console.WriteLine("</CallUpdate>");
+			    System.Console.WriteLine("<CallUpdate xmlns=\"http://pbxevents.jjinterna.com/model\">" +
+                            "<callId>" + ac.CallID + "</callId>" +
+                            "<callDuration>" +  (int)(DateTime.UtcNow - ac.LastChangeStatus).TotalSeconds + "</callDuration>" +
+                            "<callingNumber>" + ac.InternalParty.Number + "</callingNumber>" +
+                            "<calledNumber>" + ac.DialedNumber + "</calledNumber>" +
+		                        "</CallUpdate>");
                         }
                     }
                 }
