@@ -1,12 +1,2 @@
-<CallUpdate xmlns="http://pbxevents.jjinterna.com/model">
-  <callId>11</callId>
-  <callDuration>608</callDuration>
-  <callingNumber>100</callingNumber>
-  <calledNumber>91235</calledNumber>
-</CallUpdate>
-<CallUpdate xmlns="http://pbxevents.jjinterna.com/model">
-  <callId>15</callId>
-  <callDuration>28</callDuration>
-  <callingNumber>100</callingNumber>
-  <calledNumber>91235</calledNumber>
-</CallUpdate>
+<CallUpdate xmlns="http://pbxevents.jjinterna.com/model">  <callId>11</callId>  <callDuration>608</callDuration>  <callingNumber>100</callingNumber>  <calledNumber>91235</calledNumber></CallUpdate>
+<CallUpdate xmlns="http://pbxevents.jjinterna.com/model">  <callId>15</callId>  <callDuration>28</callDuration>  <callingNumber>100</callingNumber>  <calledNumber>91235</calledNumber></CallUpdate>

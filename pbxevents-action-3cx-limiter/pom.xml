@@ -6,9 +6,9 @@
 		<artifactId>pbxevents-parent</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
-	<artifactId>pbxevents-executable</artifactId>
-	<name>PBXEvents :: executable</name>
-	<description>Receive events from programs and scripts.</description>
+	<artifactId>pbxevents-action-3cx-limiter</artifactId>
+	<name>PBXEvents :: action-3cx-limiter</name>
+	<description>Call duration limiter for 3CX PBX.</description>
 	<packaging>bundle</packaging>
 
 	<dependencies>
@@ -34,6 +34,12 @@
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-scr</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-exec</artifactId>
 			<version>${camel.version}</version>
 		</dependency>
 
@@ -132,8 +138,8 @@
 					<instructions>
 						<Export-Package />
 						<Private-Package>
-							com.jjinterna.pbxevents.executable,
-							com.jjinterna.pbxevents.executable.*
+							com.jjinterna.pbxevents.action.tcx.limiter,
+							com.jjinterna.pbxevents.action.tcx.limiter.*
 						</Private-Package>
 					</instructions>
 				</configuration>

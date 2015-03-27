@@ -15,6 +15,8 @@ Features
 *-----*------*------*
  action-log | Log event to file | 1.0
 *-----*------*------*
+ action-3cx-limiter | Call duration limiter for 3CX PBX | 1.0
+*-----*------*------*
  asterisk-messages | Process Asterisk PBX messages file | 1.0
 *-----*------*------*
  asterisk-messages | Generate PhoneLine event | 1.0
@@ -30,6 +32,8 @@ Features
  snmptrap | Receive SNMP trap and generate SnmpTrapEvent event | 1.0
 *-----*------*------*
  rtcache | Provide REST API | 1.0
+*-----*------*------*
+ executable | Receive events from programs and scripts | 1.0
 *-----*------*------*
  - all - | File-based configuration | 1.0
 *-----*------*------*

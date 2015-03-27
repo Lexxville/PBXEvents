@@ -38,11 +38,12 @@
 		<module>pbxevents-3cx-cdrsocket</module>
 		<module>pbxevents-discovery-lldp</module>
 		<module>pbxevents-snmptrap</module>
+        <module>pbxevents-rtcache</module>
+        <module>pbxevents-executable</module>
 		<module>pbxevents-action-log</module>
 		<module>pbxevents-action-http</module>
 		<module>pbxevents-action-soap</module>
-		<module>pbxevents-rtcache</module>
-        <module>pbxevents-executable</module>
+        <module>pbxevents-action-3cx-limiter</module>
         <!-- <module>pbxevents-sip</module> -->
 		<module>pbxevents-routes</module>
 		<module>pbxevents-features</module>

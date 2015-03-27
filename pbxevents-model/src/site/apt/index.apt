@@ -5,35 +5,35 @@ PBXEvents model
 *-----*------*------*
  <<Event>> | <<Since>> | <<Supported by>>
 *-----*------*------*
- {{CallEnterQueue}} | 1.0 | {{{/pbxevents-asterisk-queue/index.html}asterisk-queue}}
+ {{CallEnterQueue}} | 1.0 | {{{/pbxevents-asterisk-queue/index.html}asterisk-queue}}, {{{/pbxevents-executable/index.html}executable}}
 *-----*------*------*
- {{CallAbandon}} | 1.0 | {{{/pbxevents-asterisk-queue/index.html}asterisk-queue}}
+ {{CallAbandon}} | 1.0 | {{{/pbxevents-asterisk-queue/index.html}asterisk-queue}}, {{{/pbxevents-executable/index.html}executable}}
 *-----*------*------*
- {{CallConnect}} | 1.0 | {{{/pbxevents-asterisk-queue/index.html}asterisk-queue}}
+ {{CallConnect}} | 1.0 | {{{/pbxevents-asterisk-queue/index.html}asterisk-queue}}, {{{/pbxevents-executable/index.html}executable}}
 *-----*------*------*
- {{CallComplete}} | 1.0 | {{{/pbxevents-asterisk-queue/index.html}asterisk-queue}}
+ {{CallComplete}} | 1.0 | {{{/pbxevents-asterisk-queue/index.html}asterisk-queue}}, {{{/pbxevents-executable/index.html}executable}}
 *-----*------*------*
- {{CallExitWithTimeout}} | 1.0 | {{{/pbxevents-asterisk-queue/index.html}asterisk-queue}}
+ {{CallExitWithTimeout}} | 1.0 | {{{/pbxevents-asterisk-queue/index.html}asterisk-queue}}, {{{/pbxevents-executable/index.html}executable}}
 *-----*------*------*
- {{QueueAddMember}} | 1.0 | {{{/pbxevents-asterisk-queue/index.html}asterisk-queue}}
+ {{QueueAddMember}} | 1.0 | {{{/pbxevents-asterisk-queue/index.html}asterisk-queue}}, {{{/pbxevents-executable/index.html}executable}}
 *-----*------*------*
- {{QueueRemoveMember}} | 1.0 | {{{/pbxevents-asterisk-queue/index.html}asterisk-queue}}
+ {{QueueRemoveMember}} | 1.0 | {{{/pbxevents-asterisk-queue/index.html}asterisk-queue}}, {{{/pbxevents-executable/index.html}executable}}
 *-----*------*------*
- {{QueuePauseMember}} | 1.0 | {{{/pbxevents-asterisk-queue/index.html}asterisk-queue}}
+ {{QueuePauseMember}} | 1.0 | {{{/pbxevents-asterisk-queue/index.html}asterisk-queue}}, {{{/pbxevents-executable/index.html}executable}}
 *-----*------*------*
- {{QueueResumeMember}} | 1.0 | {{{/pbxevents-asterisk-queue/index.html}asterisk-queue}}
+ {{QueueResumeMember}} | 1.0 | {{{/pbxevents-asterisk-queue/index.html}asterisk-queue}}, {{{/pbxevents-executable/index.html}executable}}
 *-----*------*------*
- CallStart |  |
+ CallStart | 1.0 | {{{/pbxevents-executable/index.html}executable}}
 *-----*------*------*
- CallUpdate |  |
+ CallUpdate | 1.0 | {{{/pbxevents-executable/index.html}executable}}
 *-----*------*------*
- {{CallStop}} | 1.0 | {{{/pbxevents-3cx-cdrsocket/index.html}3cx-cdrsocket}}
+ {{CallStop}} | 1.0 | {{{/pbxevents-3cx-cdrsocket/index.html}3cx-cdrsocket}}, {{{/pbxevents-executable/index.html}executable}}
 *-----*------*------*
- {{Phone}} | 1.0 | {{{/pbxevents-discovery-lldp/index.html}discovery-lldp}}
+ {{Phone}} | 1.0 | {{{/pbxevents-discovery-lldp/index.html}discovery-lldp}}, {{{/pbxevents-executable/index.html}executable}}
 *-----*------*------*
- {{PhoneLine}} | 1.0 | {{{/pbxevents-asterisk-messages/index.html}asterisk-messages}}
+ {{PhoneLine}} | 1.0 | {{{/pbxevents-asterisk-messages/index.html}asterisk-messages}}, {{{/pbxevents-executable/index.html}executable}}
 *-----*------*------*
- {{SnmpTrapEvent}} | 1.0 | {{{/pbxevents-snmptrap/index.html}snmptrap}}
+ {{SnmpTrapEvent}} | 1.0 | {{{/pbxevents-snmptrap/index.html}snmptrap}}, {{{/pbxevents-executable/index.html}executable}}
 *-----*------*------*
 
 * QueuedCall
