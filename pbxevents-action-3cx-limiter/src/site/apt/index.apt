@@ -1,0 +1,51 @@
+3CX Limiter module
+
+    The <<action-3cx-limiter>> module is a call duration limiter for 3CX PBX. 
+    This module will drop the outbound call if it exceeds the limit.
+
+* Options
+
+*-----*------*------*
+ <<Name>> | <<Default Value>> | <<Description>>
+*-----*------*------*
+ maxCallDuration | 3600 | The maximum call duration in seconds.
+*-----*------*------*
+ executable | | The file path of the system command that will be used to drop the call. The program will be invoked with three arguments: "dropcall <callId> <number>" where <callId> is the ActiveConnection CallID and <number> is the calling party number.
+*-----*------*------*
+
+* How it works
+
+    To communicate with the 3CX PBX a modified version of <<<OMSamples.exe>>> application from the 3CX CallControl API v12 Documentation Package is used.
+    The PBXEvents {{{../pbxevents-executable/index.html}executable}} module periodically runs the application
+    and emits {{{../pbxevents-model/index.html##CallUpdate}CallUpdate}} event for each external call.
+    The limiter receives CallUpdate events and if their <callDuration> exceeds <maxCallDuration> runs the application with arguments to drop the call. 
+
+* Installation
+
+    For additional installation help you will have to have an active {{{../pricing.html}maintenance}} for your software version.
+
+    [[1]] Install and patch the 3CX CallControl API v12 samples. 
+
+        [[1.1]] On {{{http://www.3cx.com/blog/docs/call-control-api/}3CX CallControl API v12}} page find,
+        download and unpack the API Documentation Package on drive <<C:\\>>.
+
+        [[1.2]] Replace <<C:\\3CXCallControlAPI_v12\\OMSamples\\Samples\\DNMonitor.cs>> with a {{{https://github.com/gmanev/PBXEvents/blob/master/pbxevents-executable/DNmonitor.cs}new version}}.
+        
+        [[1.3]] Open a Command Prompt and go to "C:\\3CXCallControlAPI_v12\\OMSamples".
+        
+        [[1.4]] Run the <<<msbuild>>> command to recompile the application.
+
+    [[2]] Configure PBXEvents.
+
+    Create a configuration file <<<com.jjinterna.pbxevents.executable.Executable-1.cfg>>>:
+
+---
+executable = c:\\3cxcallcontrolapi_v12\\omsamples\\bin\\omsamples.exe
+args = dn_monitor
+---
+
+    Create a configuration file <<<com.jjinterna.pbxevents.action.tcx.limiter.LimiterAction-1.cfg>>>:
+
+---
+executable = c:\\3cxcallcontrolapi_v12\\omsamples\\bin\\omsamples.exe
+---

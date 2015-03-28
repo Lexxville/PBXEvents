@@ -1,0 +1,19 @@
+Executable module
+
+    The <<executable>> module is used to receive events from programs and scripts.
+    The events are collected from <stdout> and must be separated by a newline.
+
+* Options
+
+*-----*------*------*
+ <<Name>> | <<Default Value>> | <<Description>>
+*-----*------*------*
+ executable | | The name, or file path, of the system command that will be executed.
+*-----*------*------*
+ args | | The arguments of the executable.
+*-----*------*------*
+ timeout | 10000 | The timeout, in milliseconds, after which the executable should be terminated. If execution has not completed within the timeout, the component will send a termination request.
+*-----*------*------*
+ period | 5000 | The number of milliseconds between executions.
+*-----*------*------*
+
