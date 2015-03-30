@@ -1,0 +1,23 @@
+    ---
+    About
+    ---
+
+About PBXEvents
+
+    PBXEvents is a Java/OSGi-based application for PBX events processing.
+    
+    It can receive {{{./pbxevents-model/index.html}events}} from various sources,
+    such as {{{./pbxevents-asterisk-queue/index.html}queue_log}} and 
+    {{{./pbxevents-asterisk-messages/index.html}messages}} files of Asterisk PBX, 
+    3CX PBX {{{./pbxevents-3cx-cdrsocket/index.html}CDR}} over socket,
+    {{{./pbxevents-executable/index.html}programs}},
+    {{{./pbxevents-snmptrap/index.html}SNMP}} agents and 
+    {{{./pbxevents-discovery-lldp/index.html}LLDP}} endpoints.
+
+    Some events are cached and can be queried using a  {{{./pbxevents-rtcache/index.html}REST API}}.
+
+    PBXEvents can notify third-party applications over {{{./pbxevents-action-http/index.html}HTTP GET/POST}} and 
+    {{{./pbxevents-action-soap/index.html}SOAP}} when certain events happen.
+
+    The PBXEvents software can be used as a telephony middleware for systems integration or standalone
+    such as {{{./pbxevents-action-3cx-limiter/index.html}call duration limiter}} for 3CX PBX.

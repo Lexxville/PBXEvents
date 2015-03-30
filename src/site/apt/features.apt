@@ -1,3 +1,7 @@
+    ---
+    Features
+    ---
+    
 Features
 
 *-----*------*------*
@@ -15,7 +19,7 @@ Features
 *-----*------*------*
  action-log | Log event to file | 1.0
 *-----*------*------*
- action-3cx-limiter | Call duration limiter for 3CX PBX | 1.0
+ action-3cx-limiter | Limit 3CX PBX external calls by call duration | 1.0
 *-----*------*------*
  asterisk-messages | Process Asterisk PBX messages file | 1.0
 *-----*------*------*

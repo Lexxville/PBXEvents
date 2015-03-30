@@ -1,7 +1,14 @@
 3CX Limiter module
 
     The <<action-3cx-limiter>> module is a call duration limiter for 3CX PBX. 
-    This module will drop the outbound call if it exceeds the limit.
+
+* How it works
+
+    To communicate with 3CX PBX a modified version of <<<OMSamples.exe>>> application from 3CX CallControl API v12 Documentation Package is used.
+    The PBXEvents {{{../pbxevents-executable/index.html}executable}} module periodically runs the application
+    and emits {{{../pbxevents-model/index.html##CallUpdate}CallUpdate}} event for each external call.
+    Then the limiter checks whether <callDuration> field of the event exceeds <maxCallDuration>.
+    If the limit is exceeded it runs the application with arguments to drop the call. 
 
 * Options
 
@@ -12,13 +19,6 @@
 *-----*------*------*
  executable | | The file path of the system command that will be used to drop the call. The program will be invoked with three arguments: "dropcall <callId> <number>" where <callId> is the ActiveConnection CallID and <number> is the calling party number.
 *-----*------*------*
-
-* How it works
-
-    To communicate with the 3CX PBX a modified version of <<<OMSamples.exe>>> application from the 3CX CallControl API v12 Documentation Package is used.
-    The PBXEvents {{{../pbxevents-executable/index.html}executable}} module periodically runs the application
-    and emits {{{../pbxevents-model/index.html##CallUpdate}CallUpdate}} event for each external call.
-    The limiter receives CallUpdate events and if their <callDuration> exceeds <maxCallDuration> runs the application with arguments to drop the call. 
 
 * Installation
 
