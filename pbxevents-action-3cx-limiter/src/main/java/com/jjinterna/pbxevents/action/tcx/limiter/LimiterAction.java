@@ -28,6 +28,7 @@ import com.jjinterna.pbxevents.routes.selector.EventTypeSelector;
 		@Property(name = "camelContextId", value = "pbxevents-action-3cx-limiter"),
 		@Property(name = "maxCallDuration", value = "3600"),
 		@Property(name = "executable"),
+		@Property(name = "extension", value = "\\d+"),		
 		@Property(name = "active", value = "true") })
 @References({ @Reference(name = "camelComponent", referenceInterface = ComponentResolver.class, cardinality = ReferenceCardinality.MANDATORY_MULTIPLE, policy = ReferencePolicy.DYNAMIC, policyOption = ReferencePolicyOption.GREEDY, bind = "gotCamelComponent", unbind = "lostCamelComponent") })
 public class LimiterAction extends AbstractCamelRunner {
@@ -41,6 +42,8 @@ public class LimiterAction extends AbstractCamelRunner {
 	private String executable;
 	@SuppressWarnings("unused")
 	private Integer maxCallDuration;
+	@SuppressWarnings("unused")
+	private String extension;
 
 	@Override
 	protected List<RoutesBuilder> getRouteBuilders() {
@@ -56,9 +59,9 @@ public class LimiterAction extends AbstractCamelRunner {
 			@Override
 			public void configure() throws Exception {
 				from("direct:start")
-				.filter(simple("${body.callDuration} > {{maxCallDuration}}"))
+				.filter(simple("${body.callDuration} > {{maxCallDuration}} && ${body.callingNumber} regex '{{extension}}'"))
 				.setHeader(ExecBinding.EXEC_COMMAND_ARGS, simple("dropcall ${body.callId} ${body.callingNumber}"))
-				.to("exec:{{executable}}");				
+				.to("exec:{{executable}}?timeout=10000");
 			}
 		});
 		return routesBuilders;

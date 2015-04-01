@@ -17,6 +17,8 @@
 *-----*------*------*
  maxCallDuration | 3600 | The maximum call duration in seconds.
 *-----*------*------*
+ extension | \\\\d+ | Regular expression to match extensions that will be limited.
+*-----*------*------*
  executable | | The file path of the system command that will be used to drop the call. The program will be invoked with three arguments: "dropcall <callId> <number>" where <callId> is the ActiveConnection CallID and <number> is the calling party number.
 *-----*------*------*
 
