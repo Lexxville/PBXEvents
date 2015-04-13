@@ -1,0 +1,45 @@
+3CX Call Router module
+
+    The <<3cx-callrouter>> module provides CRM/ERP call routing integration for 3CX PBX.
+    
+* How it works
+
+    Upon receiving an incoming call the module will perform a routing request to the CRM/ERP how to route the call.
+    The routing request will be sent over HTTP protocol with the following query options:
+    
+        * <<ani>>: The Automatic Number Identification (ANI) value, also known as CallerID.
+    
+        * <<dnis>>: The Dialed Number Identification Service (DNIS) value.    
+    
+    Upon receiving a routing request the CRM/ERP should promptly provide a routing response.
+    The routing response is a simple XML document with the following elements:
+    
+        * <<extension>>: The extension number to transfer the call to.
+
+        * <<errorExtension>>: The extension number if the primary did not answer.
+    
+* Options
+
+*-----*------*------*
+ <<Name>> | <<Default Value>> | <<Description>>
+*-----*------*------*
+ httpUri | | The CRM/ERP HTTP URI for the routing request.
+*-----*------*------*
+
+* Examples
+
+** Routing Request
+
+---
+GET /route?ani=100&dnis=851
+---
+
+** Routing Response
+
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<routingResponse>
+  <extension>100</extension>
+  <errorExtension>800</errorExtension>
+</routingResponse>
+---

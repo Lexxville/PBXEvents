@@ -8,7 +8,7 @@ About PBXEvents
     
     It can receive {{{./pbxevents-model/index.html}events}} from various sources,
     such as {{{./pbxevents-asterisk-queue/index.html}queue_log}} and 
-    {{{./pbxevents-asterisk-messages/index.html}messages}} file of Asterisk PBX, 
+    {{{./pbxevents-asterisk-messages/index.html}messages}} of Asterisk PBX, 
     3CX PBX {{{./pbxevents-3cx-cdrsocket/index.html}CDR socket}},
     external {{{./pbxevents-executable/index.html}programs}},
     {{{./pbxevents-snmptrap/index.html}SNMP}} agents and 
@@ -21,6 +21,8 @@ About PBXEvents
 
 * Applications / Use cases
 
-    * Telephony middleware for systems integration.
+    * Middleware for telephony system integration.
 
     * {{{./pbxevents-action-3cx-limiter/index.html}Call limiter}} for 3CX PBX.
+
+    * {{{./pbxevents-3cx-callrouter/index.html}CRM/ERP call routing integration}} for 3CX PBX.

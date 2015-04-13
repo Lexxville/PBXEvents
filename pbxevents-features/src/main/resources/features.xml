@@ -100,5 +100,13 @@
         <bundle>mvn:com.jjinterna.pbxevents/pbxevents-routes/${pom.version}</bundle>        
         <bundle>mvn:com.jjinterna.pbxevents/pbxevents-executable/${pom.version}</bundle>
     </feature>
+
+    <feature name="pbxevents-3cx-callrouter" version="${pom.version}">
+        <feature>camel-cxf</feature>
+        <feature>camel-velocity</feature>
+        <bundle>mvn:com.jjinterna.pbxevents/pbxevents-model/${pom.version}</bundle>
+        <bundle>mvn:com.jjinterna.pbxevents/pbxevents-routes/${pom.version}</bundle>        
+        <bundle>mvn:com.jjinterna.pbxevents/pbxevents-3cx-callrouter/${pom.version}</bundle>
+    </feature>
     
 </features>
