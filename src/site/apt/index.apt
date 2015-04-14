@@ -21,7 +21,7 @@ About PBXEvents
 
 * Applications / Use cases
 
-    * Middleware for telephony system integration.
+    * Telephony middleware for systems integration.
 
     * {{{./pbxevents-action-3cx-limiter/index.html}Call limiter}} for 3CX PBX.
 
