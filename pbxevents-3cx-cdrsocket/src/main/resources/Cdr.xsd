@@ -3,6 +3,25 @@
     xmlns:tns="http://3cx.pbxevents.jjinterna.com/cdrsocket/model"
     targetNamespace="http://3cx.pbxevents.jjinterna.com/cdrsocket/model">
 
+    <xsd:element name="CallDetail">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="detailNum" type="xsd:int" />
+                <xsd:element name="idCallHistory2" type="xsd:string" />
+                <xsd:element name="parentDetailNum" type="xsd:int" />
+                <xsd:element name="destDn" type="xsd:string" />
+                <xsd:element name="destNum" type="xsd:string" />
+                <xsd:element name="startTime" type="xsd:string" />
+                <xsd:element name="duration" type="xsd:string" />
+                <xsd:element name="answerTime" type="xsd:string" />
+                <xsd:element name="status" type="xsd:string" />
+                <xsd:element name="isCompl" type="xsd:int" />
+                <xsd:element name="specDestType" type="xsd:string" />
+                <xsd:element name="isToOutside" type="xsd:int" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>      
+
 	<xsd:element name="Call">
     	<xsd:complexType>
    			<xsd:sequence>
@@ -28,6 +47,7 @@
 	   			<xsd:element name="totalCost" type="xsd:int" />
    				<xsd:element name="billPrefix" type="xsd:string" />
    				<xsd:element name="billRateName" type="xsd:string" />
+                <xsd:element name="numDetails" type="xsd:int" />
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>		

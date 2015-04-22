@@ -8,6 +8,7 @@ import com.jjinterna.pbxevents.model.CallComplete;
 import com.jjinterna.pbxevents.model.CallConnect;
 import com.jjinterna.pbxevents.model.CallEnterQueue;
 import com.jjinterna.pbxevents.model.CallExitWithTimeout;
+import com.jjinterna.pbxevents.model.CallRingNoAnswer;
 import com.jjinterna.pbxevents.model.QueuedCall;
 
 public class CallEventAggregationStrategy implements AggregationStrategy {
@@ -26,6 +27,7 @@ public class CallEventAggregationStrategy implements AggregationStrategy {
 
 		if (newExchange.getIn().getBody() instanceof QueueLog) {
 			QueueLog queueLog = (QueueLog) newExchange.getIn().getBody();
+			callEvent.setEventTime(queueLog.getTimeId());
 			switch (queueLog.getVerb()) {
 			case DID:
 				callEvent.setDid(queueLog.getData1());
@@ -54,6 +56,12 @@ public class CallEventAggregationStrategy implements AggregationStrategy {
 			case COMPLETECALLER:
 				callEvent.setQueueLeaveTime(queueLog.getTimeId());
 				callEvent = copy(callEvent, new CallComplete());
+				((CallComplete) callEvent).setCompleteSource(queueLog.getVerb().equals(QueueLogType.COMPLETEAGENT) ?
+						"agent" : "caller");
+				break;
+			case RINGNOANSWER:
+				callEvent.setAgent(queueLog.getAgent());				
+				callEvent = copy(callEvent, new CallRingNoAnswer());				
 				break;
 			}
 			// callEvent.getLog().add(queueLog);
@@ -67,6 +75,7 @@ public class CallEventAggregationStrategy implements AggregationStrategy {
 	}
 
 	private static QueuedCall copy(QueuedCall from, QueuedCall to) {
+		to.setEventTime(from.getEventTime());
 		to.setAgent(from.getAgent());
 		to.setCallerId(from.getCallerId());
 		to.setCallId(from.getCallId());

@@ -9,6 +9,8 @@ PBXEvents model
 *-----*------*------*
  {{CallAbandon}} | 1.0 | {{{../pbxevents-asterisk-queue/index.html}asterisk-queue}}, {{{../pbxevents-executable/index.html}executable}}
 *-----*------*------*
+ {{CallRingNoAnswer}} | 1.0 | {{{../pbxevents-asterisk-queue/index.html}asterisk-queue}}, {{{../pbxevents-executable/index.html}executable}}
+*-----*------*------*
  {{CallConnect}} | 1.0 | {{{../pbxevents-asterisk-queue/index.html}asterisk-queue}}, {{{../pbxevents-executable/index.html}executable}}
 *-----*------*------*
  {{CallComplete}} | 1.0 | {{{../pbxevents-asterisk-queue/index.html}asterisk-queue}}, {{{../pbxevents-executable/index.html}executable}}
@@ -36,9 +38,18 @@ PBXEvents model
  {{SnmpTrapEvent}} | 1.0 | {{{../pbxevents-snmptrap/index.html}snmptrap}}, {{{../pbxevents-executable/index.html}executable}}
 *-----*------*------*
 
+* Common fields
+
+*-----*------*
+ <<Field>> | <<Description>>
+*-----*------*
+ eventTime | The GMT event timestamp
+*-----*------*
+
+
 * QueuedCall
 
-  QueuedCall events are CallEnterQueue, CallAbandon, CallComplete, CallConnect and CallExitWithTimeout. 
+  QueuedCall events are CallEnterQueue, CallAbandon, CallComplete, CallConnect, CallRingNoAnswer and CallExitWithTimeout. 
   They have the following possible transitions: 
 
 [./images/callqueue-events.png] QueuedCall events flowchart
@@ -111,6 +122,42 @@ PBXEvents model
   <queueEnterTime>1422339159</queueEnterTime>
   <queueLeaveTime>1422339230</queueLeaveTime>  
 </CallAbandon>
+---
+
+* CallRingNoAnswer
+
+  The agent did not answer the call.
+
+** Fields
+
+*-----*------*
+ <<Field>> | <<Description>>
+*-----*------*
+ callId | The call identifier
+*-----*------*
+ callerId | The Caller ID
+*-----*------*
+ did | The dialed number
+*-----*------*
+ queue | The queue name
+*-----*------*
+ agent | The agent name
+*-----*------*
+ queueEnterTime | The GMT timestamp when entering the queue
+*-----*------*
+
+** Example
+
+---
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<CallRingNoAnswer xmlns="http://pbxevents.jjinterna.com/model">
+  <callId>1422339149.531960</callId>
+  <callerId>306231473</callerId>
+  <did>304412483</did>
+  <queue>8101</queue>
+  <agent>204</agent>
+  <queueEnterTime>1422339159</queueEnterTime>
+</CallRingNoAnswer>
 ---
 
 * CallConnect
@@ -192,6 +239,8 @@ PBXEvents model
 *-----*------*
  queueLeaveTime | The GMT timestamp when leaving the queue
 *-----*------*
+ completeSource | Who has completed the call - the agent or the caller
+*-----*------*
 
 ** Example
 
@@ -205,7 +254,8 @@ PBXEvents model
   <agent>204</agent>
   <queueEnterTime>1422339159</queueEnterTime>
   <queueConnectTime>1422339161</queueConnectTime>  
-  <queueLeaveTime>1422339230</queueLeaveTime>  
+  <queueLeaveTime>1422339230</queueLeaveTime>
+  <completeSource>caller</completeSource>
 </CallComplete>
 ---
 

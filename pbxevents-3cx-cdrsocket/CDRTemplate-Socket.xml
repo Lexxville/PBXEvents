@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <CallTemplate Host="192.168.122.1" Port="33555" OutboundOnly="false">
-  <idcallhistory3 fmt="&#xD;&#xA;&lt;Call&gt; &lt;idCallHistory3&gt;{0}&lt;/idCallHistory3&gt;" /> <!-- comments get skipped simply because they are not known xml nodes -->
+  <idcallhistory3 fmt="&lt;Call&gt;&lt;idCallHistory3&gt;{0}&lt;/idCallHistory3&gt;" /> <!-- comments get skipped simply because they are not known xml nodes -->
   <callid   fmt="&lt;callId&gt;{0}&lt;/callId&gt;" />
   <duration fmt="&lt;duration&gt;{0}&lt;/duration&gt;" />
   <starttime fmt="&lt;startTime&gt;{0:ddMMyyHHmmss}&lt;/startTime&gt;" /> <!-- use dot net string formating to format the date -->
   <answertime fmt="&lt;answerTime&gt;{0:ddMMyyHHmmss}&lt;/answerTime&gt;" />
   <endtime  fmt="&lt;endTime&gt;{0:ddMMyyHHmmss}&lt;/endTime&gt;" />
-  <from_no  fmt="&lt;from_no&gt;{0}&lt;/from_no&gt;" />
-  <to_no    fmt="&lt;to_no&gt;{0}&lt;/to_no&gt;" />
-  <group_no fmt="&lt;group_no&gt;{0}&lt;/group_no&gt;" />
-  <line_no  fmt="&lt;line_no&gt;{0}&lt;/line_no&gt;" />
-  <is_answ  fmt="&lt;is_answ&gt;{0}&lt;/is_answ&gt;" />
-  <is_fail  fmt="&lt;is_fail&gt;{0}&lt;/is_fail&gt;" />
-  <is_compl fmt="&lt;is_compl&gt;{0}&lt;/is_compl&gt;" />
-  <is_fromoutside fmt="&lt;is_fromoutside&gt;{0}&lt;/is_fromoutside&gt;" />
+  <from_no  fmt="&lt;fromNo&gt;{0}&lt;/fromNo&gt;" />
+  <to_no    fmt="&lt;toNo&gt;{0}&lt;/toNo&gt;" />
+  <group_no fmt="&lt;groupNo&gt;{0}&lt;/groupNo&gt;" />
+  <line_no  fmt="&lt;lineNo&gt;{0}&lt;/lineNo&gt;" />
+  <is_answ  fmt="&lt;isAnsw&gt;{0}&lt;/isAnsw&gt;" />
+  <is_fail  fmt="&lt;isFail&gt;{0}&lt;/isFail&gt;" />
+  <is_compl fmt="&lt;isCompl&gt;{0}&lt;/isCompl&gt;" />
+  <is_fromoutside fmt="&lt;isFromOutside&gt;{0}&lt;/isFromOutside&gt;" />
   <CallerID fmt="&lt;callerId&gt;{0}&lt;/callerId&gt;" />
   <DialedNumber fmt="&lt;dialedNumber&gt;{0}&lt;/dialedNumber&gt;" />
   <lastCallerID fmt="&lt;lastCallerId&gt;{0}&lt;/lastCallerId&gt;" />
@@ -22,22 +22,22 @@
   <Rate         fmt="&lt;rate&gt;{0}&lt;/rate&gt;" />
   <TotalCost    fmt="&lt;totalCost&gt;{0}&lt;/totalCost&gt;" />
   <BillPrefix   fmt="&lt;billPrefix&gt;{0}&lt;/billPrefix&gt;" />
-  <BillRateName fmt="&lt;billRateName&gt;{0}&lt;/billRateName&gt; &lt;/Call&gt;&#xD;&#xA;" /> 
+  <BillRateName fmt="&lt;billRateName&gt;{0}&lt;/billRateName&gt;" />
+  <NumDetails   fmt="&lt;numDetails&gt;{0}&lt;/numDetails&gt;&lt;/Call&gt;&#xD;&#xA;" />
   <!-- add cr/ new line in the string
-  <GrpAnswDetail fmt="{0}&#xD;&#xA;" />
-  <NumDetails   fmt="{0}&#xD;&#xA;" />
+  <GrpAnswDetail fmt="{0}&#xD;&#xA;" /> -->
   <DetailsTemplate>
-     <DetailNum fmt="CallDetail {0}," />
-     <IdCallHistory2  fmt="{0}," />
-     <ParentDetailNum fmt="{0}," />
-     <dest_dn  fmt="{0}," />
-     <dest_num  fmt="{0}," />
-     <StartTime fmt="{0}," />
-     <Dur       fmt="{0}," />
-     <AnswerTime fmt="{0}," />
-     <Status    fmt="{0}," />
-     <Is_Compl  fmt="{0}," />
-     <SpecDstType fmt="{0}," />
-     <is_tooutside fmt="{0}&#xD;&#xA;" />
-  </DetailsTemplate> -->
+     <DetailNum fmt="&lt;CallDetail&gt;&lt;detailNum&gt;{0}&lt;/detailNum&gt;" />
+     <IdCallHistory2  fmt="&lt;idCallHistory2&gt;{0}&lt;/idCallHistory2&gt;" />
+     <ParentDetailNum fmt="&lt;parentDetailNum&gt;{0}&lt;/parentDetailNum&gt;" />
+     <dest_dn  fmt="&lt;destDn&gt;{0}&lt;/destDn&gt;" />
+     <dest_num  fmt="&lt;destNum&gt;{0}&lt;/destNum&gt;" />
+     <StartTime fmt="&lt;startTime&gt;{0:ddMMyyHHmmss}&lt;/startTime&gt;" />
+     <Dur       fmt="&lt;duration&gt;{0}&lt;/duration&gt;" />
+     <AnswerTime fmt="&lt;answerTime&gt;{0:ddMMyyHHmmss}&lt;/answerTime&gt;" />
+     <Status    fmt="&lt;status&gt;{0}&lt;/status&gt;" />
+     <Is_Compl  fmt="&lt;isCompl&gt;{0}&lt;/isCompl&gt;" />
+     <SpecDstType fmt="&lt;specDstType&gt;{0}&lt;/specDstType&gt;" />
+     <is_tooutside fmt="&lt;isToOutside&gt;{0}&lt;/isToOutside&gt;&lt;/CallDetail&gt;&#xD;&#xA;" />
+  </DetailsTemplate>
 </CallTemplate>
