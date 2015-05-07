@@ -49,6 +49,7 @@
 		<module>pbxevents-features</module>
 		<module>pbxevents-mediator-activemq</module>
 		<module>pbxevents-3cx-callrouter</module>
+		<module>pbxevents-3cx-model</module>
 	</modules>
 
 	<build>

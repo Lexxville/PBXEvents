@@ -1,4 +1,4 @@
-package com.jjinterna.pbxevents._3cx.cdrsocket;
+package com.jjinterna.pbxevents.tcx.cdrsocket;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +16,8 @@ import org.apache.felix.scr.annotations.ReferencePolicy;
 import org.apache.felix.scr.annotations.ReferencePolicyOption;
 import org.apache.felix.scr.annotations.References;
 
-import com.jjinterna.pbxevents._3cx.cdrsocket.internal.CdrSocketRoute;
 import com.jjinterna.pbxevents.routes.EventMediator;
+import com.jjinterna.pbxevents.tcx.cdrsocket.internal.CdrSocketRoute;
 
 @Component(description = CdrSocket.COMPONENT_DESCRIPTION, immediate = true, metatype = true, policy = ConfigurationPolicy.REQUIRE)
 @Properties({ @Property(name = "camelContextId", value = "pbxevents-3cx"),
@@ -37,7 +37,9 @@ public class CdrSocket extends AbstractCamelRunner {
 	protected List<RoutesBuilder> getRouteBuilders() {
 		List<RoutesBuilder> routesBuilders = new ArrayList<>();
 		routesBuilders.add(new CdrSocketRoute());
-		routesBuilders.add(mediator.publisher());
+		if (mediator != null) {
+			routesBuilders.add(mediator.publisher());
+		}
 		return routesBuilders;
 	}
 

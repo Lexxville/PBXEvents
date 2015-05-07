@@ -1,0 +1,63 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://pbxevents.jjinterna.com/model/tcx" xmlns:pbe="http://pbxevents.jjinterna.com/model"
+	elementFormDefault="qualified" targetNamespace="http://pbxevents.jjinterna.com/model/tcx">
+
+	<xsd:import
+		schemaLocation="../../../../pbxevents-model/src/main/resources/PBXEvents.xsd"
+		namespace="http://pbxevents.jjinterna.com/model" />
+
+	<xsd:complexType name="CallStop">
+		<xsd:complexContent>
+			<xsd:extension base="pbe:CallStop">
+				<xsd:sequence>
+                    <xsd:element name="idCallHistory3" type="xsd:string" />
+					<xsd:element name="tcxCallId" type="xsd:string" />
+					<xsd:element name="tcxDuration" type="xsd:string" />
+					<xsd:element name="tcxStartTime" type="xsd:string" />
+					<xsd:element name="tcxAnswerTime" type="xsd:string" />
+					<xsd:element name="tcxEndTime" type="xsd:string" />
+					<xsd:element name="tcxFromNo" type="xsd:string" />
+					<xsd:element name="tcxToNo" type="xsd:string" />
+					<xsd:element name="tcxGroupNo" type="xsd:string" />
+					<xsd:element name="tcxLineNo" type="xsd:string" />
+					<xsd:element name="tcxIsAnsw" type="xsd:int" />
+					<xsd:element name="tcxIsFail" type="xsd:int" />
+					<xsd:element name="tcxIsCompl" type="xsd:int" />
+					<xsd:element name="tcxIsFromOutside" type="xsd:int" />
+					<xsd:element name="tcxCallerId" type="xsd:string" />
+					<xsd:element name="tcxDialedNumber" type="xsd:string" />
+					<xsd:element name="tcxLastCallerId" type="xsd:string" />
+					<xsd:element name="tcxLastDialedNumber" type="xsd:string" />
+					<xsd:element name="tcxMediaType" type="xsd:int" />
+					<xsd:element name="tcxRate" type="xsd:int" />
+					<xsd:element name="tcxTotalCost" type="xsd:int" />
+					<xsd:element name="tcxBillPrefix" type="xsd:string" />
+					<xsd:element name="tcxBillRateName" type="xsd:string" />
+					<xsd:element name="tcxNumDetails" type="xsd:int" />
+					<xsd:element name="details" type="tns:CallDetail" minOccurs="0" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="CallDetail">
+		<xsd:sequence>
+			<xsd:element name="detailNum" type="xsd:int" />
+			<xsd:element name="idCallHistory3" type="xsd:string" />
+			<xsd:element name="parentDetailNum" type="xsd:int" />
+			<xsd:element name="destDn" type="xsd:string" />
+			<xsd:element name="destNum" type="xsd:string" />
+			<xsd:element name="startTime" type="xsd:string" />
+			<xsd:element name="duration" type="xsd:string" />
+			<xsd:element name="answerTime" type="xsd:string" />
+			<xsd:element name="status" type="xsd:string" />
+			<xsd:element name="isCompl" type="xsd:int" />
+			<xsd:element name="specDestType" type="xsd:string" />
+			<xsd:element name="isToOutside" type="xsd:int" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:element name="CallStop" type="tns:CallStop" />
+    <xsd:element name="CallDetail" type="tns:CallDetail" />
+
+</xsd:schema>

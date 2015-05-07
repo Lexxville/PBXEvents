@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <CallTemplate Host="192.168.122.1" Port="33555" OutboundOnly="false">
-  <idcallhistory3 fmt="&lt;Call&gt;&lt;idCallHistory3&gt;{0}&lt;/idCallHistory3&gt;" /> <!-- comments get skipped simply because they are not known xml nodes -->
-  <callid   fmt="&lt;callId&gt;{0}&lt;/callId&gt;" />
-  <duration fmt="&lt;duration&gt;{0}&lt;/duration&gt;" />
-  <starttime fmt="&lt;startTime&gt;{0:ddMMyyHHmmss}&lt;/startTime&gt;" /> <!-- use dot net string formating to format the date -->
-  <answertime fmt="&lt;answerTime&gt;{0:ddMMyyHHmmss}&lt;/answerTime&gt;" />
-  <endtime  fmt="&lt;endTime&gt;{0:ddMMyyHHmmss}&lt;/endTime&gt;" />
-  <from_no  fmt="&lt;fromNo&gt;{0}&lt;/fromNo&gt;" />
-  <to_no    fmt="&lt;toNo&gt;{0}&lt;/toNo&gt;" />
-  <group_no fmt="&lt;groupNo&gt;{0}&lt;/groupNo&gt;" />
-  <line_no  fmt="&lt;lineNo&gt;{0}&lt;/lineNo&gt;" />
-  <is_answ  fmt="&lt;isAnsw&gt;{0}&lt;/isAnsw&gt;" />
-  <is_fail  fmt="&lt;isFail&gt;{0}&lt;/isFail&gt;" />
-  <is_compl fmt="&lt;isCompl&gt;{0}&lt;/isCompl&gt;" />
-  <is_fromoutside fmt="&lt;isFromOutside&gt;{0}&lt;/isFromOutside&gt;" />
-  <CallerID fmt="&lt;callerId&gt;{0}&lt;/callerId&gt;" />
-  <DialedNumber fmt="&lt;dialedNumber&gt;{0}&lt;/dialedNumber&gt;" />
-  <lastCallerID fmt="&lt;lastCallerId&gt;{0}&lt;/lastCallerId&gt;" />
-  <lastDialedNumber fmt="&lt;lastDialedNumber&gt;{0}&lt;/lastDialedNumber&gt;" />
-  <mediaType fmt="&lt;mediaType&gt;{0}&lt;/mediaType&gt;" />
-  <Rate         fmt="&lt;rate&gt;{0}&lt;/rate&gt;" />
-  <TotalCost    fmt="&lt;totalCost&gt;{0}&lt;/totalCost&gt;" />
-  <BillPrefix   fmt="&lt;billPrefix&gt;{0}&lt;/billPrefix&gt;" />
-  <BillRateName fmt="&lt;billRateName&gt;{0}&lt;/billRateName&gt;" />
-  <NumDetails   fmt="&lt;numDetails&gt;{0}&lt;/numDetails&gt;&lt;/Call&gt;&#xD;&#xA;" />
+  <idcallhistory3 fmt="&lt;CallStop&gt;&lt;idCallHistory3&gt;{0}&lt;/idCallHistory3&gt;" /> <!-- comments get skipped simply because they are not known xml nodes -->
+  <callid   fmt="&lt;tcxCallId&gt;{0}&lt;/tcxCallId&gt;" />
+  <duration fmt="&lt;tcxDuration&gt;{0}&lt;/tcxDuration&gt;" />
+  <starttime fmt="&lt;tcxStartTime&gt;{0:ddMMyyHHmmss}&lt;/tcxStartTime&gt;" /> <!-- use dot net string formating to format the date -->
+  <answertime fmt="&lt;tcxAnswerTime&gt;{0:ddMMyyHHmmss}&lt;/tcxAnswerTime&gt;" />
+  <endtime  fmt="&lt;tcxEndTime&gt;{0:ddMMyyHHmmss}&lt;/tcxEndTime&gt;" />
+  <from_no  fmt="&lt;tcxFromNo&gt;{0}&lt;/tcxFromNo&gt;" />
+  <to_no    fmt="&lt;tcxToNo&gt;{0}&lt;/tcxToNo&gt;" />
+  <group_no fmt="&lt;tcxGroupNo&gt;{0}&lt;/tcxGroupNo&gt;" />
+  <line_no  fmt="&lt;tcxLineNo&gt;{0}&lt;/tcxLineNo&gt;" />
+  <is_answ  fmt="&lt;tcxIsAnsw&gt;{0}&lt;/tcxIsAnsw&gt;" />
+  <is_fail  fmt="&lt;tcxIsFail&gt;{0}&lt;/tcxIsFail&gt;" />
+  <is_compl fmt="&lt;tcxIsCompl&gt;{0}&lt;/tcxIsCompl&gt;" />
+  <is_fromoutside fmt="&lt;tcxIsFromOutside&gt;{0}&lt;/tcxIsFromOutside&gt;" />
+  <CallerID fmt="&lt;tcxCallerId&gt;{0}&lt;/tcxCallerId&gt;" />
+  <DialedNumber fmt="&lt;tcxDialedNumber&gt;{0}&lt;/tcxDialedNumber&gt;" />
+  <lastCallerID fmt="&lt;tcxLastCallerId&gt;{0}&lt;/tcxLastCallerId&gt;" />
+  <lastDialedNumber fmt="&lt;tcxLastDialedNumber&gt;{0}&lt;/tcxLastDialedNumber&gt;" />
+  <mediaType fmt="&lt;tcxMediaType&gt;{0}&lt;/tcxMediaType&gt;" />
+  <Rate         fmt="&lt;tcxRate&gt;{0}&lt;/tcxRate&gt;" />
+  <TotalCost    fmt="&lt;tcxTotalCost&gt;{0}&lt;/tcxTotalCost&gt;" />
+  <BillPrefix   fmt="&lt;tcxBillPrefix&gt;{0}&lt;/tcxBillPrefix&gt;" />
+  <BillRateName fmt="&lt;tcxBillRateName&gt;{0}&lt;/tcxBillRateName&gt;" />
+  <NumDetails   fmt="&lt;tcxNumDetails&gt;{0}&lt;/tcxNumDetails&gt;&lt;/CallStop&gt;&#xD;&#xA;" />
   <!-- add cr/ new line in the string
   <GrpAnswDetail fmt="{0}&#xD;&#xA;" /> -->
   <DetailsTemplate>
      <DetailNum fmt="&lt;CallDetail&gt;&lt;detailNum&gt;{0}&lt;/detailNum&gt;" />
-     <IdCallHistory2  fmt="&lt;idCallHistory2&gt;{0}&lt;/idCallHistory2&gt;" />
+     <IdCallHistory2  fmt="&lt;idCallHistory3&gt;{0}&lt;/idCallHistory3&gt;" />
      <ParentDetailNum fmt="&lt;parentDetailNum&gt;{0}&lt;/parentDetailNum&gt;" />
      <dest_dn  fmt="&lt;destDn&gt;{0}&lt;/destDn&gt;" />
      <dest_num  fmt="&lt;destNum&gt;{0}&lt;/destNum&gt;" />
@@ -37,7 +37,7 @@
      <AnswerTime fmt="&lt;answerTime&gt;{0:ddMMyyHHmmss}&lt;/answerTime&gt;" />
      <Status    fmt="&lt;status&gt;{0}&lt;/status&gt;" />
      <Is_Compl  fmt="&lt;isCompl&gt;{0}&lt;/isCompl&gt;" />
-     <SpecDstType fmt="&lt;specDstType&gt;{0}&lt;/specDstType&gt;" />
+     <SpecDstType fmt="&lt;specDestType&gt;{0}&lt;/specDestType&gt;" />
      <is_tooutside fmt="&lt;isToOutside&gt;{0}&lt;/isToOutside&gt;&lt;/CallDetail&gt;&#xD;&#xA;" />
   </DetailsTemplate>
 </CallTemplate>

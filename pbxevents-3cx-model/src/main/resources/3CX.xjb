@@ -1,0 +1,22 @@
+<jxb:bindings version="1.0" xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc">
+	<jxb:bindings schemaLocation="3CX.xsd" node="/xs:schema">
+		<jxb:globalBindings>
+			<xjc:serializable />
+			<xjc:simple />
+		</jxb:globalBindings>
+	</jxb:bindings>
+
+    <jxb:bindings schemaLocation="../../../../pbxevents-model/src/main/resources/PBXEvents.xsd">
+            <jxb:bindings node="//xs:complexType[@name='PBXEvent']">
+                <jxb:class ref="com.jjinterna.pbxevents.model.PBXEvent"/>
+            </jxb:bindings>
+            <jxb:bindings node="//xs:complexType[@name='CallEvent']">
+                <jxb:class ref="com.jjinterna.pbxevents.model.CallEvent"/>
+            </jxb:bindings>
+            <jxb:bindings node="//xs:complexType[@name='CallStop']">
+                <jxb:class ref="com.jjinterna.pbxevents.model.CallStop"/>
+            </jxb:bindings>
+    </jxb:bindings>
+
+</jxb:bindings>
