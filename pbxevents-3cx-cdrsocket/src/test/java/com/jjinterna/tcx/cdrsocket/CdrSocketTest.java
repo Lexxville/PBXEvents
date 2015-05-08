@@ -1,9 +1,12 @@
 package com.jjinterna.tcx.cdrsocket;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.List;
 
+import org.apache.camel.CamelExecutionException;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
-import org.apache.camel.component.mock.MockComponent;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.model.RouteDefinition;
@@ -21,6 +24,7 @@ public class CdrSocketTest {
 
 	CdrSocket integration;
     ModelCamelContext context;
+    MockEndpoint resultEndpoint;
     
 	@Before
 	public void setUp() throws Exception {
@@ -36,9 +40,6 @@ public class CdrSocketTest {
 		// Disable JMX for test
 		context.disableJMX();
 
-		// Fake a component for test
-		context.addComponent("amq", new MockComponent());
-
 	}
 
 	@After
@@ -46,8 +47,7 @@ public class CdrSocketTest {
 		integration.stop();
 	}
 
-    @Test
-    public void testRoutes() throws Exception {
+	private void runtest(String name) throws Exception {
         // Adjust routes
         List<RouteDefinition> routes = context.getRouteDefinitions();
  
@@ -57,20 +57,50 @@ public class CdrSocketTest {
                 // Replace "from" endpoint with direct:start
                 replaceFromWith("direct:start");
                 // Mock and skip result endpoint
-                mockEndpoints("direct:publish");
+                mockEndpointsAndSkip("direct:publish");
             }
         });
  
-        MockEndpoint resultEndpoint = context.getEndpoint("mock:direct:publish", MockEndpoint.class);
-        // resultEndpoint.expectedMessageCount(1); // If you want to just check the number of messages
-        resultEndpoint.expectedBodiesReceived("hello"); // If you want to check the contents
- 
+        resultEndpoint = context.getEndpoint("mock:direct:publish", MockEndpoint.class);
+        
         // Start the integration
         integration.run();
  
         // Send the test message
-        context.createProducerTemplate().sendBody("direct:start", getClass().getResource("/l_001.txt"));
- 
+        BufferedReader in = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(name)));
+        String line = null;
+        while ((line = in.readLine()) != null) {
+            context.createProducerTemplate().sendBody("direct:start", line);        	
+        }
+	}
+	
+    @Test
+    public void l_001() throws Exception  {
+
+		runtest("/l_001.txt");
+
+		resultEndpoint.allMessages().body().isInstanceOf(com.jjinterna.pbxevents.model.tcx.CallStop.class);
         resultEndpoint.assertIsSatisfied();
     }
+
+    @Test
+    public void l_002() throws Exception {
+
+    	runtest("/l_002.txt");
+
+    	//resultEndpoint.expectedMessageCount(1);
+    	//resultEndpoint.setAssertPeriod(2000);
+		resultEndpoint.allMessages().body().isInstanceOf(com.jjinterna.pbxevents.model.tcx.CallStop.class);
+        resultEndpoint.assertIsSatisfied();
+    }
+
+    @Test
+    public void l_003() throws Exception {
+
+    	runtest("/l_003.txt");
+
+    	resultEndpoint.allMessages().body().isInstanceOf(com.jjinterna.pbxevents.model.tcx.CallStop.class);
+        resultEndpoint.assertIsSatisfied();
+    }
+
 }

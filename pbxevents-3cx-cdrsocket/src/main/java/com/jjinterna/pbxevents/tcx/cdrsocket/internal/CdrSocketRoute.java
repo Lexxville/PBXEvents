@@ -47,6 +47,21 @@ public class CdrSocketRoute extends RouteBuilder {
 						return cs.getTcxNumDetails() == cs.getDetails().size();
 					}
 				})
+				.process(new Processor() {
+
+					@Override
+					public void process(Exchange exchange) throws Exception {
+						CallStop cs = exchange.getIn().getBody(CallStop.class);
+						int i = cs.getDetails().size();
+						if (i > 0) {
+							if ("Completed".equals(cs.getDetails().get(i - 1).getStatus())) {
+								return;
+							}
+						}
+						exchange.setProperty(Exchange.ROUTE_STOP, Boolean.TRUE);						
+					}
+					
+				})
 				.to("direct:publish");
 	}
 
