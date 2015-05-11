@@ -109,5 +109,12 @@
         <bundle>mvn:com.jjinterna.pbxevents/pbxevents-routes/${pom.version}</bundle>        
         <bundle>mvn:com.jjinterna.pbxevents/pbxevents-3cx-callrouter/${pom.version}</bundle>
     </feature>
+
+    <feature name="pbxevents-freeswitch-esl" version="${pom.version}">
+        <bundle>mvn:org.freeswitch.esl.client/org.freeswitch.esl.client/0.9.2</bundle>
+        <bundle>mvn:com.jjinterna.pbxevents/pbxevents-model/${pom.version}</bundle>
+        <bundle>mvn:com.jjinterna.pbxevents/pbxevents-routes/${pom.version}</bundle>        
+        <bundle>mvn:com.jjinterna.pbxevents/pbxevents-freeswitch-esl/${pom.version}</bundle>
+    </feature>
     
 </features>

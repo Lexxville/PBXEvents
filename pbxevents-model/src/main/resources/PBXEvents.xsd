@@ -1,166 +1,167 @@
-<xsd:schema
-    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-    xmlns:tns="http://pbxevents.jjinterna.com/model"
-    elementFormDefault="qualified"
-    targetNamespace="http://pbxevents.jjinterna.com/model">
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://pbxevents.jjinterna.com/model" elementFormDefault="qualified"
+	targetNamespace="http://pbxevents.jjinterna.com/model">
 
-    <xsd:complexType name="PBXEvent">
-        <xsd:sequence>
-            <xsd:element name="eventTime" type="xsd:int" />
+	<xsd:complexType name="PBXEvent">
+		<xsd:sequence>
+			<xsd:element name="eventTime" type="xsd:int" />
 		</xsd:sequence>
 	</xsd:complexType>
 
-    <xsd:complexType name="QueuedCall">
-        <xsd:complexContent>
-        	<xsd:extension base="tns:PBXEvent">
-        		<xsd:sequence>
-        			<xsd:element name="callId" type="xsd:string" />
-        			<xsd:element name="callerId" type="xsd:string" />
-        			<xsd:element name="did" type="xsd:string" />
-        			<xsd:element name="queue" type="xsd:string" />        	
-        			<xsd:element name="agent" type="xsd:string" />
-					<xsd:element name="queueEnterTime" type="xsd:int" minOccurs="0" />
-					<xsd:element name="queueConnectTime" type="xsd:int" minOccurs="0" />
-					<xsd:element name="queueLeaveTime" type="xsd:int" minOccurs="0" />
-				</xsd:sequence>				
-        	</xsd:extension>
-		</xsd:complexContent>
-	</xsd:complexType>
-
-    <xsd:complexType name="CallEnterQueue">
-        <xsd:complexContent>
-        	<xsd:extension base="tns:QueuedCall">
-        		<xsd:sequence>
-				</xsd:sequence>				
-        	</xsd:extension>
-		</xsd:complexContent>
-	</xsd:complexType>
-
-    <xsd:complexType name="CallAbandon">
-        <xsd:complexContent>
-        	<xsd:extension base="tns:QueuedCall">
-        		<xsd:sequence>
-				</xsd:sequence>				
-        	</xsd:extension>
-		</xsd:complexContent>
-	</xsd:complexType>
-
-    <xsd:complexType name="CallComplete">
-        <xsd:complexContent>
-        	<xsd:extension base="tns:QueuedCall">
-        		<xsd:sequence>
-                    <xsd:element name="completeSource" type="xsd:string" />
+	<xsd:complexType name="QueuedCall">
+		<xsd:complexContent>
+			<xsd:extension base="tns:PBXEvent">
+				<xsd:sequence>
+					<xsd:element name="callId" type="xsd:string" />
+					<xsd:element name="callerId" type="xsd:string" />
+					<xsd:element name="did" type="xsd:string" />
+					<xsd:element name="queue" type="xsd:string" />
+					<xsd:element name="agent" type="xsd:string" />
+					<xsd:element name="queueEnterTime" type="xsd:int"
+						minOccurs="0" />
+					<xsd:element name="queueConnectTime" type="xsd:int"
+						minOccurs="0" />
+					<xsd:element name="queueLeaveTime" type="xsd:int"
+						minOccurs="0" />
 				</xsd:sequence>
-        	</xsd:extension>
+			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 
-    <xsd:complexType name="CallConnect">
-        <xsd:complexContent>
-        	<xsd:extension base="tns:QueuedCall">
-        		<xsd:sequence>
-        			<xsd:element name="phoneLine" type="tns:PhoneLine" />
-        			<xsd:element name="phone" type="tns:Phone" />
-				</xsd:sequence>				
-        	</xsd:extension>
-		</xsd:complexContent>
-	</xsd:complexType>
-
-    <xsd:complexType name="CallExitWithTimeout">
-        <xsd:complexContent>
-        	<xsd:extension base="tns:QueuedCall">
-        		<xsd:sequence>
-				</xsd:sequence>				
-        	</xsd:extension>
-		</xsd:complexContent>
-	</xsd:complexType>
-
-    <xsd:complexType name="CallRingNoAnswer">
-        <xsd:complexContent>
-            <xsd:extension base="tns:QueuedCall">
-                <xsd:sequence>
-                </xsd:sequence>             
-            </xsd:extension>
-        </xsd:complexContent>
-    </xsd:complexType>
-
-    <xsd:complexType name="Phone">
-        <xsd:complexContent>
-        	<xsd:extension base="tns:PBXEvent">
-        		<xsd:sequence>
-        			<xsd:element name="sysName" type="xsd:string" />        	
-        			<xsd:element name="sysDesc" type="xsd:string" />
-        			<xsd:element name="phoneAddress" type="xsd:string" />
-        			<xsd:element name="agentAddress" type="xsd:string" />
+	<xsd:complexType name="CallEnterQueue">
+		<xsd:complexContent>
+			<xsd:extension base="tns:QueuedCall">
+				<xsd:sequence>
 				</xsd:sequence>
-        	</xsd:extension>
+			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 
-    <xsd:complexType name="SnmpTrapEvent">
-        <xsd:complexContent>
-        	<xsd:extension base="tns:PBXEvent">
-        		<xsd:sequence>
-        			<xsd:element name="agentAddress" type="xsd:string" />        	
+	<xsd:complexType name="CallAbandon">
+		<xsd:complexContent>
+			<xsd:extension base="tns:QueuedCall">
+				<xsd:sequence>
 				</xsd:sequence>
-        	</xsd:extension>
+			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 
-    <xsd:complexType name="PhoneLine">
-        <xsd:complexContent>
-        	<xsd:extension base="tns:PBXEvent">
-        		<xsd:sequence>
-        			<xsd:element name="lineNumber" type="xsd:string" />
-        			<xsd:element name="phoneAddress" type="xsd:string" />
-        			<xsd:element name="port" type="xsd:int" />
+	<xsd:complexType name="CallComplete">
+		<xsd:complexContent>
+			<xsd:extension base="tns:QueuedCall">
+				<xsd:sequence>
+					<xsd:element name="completeSource" type="xsd:string" />
 				</xsd:sequence>
-        	</xsd:extension>
+			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 
-    <xsd:complexType name="QueueMemberEvent">
-        <xsd:complexContent>
-        	<xsd:extension base="tns:PBXEvent">
-        		<xsd:sequence>
-					<xsd:element name="queue" type="xsd:string" />        	
+	<xsd:complexType name="CallConnect">
+		<xsd:complexContent>
+			<xsd:extension base="tns:QueuedCall">
+				<xsd:sequence>
+					<xsd:element name="phoneLine" type="tns:PhoneLine" />
+					<xsd:element name="phone" type="tns:Phone" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="CallExitWithTimeout">
+		<xsd:complexContent>
+			<xsd:extension base="tns:QueuedCall">
+				<xsd:sequence>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="CallRingNoAnswer">
+		<xsd:complexContent>
+			<xsd:extension base="tns:QueuedCall">
+				<xsd:sequence>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="Phone">
+		<xsd:complexContent>
+			<xsd:extension base="tns:PBXEvent">
+				<xsd:sequence>
+					<xsd:element name="sysName" type="xsd:string" />
+					<xsd:element name="sysDesc" type="xsd:string" />
+					<xsd:element name="phoneAddress" type="xsd:string" />
+					<xsd:element name="agentAddress" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="SnmpTrapEvent">
+		<xsd:complexContent>
+			<xsd:extension base="tns:PBXEvent">
+				<xsd:sequence>
+					<xsd:element name="agentAddress" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="PhoneLine">
+		<xsd:complexContent>
+			<xsd:extension base="tns:PBXEvent">
+				<xsd:sequence>
+					<xsd:element name="lineNumber" type="xsd:string" />
+					<xsd:element name="phoneAddress" type="xsd:string" />
+					<xsd:element name="port" type="xsd:int" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="QueueMemberEvent">
+		<xsd:complexContent>
+			<xsd:extension base="tns:PBXEvent">
+				<xsd:sequence>
+					<xsd:element name="queue" type="xsd:string" />
 					<xsd:element name="member" type="xsd:string" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 
-    <xsd:complexType name="QueueAddMember">
-        <xsd:complexContent>
-        	<xsd:extension base="tns:QueueMemberEvent">
-        		<xsd:sequence>
+	<xsd:complexType name="QueueAddMember">
+		<xsd:complexContent>
+			<xsd:extension base="tns:QueueMemberEvent">
+				<xsd:sequence>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 
-    <xsd:complexType name="QueueRemoveMember">
-        <xsd:complexContent>
-        	<xsd:extension base="tns:QueueMemberEvent">
-        		<xsd:sequence>
+	<xsd:complexType name="QueueRemoveMember">
+		<xsd:complexContent>
+			<xsd:extension base="tns:QueueMemberEvent">
+				<xsd:sequence>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 
-    <xsd:complexType name="QueuePauseMember">
-        <xsd:complexContent>
-        	<xsd:extension base="tns:QueueMemberEvent">
-        		<xsd:sequence>
+	<xsd:complexType name="QueuePauseMember">
+		<xsd:complexContent>
+			<xsd:extension base="tns:QueueMemberEvent">
+				<xsd:sequence>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 
-    <xsd:complexType name="QueueResumeMember">
-        <xsd:complexContent>
-        	<xsd:extension base="tns:QueueMemberEvent">
-        		<xsd:sequence>
+	<xsd:complexType name="QueueResumeMember">
+		<xsd:complexContent>
+			<xsd:extension base="tns:QueueMemberEvent">
+				<xsd:sequence>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -170,45 +171,90 @@
 		<xsd:complexContent>
 			<xsd:extension base="tns:PBXEvent">
 				<xsd:sequence>
-					<xsd:element name="callId" type="xsd:string" />				
+					<xsd:element name="callId" type="xsd:string" />
 					<xsd:element name="callDuration" type="xsd:int" />
 					<xsd:element name="callingNumber" type="xsd:string" />
 					<xsd:element name="calledNumber" type="xsd:string" />
-					<xsd:element name="callSetupTime" type="xsd:int" minOccurs="0" />
-					<xsd:element name="callConnectTime" type="xsd:int" minOccurs="0" />
-					<xsd:element name="callDisconnectTime" type="xsd:int" minOccurs="0" />
+					<xsd:element name="callSetupTime" type="xsd:int"
+						minOccurs="0" />
+					<xsd:element name="callConnectTime" type="xsd:int"
+						minOccurs="0" />
+					<xsd:element name="callDisconnectTime" type="xsd:int"
+						minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 
-    <xsd:complexType name="CallStart">
-        <xsd:complexContent>
-        	<xsd:extension base="tns:CallEvent">
-        		<xsd:sequence />
+	<xsd:complexType name="CallStart">
+		<xsd:complexContent>
+			<xsd:extension base="tns:CallEvent">
+				<xsd:sequence />
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 
-    <xsd:complexType name="CallUpdate">
-        <xsd:complexContent>
-        	<xsd:extension base="tns:CallEvent">
-        		<xsd:sequence />
-			</xsd:extension>
-		</xsd:complexContent>
-	</xsd:complexType>
-	
-    <xsd:complexType name="CallStop">
-        <xsd:complexContent>
-        	<xsd:extension base="tns:CallEvent">
-        		<xsd:sequence />
+	<xsd:complexType name="CallUpdate">
+		<xsd:complexContent>
+			<xsd:extension base="tns:CallEvent">
+				<xsd:sequence />
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 
-    <xsd:element name="CallRingNoAnswer" type="tns:CallRingNoAnswer" />
-    <xsd:element name="CallEnterQueue" type="tns:CallEnterQueue" />
-    <xsd:element name="CallAbandon" type="tns:CallAbandon" />
+	<xsd:complexType name="CallStop">
+		<xsd:complexContent>
+			<xsd:extension base="tns:CallEvent">
+				<xsd:sequence />
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="TxFaxNegotiateResult">
+		<xsd:complexContent>
+			<xsd:extension base="tns:PBXEvent">
+				<xsd:sequence>
+					<xsd:element name="lineUsed" type="xsd:string" />
+					<xsd:element name="faxECMUsed" type="xsd:boolean" />
+					<xsd:element name="faxLocalStationId" type="xsd:string" />
+					<xsd:element name="faxRemoteStationId" type="xsd:string" />
+					<xsd:element name="faxTransferRate" type="xsd:string" />
+					<xsd:element name="remoteMediaIp" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="TxFaxPageResult">
+		<xsd:complexContent>
+			<xsd:extension base="tns:TxFaxNegotiateResult">
+				<xsd:sequence>
+					<xsd:element name="faxDocumentTransferredPages" type="xsd:int" />
+					<xsd:element name="faxImageResolution" type="xsd:string" />
+					<xsd:element name="faxImageSize" type="xsd:int" />
+					<xsd:element name="faxBadRows" type="xsd:int" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="TxFaxResult">
+		<xsd:complexContent>
+			<xsd:extension base="tns:TxFaxPageResult">
+				<xsd:sequence>
+					<xsd:element name="faxSuccess" type="xsd:int" />
+					<xsd:element name="faxResultCode" type="xsd:int" />
+					<xsd:element name="faxResultText" type="xsd:string" />
+					<xsd:element name="faxDocumentTotalPages" type="xsd:int" />
+					<xsd:element name="hangupCause" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:element name="CallRingNoAnswer" type="tns:CallRingNoAnswer" />
+	<xsd:element name="CallEnterQueue" type="tns:CallEnterQueue" />
+	<xsd:element name="CallAbandon" type="tns:CallAbandon" />
 	<xsd:element name="CallComplete" type="tns:CallComplete" />
 	<xsd:element name="CallConnect" type="tns:CallConnect" />
 	<xsd:element name="CallExitWithTimeout" type="tns:CallExitWithTimeout" />
@@ -226,5 +272,9 @@
 
 	<xsd:element name="Phone" type="tns:Phone" />
 	<xsd:element name="PhoneLine" type="tns:PhoneLine" />
+
+	<xsd:element name="TxFaxNegotiateResult" type="tns:TxFaxNegotiateResult" />
+	<xsd:element name="TxFaxPageResult" type="tns:TxFaxPageResult" />
+	<xsd:element name="TxFaxResult" type="tns:TxFaxResult" />
 
 </xsd:schema>
