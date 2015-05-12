@@ -28,8 +28,8 @@ public class PublisherRouteBuilder extends RouteBuilder {
 					Object obj = exchange.getIn().getBody();
 					if (obj instanceof PBXEvent) {
 						PBXEvent event = (PBXEvent) obj;
-						if (event.getEventTime() == 0) {
-							event.setEventTime((int) (System.currentTimeMillis() / 1000));
+						if (event.getEventDateTimestamp() == 0) {
+							event.setEventDateTimestamp(System.currentTimeMillis());
 						}
 						exchange.getIn().setHeader("PBXEvent", event.getClass().getSimpleName());
 					}

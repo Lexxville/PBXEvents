@@ -159,7 +159,7 @@ public class AstQueueLogRoute extends RouteBuilder {
 									Boolean.TRUE);
 							return;
 						}
-						event.setEventTime(log.getTimeId());
+						event.setEventDateTimestamp(log.getTimeId() * 1000);
 						event.setQueue(log.getQueue());
 						event.setMember(log.getAgent());
 						exchange.getIn().setHeader("PBXEvent", event.getClass().getSimpleName());

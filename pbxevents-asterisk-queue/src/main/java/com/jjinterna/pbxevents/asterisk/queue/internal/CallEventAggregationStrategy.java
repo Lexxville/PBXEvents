@@ -27,7 +27,7 @@ public class CallEventAggregationStrategy implements AggregationStrategy {
 
 		if (newExchange.getIn().getBody() instanceof QueueLog) {
 			QueueLog queueLog = (QueueLog) newExchange.getIn().getBody();
-			callEvent.setEventTime(queueLog.getTimeId());
+			callEvent.setEventDateTimestamp(queueLog.getTimeId() * 1000);
 			switch (queueLog.getVerb()) {
 			case DID:
 				callEvent.setDid(queueLog.getData1());
@@ -75,7 +75,7 @@ public class CallEventAggregationStrategy implements AggregationStrategy {
 	}
 
 	private static QueuedCall copy(QueuedCall from, QueuedCall to) {
-		to.setEventTime(from.getEventTime());
+		to.setEventDateTimestamp(from.getEventDateTimestamp());
 		to.setAgent(from.getAgent());
 		to.setCallerId(from.getCallerId());
 		to.setCallId(from.getCallId());

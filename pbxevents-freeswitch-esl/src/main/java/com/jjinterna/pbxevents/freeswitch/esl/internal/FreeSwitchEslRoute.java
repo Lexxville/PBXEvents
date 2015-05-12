@@ -37,11 +37,17 @@ public class FreeSwitchEslRoute extends RouteBuilder implements IEslEventListene
 
 			@Override
 			public void process(Exchange exchange) throws Exception {
-				EslEvent event = exchange.getIn().getBody(EslEvent.class);
-				
-				String eventName = event.getEventName();
-				Map<String, String> eventHeaders = event.getEventHeaders();
 
+				Map<String, String> eventHeaders = exchange.getIn().getBody(Map.class);
+				String eventName = eventHeaders.get("Event-Name");
+				String requestId = eventHeaders.get("variable_request_id");
+
+				exchange.getOut().setBody(null);
+
+				if (requestId == null) {					
+					return;
+				}
+				
 				PBXEvent result = null;
 				if (eventName.equals("CUSTOM")) {
 					String es = eventHeaders.get("Event-Subclass");
@@ -77,14 +83,14 @@ public class FreeSwitchEslRoute extends RouteBuilder implements IEslEventListene
 								// monitoring-a pokaza, che pri tezi states obajdaneto prodyljava normalno
 								"CS_HANGUP".equals(eventHeaders.get("Channel-State")) ||
 								"CS_REPORTING".equals(eventHeaders.get("Channel-State"))) {
-								result = null;
+								return;
 							}
 						}
 					}
 				}
+				copy(eventHeaders, result);
 				exchange.getOut().setBody(result);
-			}
-			
+			}			
 		})
 		.filter(body().isNotNull())
 		.to("direct:publish");
@@ -107,6 +113,55 @@ public class FreeSwitchEslRoute extends RouteBuilder implements IEslEventListene
 		));
 	}
 
+	private void copy(Map<String, String> eventHeaders, PBXEvent dest) {
+		if (dest instanceof TxFaxNegotiateResult) {
+			TxFaxNegotiateResult r = (TxFaxNegotiateResult) dest;
+			String s = eventHeaders.get("Event-Date-Timestamp");
+			if (s != null) {
+				r.setEventDateTimestamp(Long.parseLong(s));
+			}
+			r.setFaxECMUsed("on".equals(eventHeaders.get("variable_fax_ecm_used")));
+			r.setFaxLocalStationId(eventHeaders.get("variable_fax_local_station_id"));
+			r.setFaxRemoteStationId(eventHeaders.get("variable_fax_remote_station_id"));
+			r.setFaxTransferRate(eventHeaders.get("variable_fax_transfer_rate"));
+			r.setLineUsed(eventHeaders.get("variable_sip_gateway_name"));
+			r.setRemoteMediaIp(eventHeaders.get("variable_remote_media_ip"));
+		}
+		if (dest instanceof TxFaxPageResult) {
+			TxFaxPageResult r = (TxFaxPageResult) dest;
+			String s = eventHeaders.get("variable_fax_document_transferred_pages");
+			if (s != null) {
+				r.setFaxDocumentTransferredPages(Integer.parseInt(s));
+			}
+			r.setFaxImageResolution(eventHeaders.get("variable_fax_image_resolution"));
+			s = eventHeaders.get("variable_fax_image_size");
+			if (s != null) {
+				r.setFaxImageSize(Integer.parseInt(s));
+			}
+			s = eventHeaders.get("variable_fax_bad_rows");
+			if (s != null) {
+				r.setFaxBadRows(Integer.parseInt(s));
+			}
+		}
+		if (dest instanceof TxFaxResult) {
+			TxFaxResult r = (TxFaxResult) dest;
+			String s = eventHeaders.get("variable_fax_success");
+			if (s != null) {
+				r.setFaxSuccess(Integer.parseInt(s));
+			}
+			s = eventHeaders.get("variable_fax_result_code");
+			if (s != null) {
+				r.setFaxResultCode(Integer.parseInt(s));
+			}
+			r.setFaxResultText(eventHeaders.get("variable_fax_result_text"));
+			s = eventHeaders.get("variable_fax_document_total_pages");
+			if (s != null) {
+				r.setFaxDocumentTotalPages(Integer.parseInt(s));
+			}
+			r.setHangupCause(eventHeaders.get("Hangup-Cause"));
+		}
+	}
+	
 	@Override
 	public void backgroundJobResultReceived(EslEvent event) {
 		

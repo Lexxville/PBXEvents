@@ -4,7 +4,7 @@
 
 	<xsd:complexType name="PBXEvent">
 		<xsd:sequence>
-			<xsd:element name="eventTime" type="xsd:int" />
+			<xsd:element name="eventDateTimestamp" type="xsd:long" />
 		</xsd:sequence>
 	</xsd:complexType>
 

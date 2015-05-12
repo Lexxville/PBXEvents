@@ -16,8 +16,8 @@ import org.apache.felix.scr.annotations.ReferencePolicy;
 import org.apache.felix.scr.annotations.ReferencePolicyOption;
 import org.apache.felix.scr.annotations.References;
 
+import com.jjinterna.pbxevents.freeswitch.esl.internal.FreeSwitchEslRoute;
 import com.jjinterna.pbxevents.routes.EventMediator;
-import com.jjinterna.pbxevents.routes.RtCache;
 
 
 @Component(description = FreeSwitchEsl.COMPONENT_DESCRIPTION, immediate = true, metatype = true, policy = ConfigurationPolicy.REQUIRE)
@@ -25,7 +25,9 @@ import com.jjinterna.pbxevents.routes.RtCache;
 		@Property(name = "camelContextId", value = "pbxevents-freeswitch-esl"),
 		@Property(name = "camelRouteId", value = "default"),
 		@Property(name = "active", value = "true"),
-		@Property(name = "rewriteLocalChannels", value = "true") })
+		@Property(name = "host", value = "localhost"),
+		@Property(name = "port", value = "8021"),
+		@Property(name = "password", value = "ClueCon") })
 @References({ @Reference(name = "camelComponent", referenceInterface = ComponentResolver.class, 
 	cardinality = ReferenceCardinality.MANDATORY_MULTIPLE, policy = ReferencePolicy.DYNAMIC, 
 	policyOption = ReferencePolicyOption.GREEDY, bind = "gotCamelComponent", unbind = "lostCamelComponent") })
@@ -36,13 +38,13 @@ public class FreeSwitchEsl extends AbstractCamelRunner {
 	@Reference
 	private EventMediator mediator;
 
-	@Reference
-	private RtCache rtCache;
-
 	@Override
 	protected List<RoutesBuilder> getRouteBuilders() {
 		List<RoutesBuilder> routesBuilders = new ArrayList<>();
-		routesBuilders.add(mediator.publisher());
+		routesBuilders.add(new FreeSwitchEslRoute());
+		if (mediator != null) {
+			routesBuilders.add(mediator.publisher());
+		}
 		return routesBuilders;
 	}
 
