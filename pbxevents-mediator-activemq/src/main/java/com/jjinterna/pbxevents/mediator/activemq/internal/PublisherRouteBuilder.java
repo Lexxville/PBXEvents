@@ -1,5 +1,7 @@
 package com.jjinterna.pbxevents.mediator.activemq.internal;
 
+import java.util.UUID;
+
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
@@ -31,6 +33,10 @@ public class PublisherRouteBuilder extends RouteBuilder {
 						if (event.getEventDateTimestamp() == 0) {
 							event.setEventDateTimestamp(System.currentTimeMillis());
 						}
+						if (event.getEventId() == null) {
+							event.setEventId(UUID.randomUUID().toString());
+						}
+						exchange.getIn().setHeader("PBXEventId", event.getEventId());
 						exchange.getIn().setHeader("PBXEvent", event.getClass().getSimpleName());
 					}
 				}

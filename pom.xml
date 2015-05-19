@@ -51,6 +51,8 @@
 		<module>pbxevents-3cx-callrouter</module>
 		<module>pbxevents-3cx-model</module>
 		<module>pbxevents-freeswitch-esl</module>
+		<module>pbxevents-action-voice</module>
+		<module>pbxevents-action-smtp</module>
 	</modules>
 
 	<build>
