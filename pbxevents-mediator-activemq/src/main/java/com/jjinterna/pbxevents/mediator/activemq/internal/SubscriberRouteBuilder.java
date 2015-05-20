@@ -15,13 +15,13 @@ public class SubscriberRouteBuilder extends RouteBuilder {
 	private String destinationName;
 	private String destinationType;	
 	private List<EventSelector> selectors;
-	private String destUri;
+	private String[] destUris;
 	
-	public SubscriberRouteBuilder(String destinationName, String destinationType, List<EventSelector> selectors, String destUri) {
+	public SubscriberRouteBuilder(String destinationName, String destinationType, List<EventSelector> selectors, String[] destUris) {
 		this.destinationName = destinationName;
 		this.destinationType = destinationType;
 		this.selectors = new ArrayList<EventSelector>(selectors);
-		this.destUri = destUri;
+		this.destUris = destUris;
 	}
 
 	@Override
@@ -32,6 +32,7 @@ public class SubscriberRouteBuilder extends RouteBuilder {
 
 				@Override
 				public void process(Exchange exchange) throws Exception {
+
 					if (exchange.getIn().getBody() instanceof PBXEvent) {
 						PBXEvent event = (PBXEvent) exchange.getIn().getBody();
 						for (EventSelector selector : selectors) {
@@ -44,7 +45,7 @@ public class SubscriberRouteBuilder extends RouteBuilder {
 				}
 
 			})
-			.to(destUri);
+			.multicast().to(destUris);
 	}
 
 }

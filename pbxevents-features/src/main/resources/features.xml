@@ -116,5 +116,12 @@
         <bundle>mvn:com.jjinterna.pbxevents/pbxevents-routes/${pom.version}</bundle>        
         <bundle>mvn:com.jjinterna.pbxevents/pbxevents-freeswitch-esl/${pom.version}</bundle>
     </feature>
+
+    <feature name="pbxevents-action-smtp" version="${pom.version}">
+        <feature>camel-mail</feature>
+        <bundle>mvn:com.jjinterna.pbxevents/pbxevents-model/${pom.version}</bundle>
+        <bundle>mvn:com.jjinterna.pbxevents/pbxevents-routes/${pom.version}</bundle>        
+        <bundle>mvn:com.jjinterna.pbxevents/pbxevents-action-smtp/${pom.version}</bundle>
+    </feature>
     
 </features>

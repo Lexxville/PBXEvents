@@ -49,6 +49,7 @@ public class LldpDiscovery extends AbstractCamelRunner {
     private EventMediator mediator;
     
     private String host;
+    private static final String[] directSnmpTrap = { "direct:snmptrap" };
     
     @Override
     protected List<RoutesBuilder>getRouteBuilders() {
@@ -60,7 +61,7 @@ public class LldpDiscovery extends AbstractCamelRunner {
     		String queueUri = mediator.queueUri(LldpDiscovery.class.getName());
     		List<EventSelector> selectors = new ArrayList<>();
     		selectors.add(new EventTypeSelector(SnmpTrapEvent.class.getSimpleName()));
-    		routesBuilders.add(mediator.subscriber(selectors, "direct:snmptrap"));
+    		routesBuilders.add(mediator.subscriber(selectors, directSnmpTrap));
         	routesBuilders.add(new SnmpTrapRoute(queueUri));
         } else {
         	routesBuilders.add(new TimerRoute());

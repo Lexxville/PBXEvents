@@ -27,6 +27,7 @@ public class ActiveMQMediator implements EventMediator {
     
     private String destinationName;
     private String destinationType;
+    private static final String[] directStart = { "direct:start" };
     
 	@Activate
 	protected void activate(final Map<String, Object> props) {
@@ -41,7 +42,7 @@ public class ActiveMQMediator implements EventMediator {
 
 	@Override
 	public RouteBuilder subscriber(final List<EventSelector> selectors) {
-		return new SubscriberRouteBuilder(destinationName, destinationType, selectors, "direct:start");
+		return new SubscriberRouteBuilder(destinationName, destinationType, selectors, directStart);
 	}
 
 	@Override
@@ -54,8 +55,8 @@ public class ActiveMQMediator implements EventMediator {
 	}
 
 	@Override
-	public RouteBuilder subscriber(List<EventSelector> selectors, String destUri) {
-		return new SubscriberRouteBuilder(destinationName, destinationType, selectors, destUri);
+	public RouteBuilder subscriber(List<EventSelector> selectors, String[] destUris) {
+		return new SubscriberRouteBuilder(destinationName, destinationType, selectors, destUris);
 	}
 
 }

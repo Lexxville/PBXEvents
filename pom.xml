@@ -53,6 +53,7 @@
 		<module>pbxevents-freeswitch-esl</module>
 		<module>pbxevents-action-voice</module>
 		<module>pbxevents-action-smtp</module>
+		<module>pbxevents-integration</module>
 	</modules>
 
 	<build>

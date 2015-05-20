@@ -1,9 +1,10 @@
-package com.jjinterna.pbxevents.smtp;
+package com.jjinterna.pbxevents.action.smtp;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.camel.RoutesBuilder;
+import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.scr.AbstractCamelRunner;
 import org.apache.camel.spi.ComponentResolver;
 import org.apache.felix.scr.annotations.Component;
@@ -17,15 +18,12 @@ import org.apache.felix.scr.annotations.ReferencePolicyOption;
 import org.apache.felix.scr.annotations.References;
 
 import com.jjinterna.pbxevents.routes.EventMediator;
-import com.jjinterna.pbxevents.routes.EventSelector;
-import com.jjinterna.pbxevents.routes.selector.InstanceOfSelector;
-import com.jjinterna.pbxevents.smtp.internal.SmtpActionRoute;
-
 
 @Component(description = SmtpAction.COMPONENT_DESCRIPTION, immediate = true, metatype = true, policy = ConfigurationPolicy.REQUIRE)
 @Properties({
+	@Property(name = "camelContextId", value = "pbxevents-smtp"),
+	@Property(name = "camelRouteId", value = "default"),
 	@Property(name = "active", value = "true"), 
-	@Property(name = "eventClass", value = "PBXEvent"),
 	@Property(name = "smtpUri"),
 	@Property(name = "to"),
 	@Property(name = "from"),
@@ -43,15 +41,31 @@ public class SmtpAction extends AbstractCamelRunner {
 	@Reference
 	private EventMediator mediator;
 
-	private String eventClass;
+	private String camelRouteId;
+	private Integer completionSize;
+	private Long completionInterval;
+	private String to;
+	private String from;
+	private String cc;
+	private String bcc;
+	private String smtpUri;
 	
 	@Override
 	protected List<RoutesBuilder> getRouteBuilders() {
+		final String fromUri = mediator.queueUri(getContext().getName() + "-" + camelRouteId);
+		
 		List<RoutesBuilder> routesBuilders = new ArrayList<>();
-		List<EventSelector> selectors = new ArrayList<>();
-		selectors.add(new InstanceOfSelector(eventClass));
-		routesBuilders.add(mediator.subscriber(selectors));
-		routesBuilders.add(new SmtpActionRoute());
+		routesBuilders.add(new RouteBuilder() {
+
+			@Override
+			public void configure() throws Exception {
+				from(fromUri)
+				//.aggregate(header("PBXEventId")).completionSize(completionSize)//.completionInterval(completionInterval)
+				.recipientList(simple("{{smtpUri}}?to={{to}}&from={{from}}&cc={{cc}}&bcc={{bcc}}"));
+			}
+			
+		});
+
 		return routesBuilders;
 	}
 

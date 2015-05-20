@@ -8,7 +8,7 @@ public interface EventMediator {
 
 	RouteBuilder publisher();
 	RouteBuilder subscriber(List<EventSelector> selectors);
-	RouteBuilder subscriber(List<EventSelector> selectors, String destUri);
+	RouteBuilder subscriber(List<EventSelector> selectors, String[] destUris);
 	
 	String queueUri(String queueName);
 }
