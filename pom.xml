@@ -54,6 +54,7 @@
 		<module>pbxevents-action-voice</module>
 		<module>pbxevents-action-smtp</module>
 		<module>pbxevents-integration</module>
+		<module>pbxevents-action-sendfax</module>
 	</modules>
 
 	<build>

@@ -26,9 +26,10 @@ import com.jjinterna.pbxevents.routes.EventMediator;
 	@Property(name = "active", value = "true"), 
 	@Property(name = "smtpUri"),
 	@Property(name = "to"),
-	@Property(name = "from"),
-	@Property(name = "cc"),
-	@Property(name = "bcc"),
+	@Property(name = "from", value=""),
+	@Property(name = "cc", value=""),
+	@Property(name = "bcc", value=""),
+	@Property(name = "subject", value=""),	
 	@Property(name = "completionSize", value = "1")
 })
 @References({ @Reference(name = "camelComponent", referenceInterface = ComponentResolver.class, 
@@ -49,23 +50,22 @@ public class SmtpAction extends AbstractCamelRunner {
 	private String cc;
 	private String bcc;
 	private String smtpUri;
+	private String subject;
 	
 	@Override
 	protected List<RoutesBuilder> getRouteBuilders() {
-		final String fromUri = mediator.queueUri(getContext().getName() + "-" + camelRouteId);
-		
 		List<RoutesBuilder> routesBuilders = new ArrayList<>();
 		routesBuilders.add(new RouteBuilder() {
 
 			@Override
 			public void configure() throws Exception {
-				from(fromUri)
+				from("direct:start")
 				//.aggregate(header("PBXEventId")).completionSize(completionSize)//.completionInterval(completionInterval)
-				.recipientList(simple("{{smtpUri}}?to={{to}}&from={{from}}&cc={{cc}}&bcc={{bcc}}"));
+				.recipientList(simple("{{smtpUri}}?to={{to}}&from={{from}}&CC={{cc}}&BCC={{bcc}}&subject={{subject}}"));
 			}
 			
 		});
-
+		routesBuilders.add(mediator.subscriber(getContext()));
 		return routesBuilders;
 	}
 

@@ -6,10 +6,11 @@
 		<artifactId>pbxevents-parent</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
-	<artifactId>pbxevents-freeswitch-esl</artifactId>
+	<artifactId>pbxevents-action-sendfax</artifactId>
+	<name>PBXEvents :: action-sendfax</name>
+	<description>Send Fax Action.</description>
+
 	<packaging>bundle</packaging>
-	<name>PBXEvents :: freeswitch-esl</name>
-	<description>Process FreeSWITCH events.</description>
 
 	<dependencies>
 
@@ -17,12 +18,6 @@
 			<groupId>com.jjinterna.pbxevents</groupId>
 			<artifactId>pbxevents-model</artifactId>
 			<version>${project.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.jboss.netty</groupId>
-			<artifactId>netty</artifactId>
-			<version>3.2.10.Final</version>
 		</dependency>
 
 		<dependency>
@@ -53,27 +48,6 @@
 			<groupId>org.apache.felix</groupId>
 			<artifactId>org.apache.felix.scr.annotations</artifactId>
 			<version>1.9.8</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-test</artifactId>
-			<version>${camel.version}</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-jaxb</artifactId>
-			<version>${camel.version}</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.11</version>
-			<scope>test</scope>
 		</dependency>
 
 		<!-- logging -->
@@ -160,15 +134,12 @@
 					<instructions>
 						<Export-Package />
 						<Private-Package>
-							com.jjinterna.pbxevents.freeswitch.esl,
-							com.jjinterna.pbxevents.freeswitch.esl.*,
-							org.freeswitch.esl.client,
-							org.freeswitch.esl.client.*
+							com.jjinterna.pbxevents.action.sendfax,
+							com.jjinterna.pbxevents.action.sendfax.*
 						</Private-Package>
 					</instructions>
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
-
 </project>

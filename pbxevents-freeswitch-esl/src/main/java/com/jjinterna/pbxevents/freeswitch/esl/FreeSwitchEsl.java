@@ -15,9 +15,12 @@ import org.apache.felix.scr.annotations.ReferenceCardinality;
 import org.apache.felix.scr.annotations.ReferencePolicy;
 import org.apache.felix.scr.annotations.ReferencePolicyOption;
 import org.apache.felix.scr.annotations.References;
+import org.apache.felix.scr.annotations.Service;
+import org.freeswitch.esl.client.inbound.Client;
 
 import com.jjinterna.pbxevents.freeswitch.esl.internal.FreeSwitchEslRoute;
 import com.jjinterna.pbxevents.routes.EventMediator;
+import com.jjinterna.pbxevents.routes.TelephonyService;
 
 
 @Component(description = FreeSwitchEsl.COMPONENT_DESCRIPTION, immediate = true, metatype = true, policy = ConfigurationPolicy.REQUIRE)
@@ -31,21 +34,30 @@ import com.jjinterna.pbxevents.routes.EventMediator;
 @References({ @Reference(name = "camelComponent", referenceInterface = ComponentResolver.class, 
 	cardinality = ReferenceCardinality.MANDATORY_MULTIPLE, policy = ReferencePolicy.DYNAMIC, 
 	policyOption = ReferencePolicyOption.GREEDY, bind = "gotCamelComponent", unbind = "lostCamelComponent") })
-public class FreeSwitchEsl extends AbstractCamelRunner {
+@Service(value=TelephonyService.class)
+public class FreeSwitchEsl extends AbstractCamelRunner implements TelephonyService {
 
 	public static final String COMPONENT_DESCRIPTION = "PBXEvents FreeSwitch ESL support";
 
 	@Reference
 	private EventMediator mediator;
 
+	Client client = new Client();
+	
 	@Override
 	protected List<RoutesBuilder> getRouteBuilders() {
 		List<RoutesBuilder> routesBuilders = new ArrayList<>();
-		routesBuilders.add(new FreeSwitchEslRoute());
+		routesBuilders.add(new FreeSwitchEslRoute(client));
 		if (mediator != null) {
 			routesBuilders.add(mediator.publisher());
+			routesBuilders.add(mediator.subscriber(getContext()));
 		}
 		return routesBuilders;
+	}
+
+	@Override
+	public synchronized String sendAsyncApiCommand(String application, String data) {
+		return client.sendAsyncApiCommand(application, data);
 	}
 
 }

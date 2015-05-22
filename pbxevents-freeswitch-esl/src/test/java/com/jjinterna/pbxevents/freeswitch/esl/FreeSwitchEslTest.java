@@ -80,7 +80,7 @@ public class FreeSwitchEslTest {
         	String[] kv = s.split("=");
         	map.put(kv[0], kv[1]);
         }
-        context.createProducerTemplate().sendBody("direct:start", map);        
+        context.createProducerTemplate().sendBody("direct:event", map);        
 	}
 
     @Test

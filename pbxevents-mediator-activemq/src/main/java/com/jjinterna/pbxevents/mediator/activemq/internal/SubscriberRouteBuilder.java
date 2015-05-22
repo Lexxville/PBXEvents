@@ -27,13 +27,12 @@ public class SubscriberRouteBuilder extends RouteBuilder {
 	@Override
 	public void configure() throws Exception {
 		fromF("activemq:%s:%s?username=karaf&password=karaf", destinationType, destinationName)
-			.id("subscribe")
 			.process(new Processor() {
 
 				@Override
 				public void process(Exchange exchange) throws Exception {
 
-					if (exchange.getIn().getBody() instanceof PBXEvent) {
+					if (selectors.size() > 0 && exchange.getIn().getBody() instanceof PBXEvent) {
 						PBXEvent event = (PBXEvent) exchange.getIn().getBody();
 						for (EventSelector selector : selectors) {
 							if (!selector.select(event)) {

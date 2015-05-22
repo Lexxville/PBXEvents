@@ -1,9 +1,11 @@
 package com.jjinterna.pbxevents.mediator.activemq;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.model.ModelCamelContext;
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Properties;
@@ -57,6 +59,28 @@ public class ActiveMQMediator implements EventMediator {
 	@Override
 	public RouteBuilder subscriber(List<EventSelector> selectors, String[] destUris) {
 		return new SubscriberRouteBuilder(destinationName, destinationType, selectors, destUris);
+	}
+
+	@Override
+	public RouteBuilder subscriber(ModelCamelContext context) {
+		return new SubscriberRouteBuilder(context.getName(), "queue", Collections.<EventSelector> emptyList(), directStart);
+		/*
+		PropertiesComponent pc = context.getComponent("properties", PropertiesComponent.class);
+		if (pc != null) {
+			final String pid = pc.getInitialProperties().getProperty("service.pid");
+			if (pid != null) {
+				return new RouteBuilder() {
+
+					@Override
+					public void configure() throws Exception {
+						fromF("activemq:queue:%s?username=karaf&password=karaf", pid)
+						.to("direct:start");						
+					}
+					
+				};
+			}
+		}
+		return null;*/
 	}
 
 }
