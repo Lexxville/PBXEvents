@@ -26,7 +26,8 @@ public class SubscriberRouteBuilder extends RouteBuilder {
 
 	@Override
 	public void configure() throws Exception {
-		fromF("activemq:%s:%s?username=karaf&password=karaf", destinationType, destinationName)
+
+		fromF("activemq:%s:%s", destinationType, destinationName)
 			.process(new Processor() {
 
 				@Override

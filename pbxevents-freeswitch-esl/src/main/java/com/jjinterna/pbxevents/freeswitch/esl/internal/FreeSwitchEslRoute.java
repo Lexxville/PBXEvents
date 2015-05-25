@@ -23,6 +23,7 @@ public class FreeSwitchEslRoute extends RouteBuilder implements IEslEventListene
 	String password;
 	ProducerTemplate producer;
 	Client client;
+	private static final String REQUEST_ID = "variable_PBXEventsRequestId";
 	
 	public FreeSwitchEslRoute(Client client) {
 		this.client = client;
@@ -46,7 +47,7 @@ public class FreeSwitchEslRoute extends RouteBuilder implements IEslEventListene
 
 				exchange.getOut().setBody(null);
 
-				if (eventHeaders.get("variable_fax_request_id") == null) {					
+				if (eventHeaders.get(REQUEST_ID) == null) {					
 					return;
 				}
 
@@ -93,7 +94,11 @@ public class FreeSwitchEslRoute extends RouteBuilder implements IEslEventListene
 				}
 				if (result != null) {
 					copy(eventHeaders, result);
-					exchange.getOut().setHeader("FaxRequestId", result.getFaxRequestId());
+					for (String key : eventHeaders.keySet()) {
+						if (key.startsWith("variable_PBXEvents")) {
+							exchange.getOut().setHeader(key.substring(9), eventHeaders.get(key));
+						}
+					}
 					exchange.getOut().setBody(result);
 				}
 			}			
@@ -123,7 +128,6 @@ public class FreeSwitchEslRoute extends RouteBuilder implements IEslEventListene
 		if (dest instanceof TxFaxNegotiateResult) {
 			TxFaxNegotiateResult r = (TxFaxNegotiateResult) dest;
 			r.setEventId(eventHeaders.get("Unique-ID"));
-			r.setFaxRequestId(eventHeaders.get("variable_fax_request_id"));
 			String s = eventHeaders.get("Event-Date-Timestamp");
 			if (s != null) {
 				r.setEventDateTimestamp(Long.parseLong(s));

@@ -215,7 +215,6 @@
 		<xsd:complexContent>
 			<xsd:extension base="tns:PBXEvent">
 				<xsd:sequence>
-                    <xsd:element name="faxRequestId" type="xsd:string" />				
 					<xsd:element name="lineUsed" type="xsd:string" />
 					<xsd:element name="faxECMUsed" type="xsd:boolean" />
 					<xsd:element name="faxLocalStationId" type="xsd:string" />

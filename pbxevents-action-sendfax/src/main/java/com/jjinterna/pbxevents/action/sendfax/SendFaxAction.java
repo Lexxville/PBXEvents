@@ -2,6 +2,7 @@ package com.jjinterna.pbxevents.action.sendfax;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
@@ -30,7 +31,9 @@ import com.jjinterna.pbxevents.routes.selector.EventTypeSelector;
 @Properties({
 	@Property(name = "camelContextId", value = "pbxevents-sendfax"),
 	@Property(name = "camelRouteId", value = "default"),
-	@Property(name = "active", value = "true") 
+	@Property(name = "active", value = "true"),
+	@Property(name = "scheduledRepeat", value = "0"),
+	@Property(name = "scheduledPeriod", value = "0"),	
 })
 @References({ @Reference(name = "camelComponent", referenceInterface = ComponentResolver.class, 
 	cardinality = ReferenceCardinality.MANDATORY_MULTIPLE, policy = ReferencePolicy.DYNAMIC, 
@@ -45,13 +48,20 @@ public class SendFaxAction extends AbstractCamelRunner {
 	@Reference
 	private TelephonyService service;
 	
+	private Integer maxFaxCalls;
+	
 	private static final String[] aggregate = { "direct:aggregate" };
+	private static final String REQUEST_ID = "PBXEventsRequestId";
+	private static final String FAX_CALLS = "PBXEventsFaxCalls";
+	private static final String MAX_FAX_CALL = "PBXEventsMaxFaxCalls";
+
 	
 	@Override
 	protected List<RoutesBuilder> getRouteBuilders() {
 		List<RoutesBuilder> routesBuilders = new ArrayList<>();
 		List<EventSelector> selectors = new ArrayList<>();
-		
+
+		routesBuilders.add(mediator.publisher());
 		selectors.add(new EventTypeSelector(TxFaxResult.class.getSimpleName()));
 		routesBuilders.add(mediator.subscriber(selectors, aggregate));
 		routesBuilders.add(mediator.subscriber(getContext()));
@@ -65,22 +75,52 @@ public class SendFaxAction extends AbstractCamelRunner {
 
 					@Override
 					public void process(Exchange exchange) throws Exception {
-						String id = "1234567890";
-						exchange.getIn().setHeader("FaxRequestId", id);
-						service.sendAsyncApiCommand("originate", 
-								"{fax_request_id=" + id + "}loopback/1234/sendfax &txfax(/tmp/1)");						
+						if (exchange.getIn().getHeader(REQUEST_ID) == null) {
+							exchange.getIn().setHeader(REQUEST_ID, UUID.randomUUID().toString());
+						}
+						Integer faxCalls = exchange.getIn().getHeader(FAX_CALLS, Integer.class);
+						if (faxCalls == null) {
+							faxCalls = 0;
+						}
+						faxCalls++;
+
+						StringBuilder sb = new StringBuilder();
+						sb.append("{");
+						sb.append(FAX_CALLS);
+						sb.append("=");
+						sb.append(faxCalls);
+						for (String name : exchange.getIn().getHeaders().keySet()) {
+							if (name.startsWith("PBXEvents")) {
+								sb.append(",");
+								sb.append(name);
+								sb.append("=");
+								sb.append(exchange.getIn().getHeader(name));
+							}
+						}
+						sb.append("}");
+
+						sb.append("loopback/1234/sendfax &txfax(/tmp/1)");
+						service.sendAsyncApiCommand("originate", sb.toString());						
 					}
 					
 				})
 				.to("direct:aggregate");
 				
 				from("direct:aggregate")
-					.aggregate(header("FaxRequestId")).completionSize(2).aggregationStrategy(new AggregationStrategy() {
-						
+					.aggregate(header(REQUEST_ID), new AggregationStrategy() {						
 						@Override
 						public Exchange aggregate(Exchange oldExchange, Exchange newExchange) {
-							return newExchange;
+							return (oldExchange == null || newExchange.getIn().getBody() instanceof TxFaxResult) ?
+									newExchange : oldExchange;
 						}
+					}).completionSize(2).completionTimeout(120000)
+					.process(new Processor() {
+
+						@Override
+						public void process(Exchange exchange) throws Exception {
+							throw new Exception("FAIL");
+						}
+						
 					})
 					.to("log:sendFax?showHeaders=true");
 			}

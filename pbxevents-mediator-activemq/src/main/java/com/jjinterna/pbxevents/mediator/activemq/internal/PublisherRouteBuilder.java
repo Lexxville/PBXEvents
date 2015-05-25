@@ -42,9 +42,7 @@ public class PublisherRouteBuilder extends RouteBuilder {
 				}
 				
 			})
-			.toF("activemq:%s:%s?username=karaf&password=karaf",
-					destinationType,
-					destinationName);
+			.toF("activemq:%s:%s", destinationType, destinationName);
 	}
 
 }
